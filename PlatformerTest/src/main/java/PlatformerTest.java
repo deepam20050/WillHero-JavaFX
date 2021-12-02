@@ -11,14 +11,20 @@ public class PlatformerTest extends Application
     @Override
     public void start(Stage stage)
     {
+        // InputTracker simply stores boolean values of the keys that are pressed. Handled below
         InputTracker tracker = new InputTracker();
+        // PaneOrganiser objects that contains all the game and GUI objects and controls what happens each frame
         PaneOrganiser organiser = new PaneOrganiser(tracker);
+
+        // Creating a 600x600 scene with BLACK background colour and the group/root from the PaneOrganiser (containing GUI objects)
         Scene scene = new Scene(organiser.getRoot(), 600, 600, Color.BLACK);
 
+        // When a key is pressed, set its corresponding tracker value to true
         scene.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
-            public void handle(KeyEvent k) {
+            public void handle(KeyEvent k)
+            {
                 if (k.getCode().equals(KeyCode.LEFT)) {
                     tracker.setLeftPressed(true);
                 }
@@ -34,9 +40,12 @@ public class PlatformerTest extends Application
             }
         });
 
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+        // When a key is released, set its corresponding tracker value to false
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>()
+        {
             @Override
-            public void handle(KeyEvent k) {
+            public void handle(KeyEvent k)
+            {
                 if (k.getCode().equals(KeyCode.LEFT)) {
                     tracker.setLeftPressed(false);
                 }
@@ -52,6 +61,7 @@ public class PlatformerTest extends Application
             }
         });
 
+        // Add the created scene above to the stage and show it
         stage.setScene(scene);
         stage.setTitle("Mario!");
         stage.show();

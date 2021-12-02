@@ -1,3 +1,6 @@
+// Stores x and y coordinates, along with getters/setters
+// Used for storing position/velocity
+
 public class Vector2D
 {
     private double x;

@@ -1,3 +1,5 @@
+// InputTracker class. Contains 4 boolean values (for each direction button) and their getters/setters.
+
 public class InputTracker
 {
     private boolean upPressed;

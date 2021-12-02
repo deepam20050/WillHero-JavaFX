@@ -1,5 +1,11 @@
+// GameObject superclass.
+// All game objects that are to be DISPLAYED ON THE SCREEN should inherit this.
+
+// Note that this does not include UI elements like buttons/simple text on the screen
+
 public class GameObject
 {
+    // Position of the object on the screen, and velocity (pixels per frame)
     private Vector2D position;
     private Vector2D velocity;
 
