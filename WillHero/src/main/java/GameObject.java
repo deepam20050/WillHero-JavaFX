@@ -29,9 +29,17 @@ public abstract class GameObject
         this.position.setX(pos.getX());
         this.position.setY(pos.setY());
     }
+    public void setPosition(double x, double y) {
+        position.setX(x);
+        position.setY(y);
+    }
     public void setVelocity(Vector2D vel) {
         this.velocity.setX(vel.getX());
         this.position.setY(vel.getY());
+    }
+    public void setVelocity(double x, double y) {
+        velocity.setX(x);
+        velocity.setY(y);
     }
 
     // *** TO BE IMPLEMENTED ***

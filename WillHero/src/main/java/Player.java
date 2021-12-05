@@ -19,4 +19,12 @@ public class Player
     public void resurrect_hero() {}
     public void save_file() {}
     public void load_file() {}
+    public void lose_game() {
+        // *** ADD IMPLEMEMTATION FOR LOSING GAME ***
+        System.out.println("Player lost the game");
+    }
+    public void add_coins(int added_coins)
+    {
+        noOfCoins += added_coins;
+    }
 }
