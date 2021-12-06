@@ -8,6 +8,12 @@ public class Game {
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
+    public Game()
+    {
+        player = new Player();
+        level = new Level();
+    }
+
     // *** BELOW METHODS TO BE IMPLEMENTED ***
 
     public void serialise() {}

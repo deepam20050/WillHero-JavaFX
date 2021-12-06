@@ -25,8 +25,9 @@ public class WillHero extends Application
 
         // *** ADD mainMenuScene IMPLEMENTATION ***
 
+        // Setting up Game Scene
         GameOrganiser organiser = new GameOrganiser();
-        gameScene = new Scene(organiser.getRoot(), 800, 600, Color.BLACK);
+        gameScene = new Scene(organiser.getRoot(), 800, 600, Color.rgb(86,227,255));
 
         stage.setScene(gameScene); // *** Change this to mainMenuScene after mainMenuScene is implemented +++
         stage.setTitle("Will Hero");

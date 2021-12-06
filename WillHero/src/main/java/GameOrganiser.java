@@ -27,11 +27,15 @@ public class GameOrganiser
         frameRate = 60;
 
         root = new Group();
-        // Initialising GUI for GameObjects
-        // *** TO BE DONE LATER ***
+        game = new Game();
 
-        // Adding all GUI objects created to root
+        root.getChildren().add(game.getPlayer().getHero().getImageView());
+
+        // Adding all Level GUI objects created to root
         // *** TO BE DONE LATER ***
+        Level level = game.get_current_level();
+        for(int i = 0; i < level.getIslands().size(); i++)
+            root.getChildren().add(level.getIslands().get(i).getImageView());
 
         this.setUpTimeLine();
     }
@@ -56,7 +60,15 @@ public class GameOrganiser
         @Override
         public void handle(ActionEvent event)
         {
-            // *** TO BE IMPLEMENTED LATER ***
+            game.getPlayer().getHero().move_down();
+
+            Level level = game.get_current_level();
+            for(int i = 0; i < level.getIslands().size(); i++)
+            {
+                game.getPlayer().getHero().if_lands(level.getIslands().get(i));
+            }
+            game.getPlayer().getHero().updatePosition();
+//            game
         }
     }
 }
