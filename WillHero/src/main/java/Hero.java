@@ -16,6 +16,7 @@ public class Hero extends GameObject
 
     private boolean isMovingForward;
     private double forwardDistanceMoved;
+    private boolean hasDashed;
 
     // ImageView Attributes
     private String imagePath;
@@ -28,14 +29,15 @@ public class Hero extends GameObject
         location = 0;
 
         this.size = size;
-        this.moveForwardSpeed = 20;
-        this.moveForwardDistance = 50;
-        this.jumpSpeed = 7.5;
+        this.moveForwardSpeed = 30;
+        this.moveForwardDistance = 120;
+        this.jumpSpeed = 8;
         this.gravity = 0.25;
         this.fallBoundary = 500;
 
-        isMovingForward = true;
+        isMovingForward = false;
         forwardDistanceMoved = 0;
+        hasDashed = false;
 
         // Setting up ImageView
         imagePath = "file:assets/HeroSprite1.png";
@@ -48,8 +50,8 @@ public class Hero extends GameObject
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
 
-        System.out.println(imageView.getImage().getWidth());
-        System.out.println(imageView.getImage().getHeight());
+//        System.out.println(imageView.getImage().getWidth());
+//        System.out.println(imageView.getImage().getHeight());
     }
 
     public ImageView getImageView()
@@ -92,7 +94,7 @@ public class Hero extends GameObject
     // The forward movement takes a few frames to complete, which is why it is checked if the hero is currently moving forward.
     public void move_forward(boolean forwardButtonPressed) // Parameter to check if the player pressed the button to move forward.
     {
-        if(forwardButtonPressed || isMovingForward)
+        if((forwardButtonPressed && !hasDashed) || isMovingForward)
         {
             isMovingForward = true;
             if(forwardDistanceMoved + moveForwardSpeed >= moveForwardDistance)
@@ -101,13 +103,18 @@ public class Hero extends GameObject
                 this.getVelocity().setX(0);
                 forwardDistanceMoved = 0;
                 isMovingForward = false;
+                location++;
             }
             else
             {
-                this.getVelocity().setX(moveForwardSpeed);
-                moveForwardDistance += moveForwardSpeed;
+                this.setVelocity(moveForwardSpeed, 0);
+                forwardDistanceMoved += moveForwardSpeed;
+//                moveForwardDistance += moveForwardSpeed;
+//                System.out.println(moveForwardDistance);
             }
         }
+
+        hasDashed = forwardButtonPressed;
     }
 
     // If the hero lands on an island, it has to jump.
@@ -117,7 +124,7 @@ public class Hero extends GameObject
 
         // Checking if the hero has landed on the island
         double xdist = this.getPosition().getX() - island.getPosition().getX();
-        if(xdist >= size && xdist <= island.getLength())
+        if(xdist >= -size && xdist <= island.getLength())
         {
             double ydist = this.getPosition().getY() - island.getPosition().getY();
             if(ydist >= -size && ydist < 0)
@@ -136,13 +143,19 @@ public class Hero extends GameObject
     {
         if(getPosition().getY() >= fallBoundary)
         {
-            lose_game();
+//            lose_game();
+            this.setPosition(100,300);
         }
     }
 
     public void lose_game()
     {
         player.lose_game();
+    }
+
+    public int getLocation()
+    {
+        return location;
     }
 
     // Colliding with a coin or a coin chest should allow that object to add coins to the player.

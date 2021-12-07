@@ -25,7 +25,7 @@ public class Player
     public void load_file() {}
     public void lose_game()
     {
-        // *** ADD IMPLEMEMTATION FOR LOSING GAME ***
+        // *** ADD IMPLEMENTATION FOR LOSING GAME ***
         System.out.println("Player lost the game");
     }
     public void add_coins(int added_coins)

@@ -10,8 +10,6 @@ public class Level
 //    private ArrayList<Obstacle> obstacles;
 //    private ArrayList<Projectile> current_projectiles;
 
-    // *** UNCOMMENT arraylists and their methods as they are implemented ***
-
     // Default Constructor: Constructs default (first) level layout
     public Level()
     {
@@ -25,7 +23,8 @@ public class Level
 
         // Adding all instances of Island
         islands.add(new Island(50, 400, 250));
-        islands.add(new Island(375, 350, 200));
+        islands.add(new Island(400, 300, 200));
+        islands.add(new Island(675, 350, 275));
 
         // *** INITIALISE OTHER ARRAY VALUES (According to level layout) ***
     }
