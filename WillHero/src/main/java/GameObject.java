@@ -27,7 +27,7 @@ public abstract class GameObject
     }
     public void setPosition(Vector2D pos) {
         this.position.setX(pos.getX());
-        this.position.setY(pos.setY());
+        this.position.setY(pos.getY());
     }
     public void setPosition(double x, double y) {
         position.setX(x);

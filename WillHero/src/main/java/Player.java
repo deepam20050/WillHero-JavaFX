@@ -8,9 +8,13 @@ public class Player
 
     public Player()
     {
-
+        hero = new Hero(this, 100, 300, 50);
     }
 
+    public Hero getHero()
+    {
+        return hero;
+    }
     public void enter_screen() {}
     public void play() {}
     public void pause() {}
@@ -19,8 +23,9 @@ public class Player
     public void resurrect_hero() {}
     public void save_file() {}
     public void load_file() {}
-    public void lose_game() {
-        // *** ADD IMPLEMEMTATION FOR LOSING GAME ***
+    public void lose_game()
+    {
+        // *** ADD IMPLEMENTATION FOR LOSING GAME ***
         System.out.println("Player lost the game");
     }
     public void add_coins(int added_coins)

@@ -1,9 +1,10 @@
-public class Orc extends GameObject {
+public abstract class Orc extends GameObject {
   private double jump_speed;
   private double size;
   private int hits_required;
 
-  public Orc (double _jump_speed, double _size, double _hits_required) {
+  public Orc (double x, double y, double _jump_speed, double _size, int _hits_required) {
+    super(new Vector2D (x, y), new Vector2D (0, 0));
     jump_speed = _jump_speed;
     size = _size;
     hits_required = _hits_required;
@@ -18,7 +19,7 @@ public class Orc extends GameObject {
   public void jump_up () {
 
   }
-  public void if_lands (island Island) {
+  public void if_lands (Island island) {
 
   }
 
@@ -27,7 +28,7 @@ public class Orc extends GameObject {
   }
   
   @Override
-  public void if_collides (hero Hero) {
+  public void if_collides (Hero hero) {
 
   }
 }
