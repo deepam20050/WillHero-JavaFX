@@ -3,10 +3,15 @@
  */
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -18,7 +23,7 @@ public class WillHero extends Application
     }
 
     @Override
-    public void start(Stage stage)
+    public void start(Stage stage) throws Exception
     {
         double sceneWidth = 1000;
         double sceneHeight = 600;
@@ -26,9 +31,6 @@ public class WillHero extends Application
 
         Scene mainMenuScene;
         Scene gameScene;
-        // *** More scenes will be added as required ***
-
-        // *** ADD mainMenuScene Set up ***
 
         // Setting up Game Scene
         GameOrganiser organiser = new GameOrganiser(inputTracker, sceneWidth, sceneHeight);
@@ -53,8 +55,50 @@ public class WillHero extends Application
                 }
             }
         });
+        gameScene.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                inputTracker.setLeftMousePressed(true);
+            }
+        });
+        gameScene.setOnMouseReleased(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                inputTracker.setLeftMousePressed(false);
+            }
+        });
 
-        stage.setScene(gameScene); // *** Change this to mainMenuScene after mainMenuScene is implemented +++
+        // Setting Up Main Menu Code
+        FXMLLoader fxmlLoader = new FXMLLoader(MainMenuController.class.getResource("mainmenu.fxml"));
+        mainMenuScene = new Scene(fxmlLoader.load());
+        MainMenuController controller = fxmlLoader.getController();
+        Button playbtn = controller.getPlayButton();
+        Button exitbtn = controller.getExitButton();
+        Button loadfilebtn = controller.getLoadFileButton();
+
+        playbtn.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                stage.setScene(gameScene);
+            }
+        });
+        exitbtn.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
+        stage.setScene(mainMenuScene); // *** Change this to mainMenuScene after mainMenuScene is implemented +++
         stage.setTitle("Will Hero");
         stage.show();
     }
