@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class Level
 {
     private ArrayList<Island> islands;
-//    private ArrayList<Orc> orcs;
+    private ArrayList<Orc> orcs;
+    private ArrayList<Coin> coins;
 //    private ArrayList<Chest> chests;
-//    private ArrayList<Coin> coins;
 //    private ArrayList<Obstacle> obstacles;
 //    private ArrayList<Projectile> current_projectiles;
 
@@ -15,9 +15,9 @@ public class Level
     {
         // Initialising Arraylists for all GameObjects
         islands = new ArrayList<Island>();
-//        orcs = new ArrayList<Orc>();
+        orcs = new ArrayList<Orc>();
+        coins = new ArrayList<Coin>();
 //        chests = new ArrayList<Chest>();
-//        coins = new ArrayList<Coin>();
 //        obstacles = new ArrayList<Obstacle>();
 //        current_projectiles = new ArrayList<Projectile>();
 
@@ -26,20 +26,35 @@ public class Level
         islands.add(new Island(400, 300, 200));
         islands.add(new Island(675, 350, 275));
 
+        islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 0, 95);
+        islands.get(0).addBackgroundObject("file:assets/BackgroundObj2.png", 65, 60);
+        islands.get(0).addBackgroundObject("file:assets/BackgroundObj3.png", 180, 120);
+
+        islands.get(1).addBackgroundObject("file:assets/BackgroundObj4.png", 5, 110);
+        islands.get(1).addBackgroundObject("file:assets/BackgroundObj5.png", 90, 55);
+
+        islands.get(2).addBackgroundObject("file:assets/BackgroundObj3.png", 25, 80);
+        islands.get(2).addBackgroundObject("file:assets/BackgroundObj1.png", 200, 100);
+
+//        orcs.add(new GreenOrc(450,150,50));
+
+        coins.add(new Coin(625, 290));
+        coins.add(new Coin(625, 230));
+
         // *** INITIALISE OTHER ARRAY VALUES (According to level layout) ***
     }
 
     public ArrayList<Island> getIslands() {
         return islands;
     }
-//    public ArrayList<Orc> getOrcs() {
-//        return orcs;
-//    }
+    public ArrayList<Orc> getOrcs() {
+        return orcs;
+    }
+    public ArrayList<Coin> getCoins() {
+        return coins;
+    }
 //    public ArrayList<Chest> getChests() {
 //        return chests;
-//    }
-//    public ArrayList<Coin> getCoins() {
-//        return coins;
 //    }
 //    public ArrayList<Obstacle> getObstacles() {
 //        return obstacles;

@@ -1,6 +1,9 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Island extends GameObject
 {
     private double length;
@@ -8,6 +11,8 @@ public class Island extends GameObject
     // ImageView Attributes
     private String imagePath;
     private ImageView imageView;
+
+    private ArrayList<ImageView> backgroundObjects;
 
     public Island(double x, double y, double length)
     {
@@ -21,6 +26,8 @@ public class Island extends GameObject
         imageView.setY(y);
         imageView.setFitWidth(length);
         imageView.setPreserveRatio(true);
+
+        backgroundObjects = new ArrayList<ImageView>();
     }
 
     public double getLength() {
@@ -30,6 +37,22 @@ public class Island extends GameObject
     public ImageView getImageView()
     {
         return imageView;
+    }
+
+    public void addBackgroundObject(String imagePath, double x, double height)
+    {
+        ImageView newElement = new ImageView(new Image(imagePath));
+        newElement.setX(getPosition().getX() + x);
+        newElement.setY(getPosition().getY() - height);
+        newElement.setFitHeight(height);
+        newElement.setPreserveRatio(true);
+
+        backgroundObjects.add(newElement);
+    }
+
+    public ArrayList<ImageView> getBackgroundObjects()
+    {
+        return backgroundObjects;
     }
 
     @Override

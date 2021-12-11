@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="playButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenuController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#79ddff" height="610.0" layoutX="-5.0" layoutY="-4.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1006.0" />
+      <ImageView fitHeight="121.0" fitWidth="244.0" layoutX="99.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/Cloud1.png" />-->
+            <Image url="file:assets/Cloud1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="192.0" fitWidth="106.0" layoutX="283.0" layoutY="399.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/BackgroundObj3.png" />-->
+            <Image url="file:assets/BackgroundObj3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="171.0" fitWidth="138.0" layoutX="498.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/BackgroundObj1.png" />-->
+            <Image url="file:assets/BackgroundObj1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="108.0" fitWidth="227.0" layoutX="712.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/Cloud4.png" />-->
+            <Image url="file:assets/Cloud4.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="163.0" layoutX="372.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/Cloud6.png" />-->
+            <Image url="file:assets/Cloud6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="106.0" layoutX="805.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/BackgroundObj4.png" />-->
+            <Image url="file:assets/BackgroundObj4.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="297.0" fitWidth="89.0" layoutX="339.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true" rotate="51.5">
+         <image>
+<!--            <Image url="@../../../../../../assets/SwordSprite.png" />-->
+            <Image url="file:assets/SwordSprite.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="86.0" fitWidth="195.0" layoutX="500.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/Cloud2.png" />-->
+            <Image url="@file:assets/Cloud2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="162.0" fitWidth="244.0" layoutX="72.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/WillHeroLogo.png" />-->
+            <Image url="file:assets/WillHeroLogo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="242.0" fitWidth="227.0" layoutX="111.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" rotate="-12.4">
+         <image>
+<!--            <Image url="@../../../../../../assets/HeroSprite1.png" />-->
+            <Image url="file:assets/HeroSprite1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="169.0" fitWidth="171.0" layoutX="675.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" rotate="30.6">
+         <image>
+<!--            <Image url="@../../../../../../assets/MenuOrc.png" />-->
+            <Image url="file:assets/MenuOrc.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="212.0" fitWidth="425.0" layoutX="500.0" layoutY="548.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/IslandSprite.png" />-->
+            <Image url="file:assets/IslandSprite.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="210.0" fitWidth="331.0" layoutX="72.0" layoutY="578.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+<!--            <Image url="@../../../../../../assets/IslandSprite.png" />-->
+            <Image url="file:assets/IslandSprite.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="playButton" layoutX="574.0" layoutY="349.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #6ab000;" text="PLAY" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="21.0" />
+         </font></Button>
+      <Button fx:id="exitButton" layoutX="736.0" layoutY="420.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" style="-fx-background-color: #fd634d;" text="EXIT" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="23.0" />
+         </font></Button>
+      <Button fx:id="loadFileButton" layoutX="574.0" layoutY="420.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" style="-fx-background-color: #4ba6ff;" text="LOAD FILE" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="19.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -22,8 +22,7 @@ public class GameOrganiser
 
     private Game game;
     private InputTracker inputTracker;
-    // Stores all the static GUI + GUI corresponding to all the GameObjects
-    private Group root;
+    private Group root; // Stores all the static GUI + GUI corresponding to all the GameObjects
 
     private Label heroLocationLabel;
     private Label noOfCoinsLabel;
@@ -83,13 +82,32 @@ public class GameOrganiser
         weapon2Button.setTranslateY(sceneHeight - weapon2Button.getFitWidth() - 25);
         weapon2Button.setOpacity(0.4);
 
-        root.getChildren().add(game.getPlayer().getHero().getImageView());
+        setBackgroundClouds();
 
         // Adding all Level GUI objects created to root
-        // *** TO BE DONE LATER ***
         Level level = game.get_current_level();
         for(int i = 0; i < level.getIslands().size(); i++)
-            root.getChildren().add(level.getIslands().get(i).getImageView());
+        {
+            Island island = level.getIslands().get(i);
+            for(int j = 0; j < island.getBackgroundObjects().size(); j++)
+            {
+                root.getChildren().add(island.getBackgroundObjects().get(j));
+            }
+            root.getChildren().add(island.getImageView());
+        }
+
+        for(int i = 0; i < level.getOrcs().size(); i++)
+        {
+            root.getChildren().add(level.getOrcs().get(i).getImageView());
+        }
+        for(int i = 0; i < level.getCoins().size(); i++)
+        {
+            root.getChildren().add(level.getCoins().get(i).getImageView());
+        }
+
+        root.getChildren().add(game.getPlayer().getHero().getImageView());
+
+        // Adding Buttons and Labels to root
         root.getChildren().add(heroLocationLabel);
         root.getChildren().add(noOfCoinsLabel);
         root.getChildren().add(settingsImage);
@@ -126,12 +144,68 @@ public class GameOrganiser
             {
                 game.getPlayer().getHero().if_lands(level.getIslands().get(i));
             }
+
             game.getPlayer().getHero().updatePosition();
             game.getPlayer().getHero().move_forward(inputTracker.isSpacePressed());
             game.getPlayer().getHero().if_falls();
 
+
+
             Integer heroLocation = game.getPlayer().getHero().getLocation();
             heroLocationLabel.setText(heroLocation.toString());
         }
+    }
+
+    private void setBackgroundClouds()
+    {
+        ImageView cloud1 = new ImageView(new Image("file:assets/Cloud1.png"));
+        cloud1.setFitWidth(200);
+        cloud1.setPreserveRatio(true);
+        cloud1.setTranslateX(70);
+        cloud1.setTranslateY(180);
+
+        ImageView cloud2 = new ImageView(new Image("file:assets/Cloud2.png"));
+        cloud2.setFitWidth(175);
+        cloud2.setPreserveRatio(true);
+        cloud2.setTranslateX(240);
+        cloud2.setTranslateY(100);
+
+        ImageView cloud3 = new ImageView(new Image("file:assets/Cloud3.png"));
+        cloud3.setFitWidth(130);
+        cloud3.setPreserveRatio(true);
+        cloud3.setTranslateX(40);
+        cloud3.setTranslateY(80);
+
+        ImageView cloud4 = new ImageView(new Image("file:assets/Cloud4.png"));
+        cloud4.setFitWidth(250);
+        cloud4.setPreserveRatio(true);
+        cloud4.setTranslateX(540);
+        cloud4.setTranslateY(60);
+
+        ImageView cloud5 = new ImageView(new Image("file:assets/Cloud1.png"));
+        cloud5.setFitWidth(250);
+        cloud5.setPreserveRatio(true);
+        cloud5.setTranslateX(750);
+        cloud5.setTranslateY(-40);
+
+        ImageView cloud6 = new ImageView(new Image("file:assets/Cloud6.png"));
+        cloud6.setFitWidth(300);
+        cloud6.setPreserveRatio(true);
+        cloud6.setTranslateX(150);
+        cloud6.setTranslateY(-85);
+
+        ImageView cloud7 = new ImageView(new Image("file:assets/Cloud6.png"));
+        cloud7.setFitWidth(150);
+        cloud7.setPreserveRatio(true);
+        cloud7.setTranslateX(850);
+        cloud7.setTranslateY(140);
+
+        root.getChildren().add(cloud1);
+        root.getChildren().add(cloud2);
+        root.getChildren().add(cloud3);
+        root.getChildren().add(cloud4);
+        root.getChildren().add(cloud5);
+        root.getChildren().add(cloud6);
+        root.getChildren().add(cloud7);
     }
 }
