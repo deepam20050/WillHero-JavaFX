@@ -3,8 +3,7 @@ import javafx.scene.image.ImageView;
 
 public class Hero extends GameObject
 {
-//    private Helmet helmet;
-//    private Weapon currentWeapon;
+    private Helmet helmet;
     private Player player;
     private int location;
     private double moveForwardSpeed;
@@ -28,6 +27,7 @@ public class Hero extends GameObject
         this.player = player;
         location = 0;
 
+        this.helmet = new Helmet(x,y);
         this.size = size;
         this.moveForwardSpeed = 30;
         this.moveForwardDistance = 120;
@@ -163,6 +163,11 @@ public class Hero extends GameObject
     public void collect_coins(int added_coins)
     {
         player.add_coins(added_coins);
+    }
+
+    public Helmet getHelmet()
+    {
+        return helmet;
     }
 
     @Override
