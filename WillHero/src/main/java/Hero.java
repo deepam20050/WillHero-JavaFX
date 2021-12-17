@@ -27,13 +27,13 @@ public class Hero extends GameObject
         this.player = player;
         location = 0;
 
-        this.helmet = new Helmet(x,y);
         this.size = size;
         this.moveForwardSpeed = 30;
         this.moveForwardDistance = 120;
         this.jumpSpeed = 8;
         this.gravity = 0.25;
         this.fallBoundary = 500;
+        this.helmet = new Helmet(getPosition().getX() + size/2, getPosition().getY() + size/2, this);
 
         isMovingForward = false;
         forwardDistanceMoved = 0;
@@ -72,6 +72,10 @@ public class Hero extends GameObject
         // Image is not a perfect square but the Hero object is treated like a square
         // Image is moved up slightly so the bottom portion represents the object area
         imageView.setY(getPosition().getY() - (h-w)*(size/w));
+
+        // Updating Helmet Position
+        helmet.setPosition(getPosition().getX() + size/4, getPosition().getY() + size/2);
+        helmet.updatePosition(cameraPosition);
     }
 
     // *** BELOW 2 TO BE IMPLEMENTED AFTER Helmet & Weapons CLASSES ***
@@ -97,6 +101,12 @@ public class Hero extends GameObject
     {
         if((forwardButtonPressed && !hasDashed) || isMovingForward)
         {
+            if(!isMovingForward)
+            {
+                if(helmet.getCurrentWeapon() != null)
+                    helmet.getCurrentWeapon().useWeapon();
+            }
+
             isMovingForward = true;
             if(forwardDistanceMoved + moveForwardSpeed >= moveForwardDistance)
             {
@@ -168,6 +178,11 @@ public class Hero extends GameObject
     public Helmet getHelmet()
     {
         return helmet;
+    }
+
+    public Player getPlayer()
+    {
+        return player;
     }
 
     @Override

@@ -55,7 +55,7 @@ public class GameOrganiser
         this.sceneWidth = sceneWidth;
         this.sceneHeight = sceneHeight;
         root = new Group();
-        game = new Game();
+        game = new Game(this);
 
         setBackgroundClouds();
 
@@ -79,7 +79,12 @@ public class GameOrganiser
             root.getChildren().add(level.getCoins().get(i).getImageView());
         }
 
+        // Displaying hero
         root.getChildren().add(game.getPlayer().getHero().getImageView());
+
+        // displaying weapons
+        root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(0).getImageView());
+        root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(1).getImageView());
 
         // DISPLAYING HERO LOCATION
         heroLocationLabel = new Label();
@@ -103,6 +108,7 @@ public class GameOrganiser
         noOfCoinsLabel.setTranslateY(20);
         noOfCoinsLabel.setStyle("-fx-effect: dropshadow( one-pass-box , gray , 0 , 0.0 , -4 , 0 )");
 
+        root.getChildren().add(heroLocationLabel);
         root.getChildren().add(noOfCoinsLabel);
 
         // DISPLAY SETTINGS BUTTON
@@ -170,14 +176,6 @@ public class GameOrganiser
         root.getChildren().add(weapon2LevelLabel);
 
         // WEAPON 1 BUTTON ON CLICK
-        weapon1Image.setOnMousePressed(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                System.out.println("Sword selected");
-            }
-        });
         weapon1Button.setOnMousePressed(new EventHandler<MouseEvent>()
         {
             @Override
@@ -187,6 +185,7 @@ public class GameOrganiser
                 game.getPlayer().getHero().getHelmet().setSelectedWeapon(0);
             }
         });
+        // WEAPON 2 BUTTON ON CLICK
         weapon2Button.setOnMousePressed(new EventHandler<MouseEvent>()
         {
             @Override
@@ -196,7 +195,6 @@ public class GameOrganiser
                 game.getPlayer().getHero().getHelmet().setSelectedWeapon(1);
             }
         });
-
         this.setUpTimeLine();
     }
 
@@ -276,6 +274,9 @@ public class GameOrganiser
                 weapon1Image.setOpacity(0.9);
             else if(selected_index == 1)
                 weapon2Image.setOpacity(0.9);
+
+            // UPDATING STATE OF ALL PROJECTILES
+//            game.getPlayer().getHero().getHelmet().updateProjectiles();
 
             // UPDATING POSITIONS OF ALL GAMEOBJECTS
             for(int i = 0; i < game.get_current_level().getIslands().size(); i++)

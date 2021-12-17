@@ -1,17 +1,33 @@
+import javafx.scene.image.ImageView;
+
 public abstract class Weapon extends GameObject
 {
     private int level;
+    private Helmet helmet;
 
-    Weapon(double x, double y)
+    Weapon(double x, double y, Helmet helmet)
     {
         super(new Vector2D(x, y), new Vector2D(0,0));
-        level = 5;
+        this.helmet = helmet;
+        level = 1;
     }
+
+    public abstract void selectWeapon(boolean selected);
+    public abstract ImageView getImageView();
+    public abstract void useWeapon();
 
     public int getLevel()
     {
         return level;
     }
 
-    public abstract void use_weapon();
+    public void incrementLevel()
+    {
+        this.level++;
+    }
+
+    public Helmet getHelmet()
+    {
+        return helmet;
+    }
 }

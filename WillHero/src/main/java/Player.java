@@ -39,4 +39,9 @@ public class Player
     {
         return noOfCoins;
     }
+
+    public Game getGame()
+    {
+        return game;
+    }
 }
