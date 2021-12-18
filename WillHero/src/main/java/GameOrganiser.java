@@ -236,12 +236,44 @@ public class GameOrganiser
             for(int i = 0; i < orcs.size(); i++)
             {
                 Orc orc = orcs.get(i);
-                orc.move_down();
-                for(int j = 0; j < level.getIslands().size(); j++)
+                if(orc.isActive())
                 {
-                    orc.if_lands(level.getIslands().get(j));
+                    orc.move_down();
+                    for (int j = 0; j < level.getIslands().size(); j++)
+                    {
+                        orc.if_lands(level.getIslands().get(j));
+                    }
+                    orc.updatePosition(cameraPosition);
                 }
-                orc.updatePosition(cameraPosition);
+                else
+                {
+                    orcs.remove(i--);
+                }
+            }
+
+            // Checking collisions of all projectiles and all orcs
+            for(int i = 0; i < game.getPlayer().getHero().getHelmet().getLaunchedProjectiles().size(); i++)
+            {
+                Projectile projectile = game.getPlayer().getHero().getHelmet().getLaunchedProjectiles().get(i);
+                if(!projectile.isActive())
+                    continue;
+                for(int j = 0; j < game.get_current_level().getOrcs().size(); j++)
+                {
+                    Orc orc = game.get_current_level().getOrcs().get(j);
+                    projectile.ifAttacks(orc);
+                }
+            }
+
+            // Checking collisions of sword and all orcs
+            if(game.getPlayer().getHero().getHelmet().getWeapon(0).isActive())
+            {
+                Weapon sword = game.getPlayer().getHero().getHelmet().getWeapon(0);
+
+                for(int j = 0; j < game.get_current_level().getOrcs().size(); j++)
+                {
+                    Orc orc = game.get_current_level().getOrcs().get(j);
+                    sword.ifAttacks(orc);
+                }
             }
 
             // UPDATING WEAPONS BUTTONS DISPLAY
@@ -274,9 +306,6 @@ public class GameOrganiser
                 weapon1Image.setOpacity(0.9);
             else if(selected_index == 1)
                 weapon2Image.setOpacity(0.9);
-
-            // UPDATING STATE OF ALL PROJECTILES
-//            game.getPlayer().getHero().getHelmet().updateProjectiles();
 
             // UPDATING POSITIONS OF ALL GAMEOBJECTS
             for(int i = 0; i < game.get_current_level().getIslands().size(); i++)

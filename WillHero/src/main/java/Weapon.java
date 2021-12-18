@@ -13,8 +13,8 @@ public abstract class Weapon extends GameObject
     }
 
     public abstract void selectWeapon(boolean selected);
-    public abstract ImageView getImageView();
     public abstract void useWeapon();
+    public abstract void ifAttacks(Orc orc);
 
     public int getLevel()
     {

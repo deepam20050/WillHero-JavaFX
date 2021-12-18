@@ -79,6 +79,11 @@ public class Helmet extends GameObject
         }
     }
 
+    public ArrayList<Projectile> getLaunchedProjectiles()
+    {
+        return launchedProjectiles;
+    }
+
     @Override
     public void updatePosition(double cameraPosition)
     {

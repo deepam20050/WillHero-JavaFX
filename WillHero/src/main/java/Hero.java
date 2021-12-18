@@ -19,7 +19,7 @@ public class Hero extends GameObject
 
     // ImageView Attributes
     private String imagePath;
-    private ImageView imageView;
+//    private ImageView imageView;
 
     public Hero(Player player, double x, double y, double size)
     {
@@ -41,23 +41,23 @@ public class Hero extends GameObject
 
         // Setting up ImageView
         imagePath = "file:assets/HeroSprite1.png";
-        imageView = new ImageView(new Image(imagePath));
-        double w = imageView.getImage().getWidth();
-        double h = imageView.getImage().getHeight();
-        imageView.setX(x);
-        imageView.setY(y - (h-w)*(size/w));
-        imageView.setFitWidth(size);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
+        this.setImage(new Image(imagePath));
+        double w = getImageView().getImage().getWidth();
+        double h = getImageView().getImage().getHeight();
+        getImageView().setX(x);
+        getImageView().setY(y - (h-w)*(size/w));
+        getImageView().setFitWidth(size);
+        getImageView().setPreserveRatio(true);
+        getImageView().setSmooth(true);
 
 //        System.out.println(imageView.getImage().getWidth());
 //        System.out.println(imageView.getImage().getHeight());
     }
 
-    public ImageView getImageView()
-    {
-        return imageView;
-    }
+//    public ImageView getImageView()
+//    {
+//        return imageView;
+//    }
 
     // Updating the position of the player depending on its velocity
     // Also updates the imageview
@@ -66,12 +66,12 @@ public class Hero extends GameObject
     {
         this.setPosition(getPosition().getX() + getVelocity().getX(), getPosition().getY() + getVelocity().getY());
 
-        double w = imageView.getImage().getWidth();
-        double h = imageView.getImage().getHeight();
-        imageView.setX(getPosition().getX() - cameraPosition);
+        double w = getImageView().getImage().getWidth();
+        double h = getImageView().getImage().getHeight();
+        getImageView().setX(getPosition().getX() - cameraPosition);
         // Image is not a perfect square but the Hero object is treated like a square
         // Image is moved up slightly so the bottom portion represents the object area
-        imageView.setY(getPosition().getY() - (h-w)*(size/w));
+        getImageView().setY(getPosition().getY() - (h-w)*(size/w));
 
         // Updating Helmet Position
         helmet.setPosition(getPosition().getX() + size/4, getPosition().getY() + size/2);

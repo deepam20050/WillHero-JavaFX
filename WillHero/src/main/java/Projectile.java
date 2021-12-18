@@ -9,5 +9,4 @@ public abstract class Projectile extends GameObject
 
     public abstract void moveProjectile();
     public abstract void ifAttacks(Orc orc);
-    public abstract ImageView getImageView();
 }

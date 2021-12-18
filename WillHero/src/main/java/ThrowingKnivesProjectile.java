@@ -6,20 +6,21 @@ public class ThrowingKnivesProjectile extends Projectile
 {
     private double knifeSpeed;
     private double knifeWidth;
-    private ImageView imageView;
-    private Image projectileImage;
+    private double knifeHeight;
+    private String imagePath;
 
     public ThrowingKnivesProjectile(double x, double y)
     {
         super(x,y);
         knifeSpeed = 35;
         knifeWidth = 10;
-        projectileImage = new Image("file:assets/ProjectileKnife.png");
-        imageView = new ImageView(projectileImage);
-        imageView.setTranslateX(-50);
-        imageView.setTranslateY(y);
-        imageView.setFitHeight(knifeWidth);
-        imageView.setPreserveRatio(true);
+        imagePath = "file:assets/ProjectileKnife.png";
+        setImage(new Image(imagePath));
+        getImageView().setTranslateX(-50);
+        getImageView().setTranslateY(y);
+        getImageView().setFitHeight(knifeWidth);
+        getImageView().setPreserveRatio(true);
+        knifeHeight = getImageView().getFitWidth();
     }
 
     @Override
@@ -30,20 +31,21 @@ public class ThrowingKnivesProjectile extends Projectile
     @Override
     public void ifAttacks(Orc orc)
     {
+        double xdist = orc.getPosition().getX() - (getPosition().getX() + knifeHeight);
+        double ydist = orc.getPosition().getY() - getPosition().getY();
 
-    }
-
-    @Override
-    public ImageView getImageView()
-    {
-        return imageView;
+        if((-orc.get_size() <= xdist && xdist <= 0) && (-orc.get_size() <= ydist && ydist <= knifeWidth))
+        {
+            orc.is_attacked();
+            this.setActive(false);
+        }
     }
     @Override
     public void updatePosition(double cameraPosition)
     {
         moveProjectile();
-        imageView.setTranslateX(getPosition().getX() - cameraPosition);
-        imageView.setTranslateY(getPosition().getY());
+        getImageView().setTranslateX(getPosition().getX() - cameraPosition);
+        getImageView().setTranslateY(getPosition().getY());
     }
     @Override
     public void if_collides(Hero hero)

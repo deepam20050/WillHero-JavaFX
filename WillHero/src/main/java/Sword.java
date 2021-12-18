@@ -8,8 +8,9 @@ public class Sword extends Weapon
     private double swordSwingSpeed; // Degrees/frame
     private double length;
 
-    private ImageView imageView;
-    private Image swordImage;
+//    private ImageView imageView;
+//    private Image swordImage;
+    private String imagePath;
     private Rotate rotate;
 
     private double rotationsLeft = 0;
@@ -17,22 +18,22 @@ public class Sword extends Weapon
     Sword(double x, double y, Helmet helmet)
     {
         super(x,y,helmet);
-        swordImage = new Image("file:assets/WeaponSword.png");
-        imageView = new ImageView(swordImage);
+        imagePath = "file:assets/WeaponSword.png";
+        this.setImage(new Image(imagePath));
         this.selectWeapon(false);
         swordAngle = 90;
         swordSwingSpeed = 25;
         length = 60;
 
-        imageView.setFitHeight(length);
-        imageView.setPreserveRatio(true);
-        imageView.setTranslateX(getPosition().getX());
-        imageView.setTranslateY(getPosition().getY());
+        getImageView().setFitHeight(length);
+        getImageView().setPreserveRatio(true);
+        getImageView().setTranslateX(getPosition().getX());
+        getImageView().setTranslateY(getPosition().getY());
 
         rotate = new Rotate();
-        rotate.setPivotX(imageView.getFitWidth()/2);
+        rotate.setPivotX(getImageView().getFitWidth()/2);
         rotate.setPivotY(0);
-        imageView.getTransforms().add(rotate);
+        getImageView().getTransforms().add(rotate);
         rotate.setAngle(swordAngle);
 
         rotationsLeft = 0;
@@ -41,7 +42,7 @@ public class Sword extends Weapon
     @Override
     public void useWeapon()
     {
-        System.out.println("Sword go WHOOOSH");
+//        System.out.println("Sword go WHOOOSH");
         rotationsLeft = this.getLevel();
     }
 
@@ -51,26 +52,39 @@ public class Sword extends Weapon
         if(selected)
         {
             this.setActive(true);
-            imageView.setImage(swordImage);
+//            getImageView().setImage(swordImage);
         }
         else
         {
             this.setActive(false);
-            imageView.setImage(null);
+//            imageView.setImage(null);
         }
     }
 
     @Override
-    public ImageView getImageView()
+    public void ifAttacks(Orc orc)
     {
-        return imageView;
+        if(rotationsLeft > 0)
+        {
+//            Vector2D swordPoint = new Vector2D(getPosition().getX() + length*Math.cos((270 - swordAngle) * Math.PI / 180),
+//                    getPosition().getY() - length*Math.sin((270 - swordAngle) * Math.PI / 180));
+
+            double swordX = getPosition().getX() + length*Math.cos((270 - swordAngle) * Math.PI / 180);
+            double swordY = getPosition().getY() - length*Math.sin((270 - swordAngle) * Math.PI / 180);
+
+            if((orc.getPosition().getX() <= swordX && swordX <= orc.getPosition().getX() + orc.get_size())
+                && (orc.getPosition().getY() <= swordY && swordY <= orc.getPosition().getY() + orc.get_size()))
+            {
+                orc.is_attacked();
+            }
+        }
     }
 
     @Override
     public void updatePosition(double cameraPosition)
     {
-        imageView.setTranslateX(this.getPosition().getX() - cameraPosition);
-        imageView.setTranslateY(this.getPosition().getY());
+        getImageView().setTranslateX(this.getPosition().getX() - cameraPosition);
+        getImageView().setTranslateY(this.getPosition().getY());
 
         rotate.setAngle(swordAngle);
 

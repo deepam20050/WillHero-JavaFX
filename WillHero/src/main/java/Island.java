@@ -8,21 +8,10 @@ public class Island extends GameObject
 {
     private double length;
 
-    // ImageView Attributes
     private String imagePath;
-    private ImageView imageView;
 
     private ArrayList<ImageView> backgroundObjects;
     private ArrayList<Double> backgroundObjectPositions;
-
-    public void updatePosition(double cameraPosition)
-    {
-        imageView.setX(getPosition().getX() - cameraPosition);
-        for(int i = 0; i < backgroundObjects.size(); i++)
-        {
-            backgroundObjects.get(i).setX(getPosition().getX() + backgroundObjectPositions.get(i) - cameraPosition);
-        }
-    }
 
     public Island(double x, double y, double length)
     {
@@ -31,23 +20,27 @@ public class Island extends GameObject
 
         // Setting up ImageView
         imagePath = "file:assets/IslandSprite.png";
-        imageView = new ImageView(new Image(imagePath));
-        imageView.setX(x);
-        imageView.setY(y);
-        imageView.setFitWidth(length);
-        imageView.setPreserveRatio(true);
+        setImage(new Image(imagePath));
+        getImageView().setX(x);
+        getImageView().setY(y);
+        getImageView().setFitWidth(length);
+        getImageView().setPreserveRatio(true);
 
         backgroundObjects = new ArrayList<ImageView>();
         backgroundObjectPositions = new ArrayList<Double>();
     }
 
-    public double getLength() {
-        return length;
+    public void updatePosition(double cameraPosition)
+    {
+        getImageView().setX(getPosition().getX() - cameraPosition);
+        for(int i = 0; i < backgroundObjects.size(); i++)
+        {
+            backgroundObjects.get(i).setX(getPosition().getX() + backgroundObjectPositions.get(i) - cameraPosition);
+        }
     }
 
-    public ImageView getImageView()
-    {
-        return imageView;
+    public double getLength() {
+        return length;
     }
 
     public void addBackgroundObject(String imagePath, double x, double height)
@@ -69,7 +62,5 @@ public class Island extends GameObject
 
     @Override
     public void if_collides(Hero hero)
-    {
-
-    }
+    {}
 }

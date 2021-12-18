@@ -3,7 +3,6 @@ import javafx.scene.image.ImageView;
 
 public class GreenOrc extends Orc {
     private String imagePath;
-    private ImageView imageView;
     private double size;
     private double jumpSpeed1;
     private double jumpSpeed2;
@@ -15,28 +14,23 @@ public class GreenOrc extends Orc {
         /* For now jump_speed, size, hits_required initialized to 1
          * Can change if required
          */
-        super(x, y, 1, 1, 1);
+        super(x, y, 1, _size, 1);
         size = _size;
         jumpSpeed1 = 8;
         jumpSpeed2 = 3;
         gravity = 0.25;
 
         imagePath = "file:assets/GreenOrcSprite.png";
-        imageView = new ImageView(new Image(imagePath));
-        double w = imageView.getImage().getWidth();
-        double h = imageView.getImage().getHeight();
-        imageView.setX(x);
-        imageView.setY(y - (h - w) * (size / w));
-        imageView.setFitWidth(size);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
+        this.setImage(new Image(imagePath));
+        double w = getImageView().getImage().getWidth();
+        double h = getImageView().getImage().getHeight();
+        getImageView().setX(x);
+        getImageView().setY(y - (h - w) * (size / w));
+        getImageView().setFitWidth(size);
+        getImageView().setPreserveRatio(true);
+        getImageView().setSmooth(true);
 
         jump_counter = 0;
-    }
-
-    @Override
-    public ImageView getImageView() {
-        return imageView;
     }
 
     @Override
@@ -50,6 +44,8 @@ public class GreenOrc extends Orc {
     {
         this.setPosition(getPosition().getX() + getVelocity().getX(), getPosition().getY() + getVelocity().getY());
 
+        ImageView imageView = getImageView();
+
         double w = imageView.getImage().getWidth();
         double h = imageView.getImage().getHeight();
         imageView.setX(getPosition().getX() - cameraPosition);
@@ -58,9 +54,6 @@ public class GreenOrc extends Orc {
 
     public void jump_up ()
     {
-//        this.setVelocity(getVelocity().getX(), -jumpSpeed2);
-//        this.setVelocity(getVelocity().getX(), -jumpSpeed2);
-//        this.setVelocity(getVelocity().getX(), -jumpSpeed1);
         if(jump_counter == 0) {
             this.setVelocity(getVelocity().getX(), -jumpSpeed1);
         }
@@ -87,10 +80,6 @@ public class GreenOrc extends Orc {
 
     @Override
     public void if_falls () {
-
-    }
-    @Override
-    public void is_attacked () {
 
     }
 }

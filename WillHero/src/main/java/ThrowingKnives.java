@@ -4,33 +4,31 @@ import javafx.scene.transform.Rotate;
 
 public class ThrowingKnives extends Weapon
 {
-    private ImageView imageView;
-    private Image throwingKnivesImage;
+    private String imagePath;
     private Rotate rotate;
 
     public ThrowingKnives(double x, double y, Helmet helmet)
     {
         super(x,y,helmet);
-        throwingKnivesImage = new Image("file:assets/WeaponThrowingKnives.png");
-        imageView = new ImageView(throwingKnivesImage);
+        imagePath = "file:assets/WeaponThrowingKnives.png";
+        this.setImage(new Image(imagePath));
         this.selectWeapon(false);
 
-        imageView.setFitWidth(30);
-        imageView.setPreserveRatio(true);
-        imageView.setTranslateX(getPosition().getX());
-        imageView.setTranslateY(getPosition().getY());
+        getImageView().setFitWidth(30);
+        getImageView().setPreserveRatio(true);
+        getImageView().setTranslateX(getPosition().getX());
+        getImageView().setTranslateY(getPosition().getY());
 
         rotate = new Rotate();
-        rotate.setPivotX(imageView.getFitWidth()/2);
+        rotate.setPivotX(getImageView().getFitWidth()/2);
         rotate.setPivotY(0);
-        imageView.getTransforms().add(rotate);
+        getImageView().getTransforms().add(rotate);
         rotate.setAngle(90);
     }
 
     @Override
     public void useWeapon()
     {
-        System.out.println("Knife go WAAAA");
         Projectile projectile = new ThrowingKnivesProjectile(getPosition().getX(), getPosition().getY());
         getHelmet().launchProjectile(projectile);
     }
@@ -38,30 +36,18 @@ public class ThrowingKnives extends Weapon
     @Override
     public void selectWeapon(boolean selected)
     {
-        if(selected)
-        {
-            this.setActive(true);
-            imageView.setImage(throwingKnivesImage);
-        }
-        else
-        {
-            this.setActive(false);
-            imageView.setImage(null);
-        }
-    }
-
-    @Override
-    public ImageView getImageView()
-    {
-        return imageView;
+        this.setActive(selected);
     }
 
     @Override
     public void updatePosition(double cameraPosition)
     {
-        imageView.setTranslateX(this.getPosition().getX() - cameraPosition);
-        imageView.setTranslateY(this.getPosition().getY());
+        getImageView().setTranslateX(this.getPosition().getX() - cameraPosition);
+        getImageView().setTranslateY(this.getPosition().getY());
     }
+    @Override
+    public void ifAttacks(Orc orc)
+    {}
     @Override
     public void if_collides(Hero hero)
     {}
