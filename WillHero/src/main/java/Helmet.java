@@ -36,7 +36,6 @@ public class Helmet extends GameObject
     public void launchProjectile(Projectile projectile)
     {
         launchedProjectiles.add(projectile);
-        hero.getPlayer().getGame().getGameOrganiser().getRoot().getChildren().add(projectile.getImageView());
     }
 
     public void updateProjectiles(double cameraPosition)

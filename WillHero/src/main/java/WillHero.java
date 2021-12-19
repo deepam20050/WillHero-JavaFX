@@ -7,16 +7,29 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class WillHero extends Application
 {
+    private double sceneWidth = 1000;
+    private double sceneHeight = 600;
+    private InputTracker inputTracker = new InputTracker();
+
+    // UPDATE: gameScene will be used to show all scenes.
+    // Multiple roots will be made instead of multiple scenes.
+    private Scene gameScene;
+
+    private GameOrganiser organiser;
+
     public static void main(String[] args)
     {
         launch(args);
@@ -25,81 +38,89 @@ public class WillHero extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        double sceneWidth = 1000;
-        double sceneHeight = 600;
-        InputTracker inputTracker = new InputTracker();
-
-        Scene mainMenuScene;
-        Scene gameScene;
-
         // Setting up Game Scene
-        GameOrganiser organiser = new GameOrganiser(inputTracker, sceneWidth, sceneHeight);
+        organiser = new GameOrganiser(this);
         gameScene = new Scene(organiser.getRoot(), sceneWidth, sceneHeight, Color.rgb(86,227,255));
-        gameScene.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent keyEvent)
-            {
-                if(keyEvent.getCode().equals(KeyCode.SPACE)) {
-                    inputTracker.setSpacePressed(true);
-                }
-            }
-        });
-        gameScene.setOnKeyReleased(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent keyEvent)
-            {
-                if(keyEvent.getCode().equals(KeyCode.SPACE)) {
-                    inputTracker.setSpacePressed(false);
-                }
-            }
-        });
-        gameScene.setOnMousePressed(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                inputTracker.setLeftMousePressed(true);
-            }
-        });
-        gameScene.setOnMouseReleased(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                inputTracker.setLeftMousePressed(false);
-            }
-        });
 
         // Setting Up Main Menu Code
+        goToMainMenu();
+
+        stage.setScene(gameScene);
+        stage.setTitle("Will Hero");
+        stage.show();
+    }
+
+    // Function to go to main menu
+    // Can be called from start() or from the game's pause menu
+    public void goToMainMenu()
+    {
         FXMLLoader fxmlLoader = new FXMLLoader(MainMenuController.class.getResource("mainmenu.fxml"));
-        mainMenuScene = new Scene(fxmlLoader.load());
+        try
+        {
+            gameScene.setRoot(fxmlLoader.load());
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            System.exit(0);
+        }
         MainMenuController controller = fxmlLoader.getController();
         Button playbtn = controller.getPlayButton();
         Button exitbtn = controller.getExitButton();
         Button loadfilebtn = controller.getLoadFileButton();
 
-        playbtn.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent actionEvent)
-            {
-                stage.setScene(gameScene);
-            }
+        playbtn.setOnAction(e -> {
+            createNewGame();
         });
-        exitbtn.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent actionEvent)
-            {
-                Platform.exit();
-                System.exit(0);
-            }
+        exitbtn.setOnAction(e -> {
+            Platform.exit();
+            System.exit(0);
         });
+    }
 
-        stage.setScene(mainMenuScene); // *** Change this to mainMenuScene after mainMenuScene is implemented +++
-        stage.setTitle("Will Hero");
-        stage.show();
+    public void goToLostGameScene(int location)
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(LostGameController.class.getResource("lostgame.fxml"));
+        try
+        {
+            gameScene.setRoot(fxmlLoader.load());
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+            System.exit(0);
+        }
+
+        LostGameController controller = fxmlLoader.getController();
+        Button playAgainButton = controller.getPlayAgainButton();
+        Button mainMenuButton = controller.getMainMenuButton();
+        controller.setLocationReachedText(location);
+
+        playAgainButton.setOnAction(e -> {
+            createNewGame();
+        });
+        mainMenuButton.setOnAction(e -> {
+            goToMainMenu();
+        });
+    }
+
+    private void createNewGame()
+    {
+        organiser = new GameOrganiser(this);
+        gameScene.setOnMousePressed(e -> {inputTracker.setLeftMousePressed(true);});
+        gameScene.setOnMouseReleased(e -> {inputTracker.setLeftMousePressed(false);});
+
+        gameScene.setRoot(organiser.getRoot());
+        gameScene.setFill(Color.rgb(86,227,255));
+    }
+
+    public double getSceneWidth() {
+        return sceneWidth;
+    }
+    public double getSceneHeight() {
+        return sceneHeight;
+    }
+    public InputTracker getInputTracker() {
+        return inputTracker;
     }
 }
