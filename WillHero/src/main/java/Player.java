@@ -6,9 +6,11 @@ public class Player
 
     // *** OTHER METHODS TO BE ADDED & IMPLEMENTED ***
 
-    public Player()
+    public Player(Game game)
     {
+        this.game = game;
         hero = new Hero(this, 100, 300, 50);
+        noOfCoins = 0;
     }
 
     public Hero getHero()
@@ -31,5 +33,15 @@ public class Player
     public void add_coins(int added_coins)
     {
         noOfCoins += added_coins;
+    }
+
+    public int getNoOfCoins()
+    {
+        return noOfCoins;
+    }
+
+    public Game getGame()
+    {
+        return game;
     }
 }

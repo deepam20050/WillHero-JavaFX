@@ -3,15 +3,17 @@ import java.io.ObjectOutputStream;
 
 public class Game {
     private Player player;
-    private Level level; // *** IMPLEMENT LEVEL CLASS ***
+    private Level level;
+    private GameOrganiser gameOrganiser;
 
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
-    public Game()
+    public Game(GameOrganiser gameOrganiser)
     {
-        player = new Player();
+        player = new Player(this);
         level = new Level();
+        this.gameOrganiser = gameOrganiser;
     }
 
     // *** BELOW METHODS TO BE IMPLEMENTED ***
@@ -34,4 +36,9 @@ public class Game {
     public void resurrect_hero() {}
     public void save_file() {}
     public void load_file() {}
+
+    public GameOrganiser getGameOrganiser()
+    {
+        return gameOrganiser;
+    }
 }

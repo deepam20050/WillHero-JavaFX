@@ -12,13 +12,13 @@ public abstract class Orc extends GameObject {
         hits_required = _hits_required;
     }
 
-    public abstract ImageView getImageView();
     public abstract void move_down();
-    public abstract void updatePosition();
+    public abstract void updatePosition(double cameraPosition);
 
     public void is_attacked () {
-
+        System.out.println("Orc with ID " + getId() + " attacked");
     }
+
     public void if_falls () {
 
     }

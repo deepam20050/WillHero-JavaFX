@@ -6,8 +6,6 @@ public abstract class Chest extends GameObject {
         super(new Vector2D (x, y), new Vector2D (0, 0));
     }
 
-    public abstract ImageView getImageView();
-
     public void open_chest (Hero hero) {
 
     }

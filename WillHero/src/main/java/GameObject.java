@@ -1,3 +1,6 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public abstract class GameObject
 {
     private static int nextID = 0;
@@ -5,14 +8,38 @@ public abstract class GameObject
     private Vector2D position;
     private Vector2D velocity;
 
-    GameObject(Vector2D position, Vector2D velocity)
+    // ImageView and Image are now part of GameObject as they are needed in every object
+    private ImageView imageView;
+    private Image image;
+
+    private boolean active;
+
+    public GameObject(Vector2D position, Vector2D velocity)
     {
         this.id = nextID++;
         this.position = position;
         this.velocity = velocity;
+        this.active = true;
+
+        this.image = null;
+        this.imageView = new ImageView();
+        imageView.setImage(image);
     }
 
-    public abstract void if_collides(Hero hero); // *** IMPLEMENT HERO CLASS ***
+    public abstract void if_collides(Hero hero);
+    public abstract void updatePosition(double cameraPosition);
+
+    public void setImage(Image image) {
+        this.image = image;
+        if(active)
+            imageView.setImage(image);
+    }
+    public ImageView getImageView() {
+        return imageView;
+    }
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
 
     public int getId()
     {
@@ -40,6 +67,20 @@ public abstract class GameObject
     public void setVelocity(double x, double y) {
         velocity.setX(x);
         velocity.setY(y);
+    }
+
+    public boolean isActive()
+    {
+        return active;
+    }
+    public void setActive(boolean active)
+    {
+        this.active = active;
+        // Add/Remove image based on if active
+        if(active)
+            imageView.setImage(image);
+        else
+            imageView.setImage(null);
     }
 
     // *** TO BE IMPLEMENTED ***

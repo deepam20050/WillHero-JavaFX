@@ -3,8 +3,7 @@ import javafx.scene.image.ImageView;
 
 public class Hero extends GameObject
 {
-//    private Helmet helmet;
-//    private Weapon currentWeapon;
+    private Helmet helmet;
     private Player player;
     private int location;
     private double moveForwardSpeed;
@@ -20,7 +19,7 @@ public class Hero extends GameObject
 
     // ImageView Attributes
     private String imagePath;
-    private ImageView imageView;
+//    private ImageView imageView;
 
     public Hero(Player player, double x, double y, double size)
     {
@@ -34,6 +33,7 @@ public class Hero extends GameObject
         this.jumpSpeed = 8;
         this.gravity = 0.25;
         this.fallBoundary = 500;
+        this.helmet = new Helmet(getPosition().getX() + size/2, getPosition().getY() + size/2, this);
 
         isMovingForward = false;
         forwardDistanceMoved = 0;
@@ -41,36 +41,41 @@ public class Hero extends GameObject
 
         // Setting up ImageView
         imagePath = "file:assets/HeroSprite1.png";
-        imageView = new ImageView(new Image(imagePath));
-        double w = imageView.getImage().getWidth();
-        double h = imageView.getImage().getHeight();
-        imageView.setX(x);
-        imageView.setY(y - (h-w)*(size/w));
-        imageView.setFitWidth(size);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
+        this.setImage(new Image(imagePath));
+        double w = getImageView().getImage().getWidth();
+        double h = getImageView().getImage().getHeight();
+        getImageView().setX(x);
+        getImageView().setY(y - (h-w)*(size/w));
+        getImageView().setFitWidth(size);
+        getImageView().setPreserveRatio(true);
+        getImageView().setSmooth(true);
 
 //        System.out.println(imageView.getImage().getWidth());
 //        System.out.println(imageView.getImage().getHeight());
     }
 
-    public ImageView getImageView()
-    {
-        return imageView;
-    }
+//    public ImageView getImageView()
+//    {
+//        return imageView;
+//    }
 
     // Updating the position of the player depending on its velocity
     // Also updates the imageview
-    public void updatePosition()
+    @Override
+    public void updatePosition(double cameraPosition)
     {
         this.setPosition(getPosition().getX() + getVelocity().getX(), getPosition().getY() + getVelocity().getY());
 
-        double w = imageView.getImage().getWidth();
-        double h = imageView.getImage().getHeight();
-        imageView.setX(getPosition().getX());
+        double w = getImageView().getImage().getWidth();
+        double h = getImageView().getImage().getHeight();
+        getImageView().setX(getPosition().getX() - cameraPosition);
         // Image is not a perfect square but the Hero object is treated like a square
         // Image is moved up slightly so the bottom portion represents the object area
-        imageView.setY(getPosition().getY() - (h-w)*(size/w));
+        getImageView().setY(getPosition().getY() - (h-w)*(size/w));
+
+        // Updating Helmet Position
+        helmet.setPosition(getPosition().getX() + size/4, getPosition().getY() + size/2);
+        helmet.updatePosition(cameraPosition);
     }
 
     // *** BELOW 2 TO BE IMPLEMENTED AFTER Helmet & Weapons CLASSES ***
@@ -96,6 +101,12 @@ public class Hero extends GameObject
     {
         if((forwardButtonPressed && !hasDashed) || isMovingForward)
         {
+            if(!isMovingForward)
+            {
+                if(helmet.getCurrentWeapon() != null)
+                    helmet.getCurrentWeapon().useWeapon();
+            }
+
             isMovingForward = true;
             if(forwardDistanceMoved + moveForwardSpeed >= moveForwardDistance)
             {
@@ -162,6 +173,16 @@ public class Hero extends GameObject
     public void collect_coins(int added_coins)
     {
         player.add_coins(added_coins);
+    }
+
+    public Helmet getHelmet()
+    {
+        return helmet;
+    }
+
+    public Player getPlayer()
+    {
+        return player;
     }
 
     @Override

@@ -5,81 +5,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bc47158-a86c-4b87-9d74-3605f96d4bbf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/PlatformerTest.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/GameObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/InputTracker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/Mario.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/PaneOrganiser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/Platform.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/PlatformerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/Vector2D.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/com/example/platformertest/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/java/com/example/platformertest/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/src/main/resources/com/example/platformertest/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/GameObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/InputTracker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/Mario.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/PaneOrganiser$TimeHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/PaneOrganiser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/Platform.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/PlatformerTest$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/PlatformerTest$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/PlatformerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/Vector2D.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/com/example/platformertest/HelloApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/com/example/platformertest/HelloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PlatformerTest/target/classes/com/example/platformertest/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/ChestSprite.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/ChestSprite.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BossOrc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Chest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Chest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Coin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Coin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/CoinChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CoinChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameOrganiser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameOrganiser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GreenOrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GreenOrc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/InputTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/InputTracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Hero.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Island.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Island.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Orc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Orc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RedOrc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WillHero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WillHero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/willhero/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/willhero/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/willhero/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BossOrc.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Chest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Chest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Coin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Coin.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/CoinChest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/CoinChest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GameObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GameObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser$TimeHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GameOrganiser$TimeHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GameOrganiser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GreenOrc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GreenOrc.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/InputTracker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/InputTracker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Hero.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Hero.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Island.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Island.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Level.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Level.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Orc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Orc.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/RedOrc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/WillHero$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WillHero$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/WillHero$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WillHero$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/WillHero.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WillHero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/willhero/HelloApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/willhero/HelloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/willhero/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Player.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="228RvFuyzXpbQDwuyRqG1ZTfqMU" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -125,6 +104,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

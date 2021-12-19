@@ -4,21 +4,22 @@ import javafx.scene.image.ImageView;
 public class CoinChest extends Chest{
     private int no_of_coins;
     private String imagePath;
-    private ImageView imageView;
+
     public CoinChest (double x, double y) {
         super(x, y);
         no_of_coins = 5;
         imagePath = "file:assets/ChestSprite.png";
-        imageView = new ImageView(new Image(imagePath));
-        imageView.setX(x);
-        imageView.setY(y);
-        imageView.setFitHeight(60);
-        imageView.setPreserveRatio(true);
+        this.setImage(new Image(imagePath));
+        getImageView().setX(x);
+        getImageView().setY(y);
+        getImageView().setFitHeight(60);
+        getImageView().setPreserveRatio(true);
     }
 
     @Override
-    public ImageView getImageView() {
-        return imageView;
+    public void updatePosition(double cameraPosition)
+    {
+        getImageView().setX(this.getPosition().getX() - cameraPosition);
     }
 
     @Override
