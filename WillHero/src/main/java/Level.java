@@ -39,7 +39,7 @@ public class Level
 
         islands.get(3).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
 
-        orcs.add(new GreenOrc(525,150,50));
+        orcs.add(new GreenOrc(470,150,50));
         orcs.add(new GreenOrc(800, 200, 50));
         orcs.add(new GreenOrc(875, 100, 50));
 

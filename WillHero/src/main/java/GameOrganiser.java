@@ -365,6 +365,22 @@ public class GameOrganiser
                 x.if_collides(game.getPlayer().getHero());
             }
 
+            // Checking collision of hero with Orcs
+            for (Orc x : level.getOrcs()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
+            // Checking collisions of all orcs with each other
+            for(int i = 0; i < level.getOrcs().size(); i++)
+            {
+                for(int j = 0; j < level.getOrcs().size(); j++)
+                {
+                    if(i == j)
+                        continue;
+                    level.getOrcs().get(i).if_collides_with_orc(level.getOrcs().get(j));
+                }
+            }
+
             // UPDATING WEAPONS BUTTONS DISPLAY
             // Sword
             if(game.getPlayer().getHero().getHelmet().getWeapon(0).getLevel() > 0)

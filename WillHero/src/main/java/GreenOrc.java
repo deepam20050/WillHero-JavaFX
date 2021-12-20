@@ -74,12 +74,8 @@ public class GreenOrc extends Orc {
             }
         }
         if (hasLanded) {
+            this.setVelocity(0, 0);
             jump_up();
         }
-    }
-
-    @Override
-    public void if_falls () {
-
     }
 }
