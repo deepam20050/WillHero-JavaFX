@@ -5,9 +5,9 @@ public class CoinChest extends Chest{
     private int no_of_coins;
     private String imagePath;
 
-    public CoinChest (double x, double y) {
+    public CoinChest (double x, double y, int num) {
         super(x, y);
-        no_of_coins = 5;
+        no_of_coins = num;
         imagePath = "file:assets/ChestSprite.png";
         this.setImage(new Image(imagePath));
         getImageView().setX(x);
@@ -24,6 +24,10 @@ public class CoinChest extends Chest{
 
     @Override
     public void open_chest (Hero hero) {
-
+        if (this.no_of_coins == 0) return;
+        hero.getPlayer().add_coins(this.no_of_coins);
+        this.no_of_coins = 0;
+        imagePath = "file:assets/ChestOpenSprite.png";
+        this.setImage(new Image(imagePath));
     }
 }

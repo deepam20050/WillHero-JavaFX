@@ -3,6 +3,7 @@ import javafx.scene.image.ImageView;
 
 public class Coin extends GameObject {
     private String imagePath;
+    private int add;
 
     public Coin (double x, double y) {
         super(new Vector2D (x, y), new Vector2D (0, 0));
@@ -12,6 +13,7 @@ public class Coin extends GameObject {
         getImageView().setY(y);
         getImageView().setFitWidth(35);
         getImageView().setPreserveRatio(true);
+        add = 1;
     }
     @Override
     public void updatePosition(double cameraPosition)
@@ -20,6 +22,15 @@ public class Coin extends GameObject {
     }
     @Override
     public void if_collides (Hero hero) {
-        hero.getPlayer().add_coins(1);
+        if (this.add == 0) return;
+        Vector2D coin_pos = this.getPosition();
+        Vector2D hero_pos = hero.getPosition();
+        double dx = Math.abs(coin_pos.getX() - hero_pos.getX());
+        double dy = Math.abs(coin_pos.getY() - hero_pos.getY());
+        if (dx <= 20 && dy <= 20) {
+            hero.getPlayer().add_coins(this.add);
+            this.add = 0;
+            this.setActive(false);
+        }
     }
 }
