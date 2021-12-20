@@ -169,6 +169,10 @@ public class Hero extends GameObject
         return player;
     }
 
+    public double getSize() {
+        return size;
+    }
+
     @Override
     public void if_collides(Hero other) {}
 }

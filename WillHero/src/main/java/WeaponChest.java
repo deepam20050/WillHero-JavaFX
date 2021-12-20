@@ -1,32 +1,29 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class CoinChest extends Chest{
-    private int no_of_coins;
+public class WeaponChest extends Chest {
+    private Weapon weapon;
     private String imagePath;
 
-    public CoinChest (double x, double y, int num) {
+    public WeaponChest (double x, double y, Weapon auzaar) {
         super(x, y);
-        no_of_coins = num;
         imagePath = "file:assets/ChestSprite.png";
         this.setImage(new Image(imagePath));
         getImageView().setX(x);
         getImageView().setY(y);
         getImageView().setFitHeight(60);
         getImageView().setPreserveRatio(true);
+        weapon = auzaar;
     }
-
     @Override
-    public void updatePosition(double cameraPosition)
-    {
+    public void updatePosition(double cameraPosition) {
         getImageView().setX(this.getPosition().getX() - cameraPosition);
     }
-
     @Override
     public void open_chest (Hero hero) {
-        if (this.no_of_coins == 0) return;
-        hero.getPlayer().add_coins(this.no_of_coins);
-        this.no_of_coins = 0;
+        if (this.weapon == null) return;
+        hero.getPlayer().getHero().getHelmet().addWeapon(this.weapon);
+        this.weapon = null;
         imagePath = "file:assets/ChestOpenSprite.png";
         this.setImage(new Image(imagePath));
     }

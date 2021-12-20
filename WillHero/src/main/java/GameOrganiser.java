@@ -355,6 +355,16 @@ public class GameOrganiser
                 }
             }
 
+            // Checking collision of hero with coins
+            for (Coin x : level.getCoins()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
+            // Checking collision of hero with coin/weapon chests
+            for (Chest x : level.getChests()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
             // UPDATING WEAPONS BUTTONS DISPLAY
             // Sword
             if(game.getPlayer().getHero().getHelmet().getWeapon(0).getLevel() > 0)

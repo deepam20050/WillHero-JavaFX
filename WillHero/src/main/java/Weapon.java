@@ -9,7 +9,7 @@ public abstract class Weapon extends GameObject
     {
         super(new Vector2D(x, y), new Vector2D(0,0));
         this.helmet = helmet;
-        level = 1;
+        level = 0;
     }
 
     public abstract void selectWeapon(boolean selected);
