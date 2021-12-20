@@ -4,19 +4,21 @@ import java.io.ObjectOutputStream;
 public class Game {
     private Player player;
     private Level level;
-    private GameOrganiser gameOrganiser;
+    private boolean isPaused;
+    private boolean gameLost;
+    private boolean resurrected;
 
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
-    public Game(GameOrganiser gameOrganiser)
+    public Game()
     {
         player = new Player(this);
         level = new Level();
-        this.gameOrganiser = gameOrganiser;
+        isPaused = false;
+        gameLost = false;
+        resurrected = false;
     }
-
-    // *** BELOW METHODS TO BE IMPLEMENTED ***
 
     public void serialise() {}
     public void deserialise() {}
@@ -30,15 +32,36 @@ public class Game {
         return level;
     }
     public void play() {}
-    public void pause() {}
+    public void pause() {
+        System.out.println("Game Paused");
+        isPaused = true;
+    }
     public void restart() {}
-    public void resume() {}
-    public void resurrect_hero() {}
+    public void resume() {
+        System.out.println("Game Resumed");
+        isPaused = false;
+    }
+    public void lose_game()
+    {
+        gameLost = true;
+    }
+    public void resurrect_hero() {
+        player.getHero().getPosition().setY(50);
+        player.getHero().setVelocity(0,0);
+        gameLost = false;
+        isPaused = false;
+        resurrected = true;
+    }
     public void save_file() {}
     public void load_file() {}
 
-    public GameOrganiser getGameOrganiser()
-    {
-        return gameOrganiser;
+    public boolean isPaused() {
+        return isPaused;
+    }
+    public boolean isGameLost() {
+        return gameLost;
+    }
+    public boolean isResurrected() {
+        return resurrected;
     }
 }

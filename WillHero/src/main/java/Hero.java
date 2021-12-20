@@ -19,7 +19,6 @@ public class Hero extends GameObject
 
     // ImageView Attributes
     private String imagePath;
-//    private ImageView imageView;
 
     public Hero(Player player, double x, double y, double size)
     {
@@ -32,7 +31,7 @@ public class Hero extends GameObject
         this.moveForwardDistance = 120;
         this.jumpSpeed = 8;
         this.gravity = 0.25;
-        this.fallBoundary = 500;
+        this.fallBoundary = 600;
         this.helmet = new Helmet(getPosition().getX() + size/2, getPosition().getY() + size/2, this);
 
         isMovingForward = false;
@@ -49,15 +48,7 @@ public class Hero extends GameObject
         getImageView().setFitWidth(size);
         getImageView().setPreserveRatio(true);
         getImageView().setSmooth(true);
-
-//        System.out.println(imageView.getImage().getWidth());
-//        System.out.println(imageView.getImage().getHeight());
     }
-
-//    public ImageView getImageView()
-//    {
-//        return imageView;
-//    }
 
     // Updating the position of the player depending on its velocity
     // Also updates the imageview
@@ -77,10 +68,6 @@ public class Hero extends GameObject
         helmet.setPosition(getPosition().getX() + size/4, getPosition().getY() + size/2);
         helmet.updatePosition(cameraPosition);
     }
-
-    // *** BELOW 2 TO BE IMPLEMENTED AFTER Helmet & Weapons CLASSES ***
-    public void use_weapon() {}
-    public void select_weapon() {}
 
     // Changes the hero's upward velocity, causing it to jump
     public void jump_up()
@@ -120,8 +107,6 @@ public class Hero extends GameObject
             {
                 this.setVelocity(moveForwardSpeed, 0);
                 forwardDistanceMoved += moveForwardSpeed;
-//                moveForwardDistance += moveForwardSpeed;
-//                System.out.println(moveForwardDistance);
             }
         }
 
@@ -154,8 +139,7 @@ public class Hero extends GameObject
     {
         if(getPosition().getY() >= fallBoundary)
         {
-//            lose_game();
-            this.setPosition(100,300);
+            lose_game();
         }
     }
 
@@ -183,6 +167,10 @@ public class Hero extends GameObject
     public Player getPlayer()
     {
         return player;
+    }
+
+    public double getSize() {
+        return size;
     }
 
     @Override

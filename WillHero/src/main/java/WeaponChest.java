@@ -7,7 +7,7 @@ public class WeaponChest extends Chest {
 
     public WeaponChest (double x, double y, Weapon auzaar) {
         super(x, y);
-        imagePath = "file:assets/WeaponChestSprite.png";
+        imagePath = "file:assets/ChestSprite.png";
         this.setImage(new Image(imagePath));
         getImageView().setX(x);
         getImageView().setY(y);

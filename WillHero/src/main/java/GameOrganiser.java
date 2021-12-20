@@ -7,12 +7,16 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
@@ -24,38 +28,83 @@ public class GameOrganiser
     private double sceneWidth;
     private double sceneHeight;
 
+    private WillHero willHeroApplication;
     private Game game;
     private InputTracker inputTracker;
     private Group root; // Stores all the static GUI + GUI corresponding to all the GameObjects
 
+    // Top Bar Objects
     private ImageView settingsImage;
+    private Button settingsButton;
+    private Label heroLocationLabel;
+    private Label noOfCoinsLabel;
+
+    // Weapons Buttons objects
     private ImageView weapon2Image;
     private ImageView weapon1Image;
     private Button weapon1Button;
     private Button weapon2Button;
-
-    private Label heroLocationLabel;
-    private Label noOfCoinsLabel;
-
     private Label weapon1LevelLabel;
     private Label weapon2LevelLabel;
 
+    // Camera Properties
     private double cameraPosition;
     private double cameraVelocity;
 
+    // Scenes Inside Game
+    private AnchorPane pauseMenuRoot;
+    private AnchorPane resurrectHeroRoot;
+
+    // Game Framerate
     private final double frameRate;
 
-    public GameOrganiser(InputTracker inputTracker, double sceneWidth, double sceneHeight)
+    public GameOrganiser(WillHero willHeroApplication)
     {
+        this.willHeroApplication = willHeroApplication;
         frameRate = 60;
         cameraPosition = 0;
         cameraVelocity = 1;
 
-        this.inputTracker = inputTracker;
-        this.sceneWidth = sceneWidth;
-        this.sceneHeight = sceneHeight;
+        // Pause Menu Root setup
+        FXMLLoader pauseMenuLoader = new FXMLLoader(PauseMenuController.class.getResource("pausemenu.fxml"));
+        try {
+            pauseMenuRoot = pauseMenuLoader.load();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(0);
+        }
+        PauseMenuController pauseMenuController = pauseMenuLoader.getController();
+        pauseMenuController.getResumeButton().setOnAction(e -> {
+            resumeGame();
+        });
+        pauseMenuController.getMainMenuButton().setOnAction(e -> {
+            System.out.println("Main Menu Button clicked");
+            willHeroApplication.goToMainMenu();
+        });
+
+        // Resurrect Hero Root Setup
+        FXMLLoader resurrectHeroLoader = new FXMLLoader(ResurrectHeroController.class.getResource("resurrecthero.fxml"));
+        try {
+            resurrectHeroRoot = resurrectHeroLoader.load();
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            System.exit(0);
+        }
+        ResurrectHeroController resurrectHeroController = resurrectHeroLoader.getController();
+        resurrectHeroController.getResurrectYesButton().setOnAction(e -> {
+            resurrectHero();
+        });
+        resurrectHeroController.getResurrectNoButton().setOnAction(e -> {
+            willHeroApplication.goToLostGameScene(game.getPlayer().getHero().getLocation());
+        });
+
+        this.inputTracker = willHeroApplication.getInputTracker();
+        this.sceneWidth = willHeroApplication.getSceneWidth();
+        this.sceneHeight = willHeroApplication.getSceneHeight();
         root = new Group();
-        game = new Game(this);
+        game = new Game();
 
         setBackgroundClouds();
 
@@ -118,8 +167,21 @@ public class GameOrganiser
         settingsImage.setTranslateX(20);
         settingsImage.setTranslateY(20);
         settingsImage.setStyle("-fx-effect: dropshadow( one-pass-box , gray , 0 , 0.0 , -4 , 0 )");
+        settingsImage.setOpacity(0.9);
+        settingsButton = new Button();
+        settingsButton.setPrefWidth(50);
+        settingsButton.setPrefHeight(50);
+        settingsButton.setTranslateX(settingsImage.getTranslateX());
+        settingsButton.setTranslateY(settingsImage.getTranslateY());
+        settingsButton.setOpacity(0);
 
         root.getChildren().add(settingsImage);
+        root.getChildren().add(settingsButton);
+
+        // SETTINGS BUTTON ON CLICK
+        settingsButton.setOnAction(e -> {
+            pauseGame();
+        });
 
         // DISPLAY WEAPON 1 BUTTON (SWORD)
         weapon1Image = new ImageView(new Image("file:assets/SwordButton.png"));
@@ -135,8 +197,8 @@ public class GameOrganiser
         weapon1Button.setTranslateY(weapon1Image.getTranslateY());
         weapon1Button.setOpacity(0);
 
-        root.getChildren().add(weapon1Button);
         root.getChildren().add(weapon1Image);
+        root.getChildren().add(weapon1Button);
 
         // WEAPON 1 LEVEL TEXT
         weapon1LevelLabel = new Label("1");
@@ -176,25 +238,10 @@ public class GameOrganiser
         root.getChildren().add(weapon2LevelLabel);
 
         // WEAPON 1 BUTTON ON CLICK
-        weapon1Button.setOnMousePressed(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                System.out.println("Sword selected");
-                game.getPlayer().getHero().getHelmet().setSelectedWeapon(0);
-            }
-        });
+        weapon1Button.setOnAction(e -> {game.getPlayer().getHero().getHelmet().setSelectedWeapon(0);});
         // WEAPON 2 BUTTON ON CLICK
-        weapon2Button.setOnMousePressed(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent mouseEvent)
-            {
-                System.out.println("Throwing Knives selected");
-                game.getPlayer().getHero().getHelmet().setSelectedWeapon(1);
-            }
-        });
+        weapon2Button.setOnAction(e -> {game.getPlayer().getHero().getHelmet().setSelectedWeapon(1);});
+
         this.setUpTimeLine();
     }
 
@@ -218,6 +265,21 @@ public class GameOrganiser
         @Override
         public void handle(ActionEvent event)
         {
+            if(game.isPaused())
+                return;
+
+            if(game.isGameLost())
+            {
+                game.pause();
+                if(!game.isResurrected())
+                {
+                    showResurrectHeroMenu();
+                }
+                else{
+                    willHeroApplication.goToLostGameScene(game.getPlayer().getHero().getLocation());
+                }
+            }
+
             updateCamera();
             game.getPlayer().getHero().move_down();
 
@@ -248,6 +310,23 @@ public class GameOrganiser
                 else
                 {
                     orcs.remove(i--);
+                }
+            }
+
+            // Checking all projectiles and if they are being displayed. Deleting inactive projectiles
+            for(int i = 0; i < game.getPlayer().getHero().getHelmet().getLaunchedProjectiles().size(); i++)
+            {
+                Projectile projectile = game.getPlayer().getHero().getHelmet().getLaunchedProjectiles().get(i);
+                if(projectile.isActive())
+                {
+                    if(!root.getChildren().contains(projectile.getImageView()))
+                        root.getChildren().add(projectile.getImageView());
+                }
+                else
+                {
+                    if(root.getChildren().contains(projectile.getImageView()))
+                        root.getChildren().remove(projectile.getImageView());
+                    game.getPlayer().getHero().getHelmet().getLaunchedProjectiles().remove(i);
                 }
             }
 
@@ -283,6 +362,11 @@ public class GameOrganiser
 
             // Checking collision of hero with coin/weapon chests
             for (Chest x : level.getChests()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
+            // Checking collision of hero with Orcs
+            for (Orc x : level.getOrcs()) {
                 x.if_collides(game.getPlayer().getHero());
             }
 
@@ -332,15 +416,42 @@ public class GameOrganiser
         }
     }
 
+    private void pauseGame()
+    {
+        game.pause();
+        root.getChildren().addAll(pauseMenuRoot);
+    }
+    private void resumeGame()
+    {
+        game.resume();
+        root.getChildren().removeAll(pauseMenuRoot);
+    }
+    private void showResurrectHeroMenu()
+    {
+        System.out.println("Game LOST");
+        root.getChildren().addAll(resurrectHeroRoot);
+    }
+    private void resurrectHero()
+    {
+        game.resurrect_hero();
+        root.getChildren().removeAll(resurrectHeroRoot);
+    }
+
     private void updateCamera()
     {
         if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 100)
             cameraVelocity = 0;
         else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 250)
             cameraVelocity = 2;
+        else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition >= sceneWidth - 100)
+            cameraPosition = game.getPlayer().getHero().getPosition().getX() - sceneWidth + 100;
         else
             cameraVelocity = 7;
         cameraPosition += cameraVelocity;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     private void setBackgroundClouds()

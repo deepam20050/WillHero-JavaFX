@@ -78,9 +78,4 @@ public class GreenOrc extends Orc {
             jump_up();
         }
     }
-
-    @Override
-    public void if_falls () {
-        this.setActive(false);
-    }
 }

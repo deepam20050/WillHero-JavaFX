@@ -8,8 +8,6 @@ public class Sword extends Weapon
     private double swordSwingSpeed; // Degrees/frame
     private double length;
 
-//    private ImageView imageView;
-//    private Image swordImage;
     private String imagePath;
     private Rotate rotate;
 
@@ -66,9 +64,6 @@ public class Sword extends Weapon
     {
         if(rotationsLeft > 0)
         {
-//            Vector2D swordPoint = new Vector2D(getPosition().getX() + length*Math.cos((270 - swordAngle) * Math.PI / 180),
-//                    getPosition().getY() - length*Math.sin((270 - swordAngle) * Math.PI / 180));
-
             double swordX = getPosition().getX() + length*Math.cos((270 - swordAngle) * Math.PI / 180);
             double swordY = getPosition().getY() - length*Math.sin((270 - swordAngle) * Math.PI / 180);
 

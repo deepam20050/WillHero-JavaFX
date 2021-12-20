@@ -23,7 +23,7 @@ public class Level
 
         // Adding all instances of Island
         islands.add(new Island(50, 400, 250));
-        islands.add(new Island(400, 400, 200));
+        islands.add(new Island(400, 300, 200));
         islands.add(new Island(675, 350, 275));
         islands.add(new Island(1100, 275, 300));
 
@@ -44,12 +44,12 @@ public class Level
         orcs.add(new GreenOrc(875, 100, 50));
 
 //        chests.add(new CoinChest(450, 240));
-        chests.add(new CoinChest(1200, 210, 5));
-        chests.add(new WeaponChest(710, 290, new Sword(710, 290, null)));
+//        chests.add(new CoinChest(710, 290));
+        chests.add(new CoinChest(1200, 215, 5));
+        chests.add(new WeaponChest(710, 290, new ThrowingKnives(710, 290, null)));
 
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));
-        coins.add(new Coin(100, 250));
 
         // *** INITIALISE OTHER ARRAY VALUES (According to level layout) ***
     }
