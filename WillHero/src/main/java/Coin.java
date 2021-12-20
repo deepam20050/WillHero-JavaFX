@@ -27,7 +27,7 @@ public class Coin extends GameObject {
         Vector2D hero_pos = hero.getPosition();
         double dx = Math.abs(coin_pos.getX() - hero_pos.getX());
         double dy = Math.abs(coin_pos.getY() - hero_pos.getY());
-        if (dx <= 20 && dy <= 20) {
+        if (dx <= 30 && dy <= 30) {
             hero.getPlayer().add_coins(this.add);
             this.add = 0;
             this.setActive(false);

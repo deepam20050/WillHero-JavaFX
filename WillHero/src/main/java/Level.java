@@ -44,8 +44,8 @@ public class Level
         orcs.add(new GreenOrc(875, 100, 50));
 
 //        chests.add(new CoinChest(450, 240));
-        chests.add(new CoinChest(710, 290, 5));
-        chests.add(new WeaponChest(1150, 220));
+        chests.add(new CoinChest(1200, 210, 5));
+        chests.add(new WeaponChest(710, 290, new Sword(710, 290, null)));
 
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));

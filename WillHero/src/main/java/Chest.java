@@ -14,7 +14,7 @@ public abstract class Chest extends GameObject {
         Vector2D hero_pos = hero.getPosition();
         double dx = Math.abs(chest_pos.getX() - hero_pos.getX());
         double dy = Math.abs(chest_pos.getY() - hero_pos.getY());
-        if (dx <= 10 && dy <= 10) {
+        if (dx <= 20 && dy <= 20) {
             this.open_chest(hero);
         }
     }

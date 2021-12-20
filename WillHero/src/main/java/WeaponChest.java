@@ -5,7 +5,7 @@ public class WeaponChest extends Chest {
     private Weapon weapon;
     private String imagePath;
 
-    public WeaponChest (double x, double y) {
+    public WeaponChest (double x, double y, Weapon auzaar) {
         super(x, y);
         imagePath = "file:assets/WeaponChestSprite.png";
         this.setImage(new Image(imagePath));
@@ -13,7 +13,7 @@ public class WeaponChest extends Chest {
         getImageView().setY(y);
         getImageView().setFitHeight(60);
         getImageView().setPreserveRatio(true);
-        weapon = new Sword(x, y, null);
+        weapon = auzaar;
     }
     @Override
     public void updatePosition(double cameraPosition) {
