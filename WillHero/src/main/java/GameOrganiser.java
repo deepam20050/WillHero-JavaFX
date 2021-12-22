@@ -79,8 +79,11 @@ public class GameOrganiser
             resumeGame();
         });
         pauseMenuController.getMainMenuButton().setOnAction(e -> {
-            System.out.println("Main Menu Button clicked");
+//            System.out.println("Main Menu Button clicked");
             willHeroApplication.goToMainMenu();
+        });
+        pauseMenuController.getSaveGameButton().setOnAction(e -> {
+            willHeroApplication.goToSaveGameScene();
         });
 
         // Resurrect Hero Root Setup

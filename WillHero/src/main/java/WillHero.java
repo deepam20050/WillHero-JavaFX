@@ -41,6 +41,8 @@ public class WillHero extends Application
         // Setting up Game Scene
         organiser = new GameOrganiser(this);
         gameScene = new Scene(organiser.getRoot(), sceneWidth, sceneHeight, Color.rgb(86,227,255));
+        gameScene.setOnMousePressed(e -> {inputTracker.setLeftMousePressed(true);});
+        gameScene.setOnMouseReleased(e -> {inputTracker.setLeftMousePressed(false);});
 
         // Setting Up Main Menu Code
         goToMainMenu();
@@ -76,17 +78,18 @@ public class WillHero extends Application
             Platform.exit();
             System.exit(0);
         });
+        loadfilebtn.setOnAction(e -> {
+            goToLoadGameScene();
+        });
     }
 
     public void goToLostGameScene(int location)
     {
         FXMLLoader fxmlLoader = new FXMLLoader(LostGameController.class.getResource("lostgame.fxml"));
-        try
-        {
+        try {
             gameScene.setRoot(fxmlLoader.load());
         }
-        catch(Exception e)
-        {
+        catch(Exception e) {
             System.out.println(e);
             System.exit(0);
         }
@@ -104,11 +107,89 @@ public class WillHero extends Application
         });
     }
 
+    public void goToSaveGameScene()
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(SaveGameController.class.getResource("savegame.fxml"));
+        try {
+            gameScene.setRoot(fxmlLoader.load());
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            System.exit(0);
+        }
+        SaveGameController controller = fxmlLoader.getController();
+        controller.getSaveFile1Button().setOnAction(e -> {
+            organiser.getGame().save_file(1);
+        });
+        controller.getSaveFile2Button().setOnAction(e -> {
+            organiser.getGame().save_file(2);
+        });
+        controller.getSaveFile3Button().setOnAction(e -> {
+            organiser.getGame().save_file(3);
+        });
+        controller.getSaveFile4Button().setOnAction(e -> {
+            organiser.getGame().save_file(4);
+        });
+        controller.getSaveFile5Button().setOnAction(e -> {
+            organiser.getGame().save_file(5);
+        });
+        controller.getSaveFile6Button().setOnAction(e -> {
+            organiser.getGame().save_file(6);
+        });
+        controller.getGoBackButton().setOnAction(e -> {
+            gameScene.setRoot(organiser.getRoot());
+        });
+    }
+
+    public void goToLoadGameScene()
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(LoadGameController.class.getResource("loadgame.fxml"));
+        try {
+            gameScene.setRoot(fxmlLoader.load());
+        }
+        catch(Exception e) {
+            System.out.println(e);
+            System.exit(0);
+        }
+        LoadGameController controller = fxmlLoader.getController();
+        controller.getLoadFile1Button().setOnAction((e -> {
+            organiser.getGame().load_file(1);
+            if(organiser.getGame() != null)
+                gameScene.setRoot(organiser.getRoot());
+        }));
+        controller.getLoadFile2Button().setOnAction((e -> {
+            organiser.getGame().load_file(2);
+            if(organiser.getGame() != null)
+                gameScene.setRoot(organiser.getRoot());
+        }));
+        controller.getLoadFile3Button().setOnAction((e -> {
+            organiser.getGame().load_file(3);
+            if(organiser.getGame() != null)
+                gameScene.setRoot(organiser.getRoot());
+        }));
+        controller.getLoadFile4Button().setOnAction((e -> {
+            organiser.getGame().load_file(4);
+            if(organiser.getGame() != null)
+                gameScene.setRoot(organiser.getRoot());
+        }));
+        controller.getLoadFile5Button().setOnAction((e -> {
+            organiser.getGame().load_file(5);
+            if(organiser.getGame() != null)
+                gameScene.setRoot(organiser.getRoot());
+        }));
+        controller.getLoadFile6Button().setOnAction((e -> {
+            organiser.getGame().load_file(6);
+            if(organiser.getGame() != null)
+                gameScene.setRoot(organiser.getRoot());
+        }));
+        controller.getGoBackButton().setOnAction(e -> {
+            goToMainMenu();
+        });
+    }
+
     private void createNewGame()
     {
         organiser = new GameOrganiser(this);
-        gameScene.setOnMousePressed(e -> {inputTracker.setLeftMousePressed(true);});
-        gameScene.setOnMouseReleased(e -> {inputTracker.setLeftMousePressed(false);});
 
         gameScene.setRoot(organiser.getRoot());
         gameScene.setFill(Color.rgb(86,227,255));

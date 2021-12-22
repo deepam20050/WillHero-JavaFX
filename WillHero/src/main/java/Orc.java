@@ -88,6 +88,7 @@ public abstract class Orc extends GameObject {
     public void if_collides_with_orc(Orc orc)
     {
         boolean colliding = false;
+        boolean otherOnTop = false;
 
         double dx = orc.getPosition().getX() - this.getPosition().getX();
         double dy = orc.getPosition().getY() - this.getPosition().getY();
@@ -100,7 +101,19 @@ public abstract class Orc extends GameObject {
             }
         }
 
-        if(colliding)
+        else if(-orc.get_size() <= dx && dx <= this.get_size())
+        {
+            if(-orc.get_size() <= dy && dy <= orc.get_size() * 4 / 5)
+            {
+                otherOnTop = true;
+            }
+        }
+
+        if(otherOnTop)
+        {
+            orc.jump_up();
+        }
+        else if(colliding)
         {
             this.getVelocity().setX(this.getVelocity().getX()/2);
             orc.getPosition().setX(this.getPosition().getX() + this.size);

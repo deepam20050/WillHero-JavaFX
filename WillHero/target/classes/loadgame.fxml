@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoadGameController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#590657" height="606.0" layoutX="-3.0" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1007.0" />
+      <Button fx:id="loadFile1Button" layoutX="262.0" layoutY="207.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="99.0" text="LOAD FILE 1" />
+      <Button fx:id="loadFile2Button" layoutX="454.0" layoutY="207.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="99.0" text="LOAD FILE 2" />
+      <Button fx:id="loadFile3Button" layoutX="649.0" layoutY="207.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="99.0" text="LOAD FILE 3" />
+      <Button fx:id="loadFile4Button" layoutX="261.0" layoutY="380.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="99.0" text="LOAD FILE 4" />
+      <Button fx:id="loadFile5Button" layoutX="453.0" layoutY="380.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="99.0" text="LOAD FILE 5" />
+      <Button fx:id="loadFile6Button" layoutX="648.0" layoutY="380.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="99.0" text="LOAD FILE 6" />
+      <Text fill="#ff00af" layoutX="368.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOAD FILE" textAlignment="CENTER" wrappingWidth="264.53680419921875">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Text>
+      <Button fx:id="goBackButton" layoutX="45.0" layoutY="34.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="62.0" text="BACK" />
+   </children>
+</AnchorPane>
