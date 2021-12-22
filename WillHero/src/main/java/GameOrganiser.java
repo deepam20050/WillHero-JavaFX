@@ -471,6 +471,9 @@ public class GameOrganiser
     public Game getGame() {
         return game;
     }
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     private void setBackgroundClouds()
     {
