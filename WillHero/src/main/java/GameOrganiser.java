@@ -79,8 +79,11 @@ public class GameOrganiser
             resumeGame();
         });
         pauseMenuController.getMainMenuButton().setOnAction(e -> {
-            System.out.println("Main Menu Button clicked");
+//            System.out.println("Main Menu Button clicked");
             willHeroApplication.goToMainMenu();
+        });
+        pauseMenuController.getSaveGameButton().setOnAction(e -> {
+            willHeroApplication.goToSaveGameScene();
         });
 
         // Resurrect Hero Root Setup
@@ -368,6 +371,23 @@ public class GameOrganiser
             // Checking collision of hero with Orcs
             for (Orc x : level.getOrcs()) {
                 x.if_collides(game.getPlayer().getHero());
+            }
+
+            // Check if Orc is in frame and collect coins for the dead Orcs
+            for (Orc x : level.getOrcs()) {
+                x.if_falls();
+                x.give_coin(game.getPlayer().getHero());
+            }
+
+            // Checking collisions of all orcs with each other
+            for(int i = 0; i < level.getOrcs().size(); i++)
+            {
+                for(int j = 0; j < level.getOrcs().size(); j++)
+                {
+                    if(i == j)
+                        continue;
+                    level.getOrcs().get(i).if_collides_with_orc(level.getOrcs().get(j));
+                }
             }
 
             // UPDATING WEAPONS BUTTONS DISPLAY

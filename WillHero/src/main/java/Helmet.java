@@ -26,10 +26,12 @@ public class Helmet extends GameObject
         if(weapon instanceof Sword)
         {
             weapons[0].incrementLevel();
+            setSelectedWeapon(0);
         }
         else if(weapon instanceof ThrowingKnives)
         {
             weapons[1].incrementLevel();
+            setSelectedWeapon(1);
         }
     }
 

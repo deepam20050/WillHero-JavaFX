@@ -19,6 +19,7 @@ public class GreenOrc extends Orc {
         jumpSpeed1 = 8;
         jumpSpeed2 = 3;
         gravity = 0.25;
+        prize = 1;
 
         imagePath = "file:assets/GreenOrcSprite.png";
         this.setImage(new Image(imagePath));

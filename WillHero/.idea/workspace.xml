@@ -6,26 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="8bc47158-a86c-4b87-9d74-3605f96d4bbf" name="Changes" comment="except windmill">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Chest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Chest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Coin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Coin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BossOrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BossOrc.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GameOrganiser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameOrganiser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GreenOrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GreenOrc.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Helmet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Helmet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Hero.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Orc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Orc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Sword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Sword.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Weapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Weapon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/WeaponChest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WeaponChest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RedOrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RedOrc.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/WillHero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WillHero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Chest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Chest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Coin.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Coin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/WindMill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WindMill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BossOrc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BossOrc.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser$TimeHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GameOrganiser$TimeHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GameOrganiser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GreenOrc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GreenOrc.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Level.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Level.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Orc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Orc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/RedOrc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/RedOrc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WindMill.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WindMill.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +33,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>

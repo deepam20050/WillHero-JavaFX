@@ -26,6 +26,7 @@ public class Level
         islands.add(new Island(400, 300, 200));
         islands.add(new Island(675, 350, 275));
         islands.add(new Island(1100, 275, 300));
+        islands.add(new Island(1500, 275, 600));
 
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 0, 95);
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj2.png", 65, 60);
@@ -38,10 +39,14 @@ public class Level
         islands.get(2).addBackgroundObject("file:assets/BackgroundObj1.png", 200, 100);
 
         islands.get(3).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
+        islands.get(4).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
 
-        orcs.add(new GreenOrc(525,150,50));
+        orcs.add(new GreenOrc(470,150,50));
         orcs.add(new GreenOrc(800, 200, 50));
         orcs.add(new GreenOrc(875, 100, 50));
+        orcs.add(new RedOrc(490, 150, 50));
+        orcs.add(new RedOrc(1550, 250, 50));
+        orcs.add(new BossOrc(1550,150,200));
 
 //        chests.add(new CoinChest(450, 240));
 //        chests.add(new CoinChest(710, 290));

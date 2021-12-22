@@ -14,11 +14,12 @@ public class BossOrc extends Orc {
         /* For now jump_speed, size, hits_required initialized to 1
          * Can change if required
          */
-        super(x, y, 1, _size, 1);
+        super(x, y, 1, _size, 5);
         size = _size;
         jumpSpeed1 = 8;
         jumpSpeed2 = 3;
         gravity = 0.25;
+        prize = 100;
 
         imagePath = "file:assets/BossOrcSprite.png";
         this.setImage(new Image(imagePath));
@@ -63,7 +64,6 @@ public class BossOrc extends Orc {
         jump_counter = (jump_counter + 1) % 3;
     }
 
-
     public void if_lands (Island island) {
         boolean hasLanded = false;
         double xdist = this.getPosition().getX() - island.getPosition().getX();
@@ -74,12 +74,44 @@ public class BossOrc extends Orc {
             }
         }
         if (hasLanded) {
+            this.setVelocity(0, 0);
             jump_up();
         }
     }
 
     @Override
-    public void if_falls () {
+    public void if_collides(Hero hero)
+    {
+        boolean isPushed = false;
+        boolean isLandedOnHero = false;
+        boolean heroLandedOnOrc = false;
 
+        double dx = this.getPosition().getX() - hero.getPosition().getX();
+        double dy = this.getPosition().getY() - hero.getPosition().getY();
+
+        if(0 <= dx && dx <= hero.getSize())
+        {
+            if(-this.size <= dy && dy <= hero.getSize())
+                isPushed = true;
+        }
+        if(-this.size <= dx && dx <= hero.getSize())
+        {
+            if(- hero.getSize() <= dy && dy <= - hero.getSize() * 4 / 5)
+                isLandedOnHero = true;
+            else if(hero.getSize() * 4 / 5 <= dy && dy <= hero.getSize())
+                heroLandedOnOrc = true;
+        }
+
+        if(heroLandedOnOrc)
+        {
+            hero.jump_up();
+        }
+        else if(isLandedOnHero)
+            hero.lose_game();
+        else if(isPushed)
+        {
+            hero.getVelocity().setX(0);
+            this.setVelocity(0.5, 0);
+        }
     }
 }

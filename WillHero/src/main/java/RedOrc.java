@@ -11,7 +11,7 @@ public class RedOrc extends Orc {
     private int jump_counter;
 
     public RedOrc (double x, double y, double _size) {
-        /* For now jump_speed, size, hits_required initialized to 1
+        /* For now jump_speed, size, hits_required to be initialized to 1
          * Can change if required
          */
         super(x, y, 1, _size, 1);
@@ -19,6 +19,7 @@ public class RedOrc extends Orc {
         jumpSpeed1 = 8;
         jumpSpeed2 = 3;
         gravity = 0.25;
+        prize = 3;
 
         imagePath = "file:assets/RedOrcSprite.png";
         this.setImage(new Image(imagePath));
@@ -74,12 +75,8 @@ public class RedOrc extends Orc {
             }
         }
         if (hasLanded) {
+            this.setVelocity(0, 0);
             jump_up();
         }
-    }
-
-    @Override
-    public void if_falls () {
-
     }
 }

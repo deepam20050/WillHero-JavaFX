@@ -20,6 +20,12 @@ public class Game {
         resurrected = false;
     }
 
+    public void save_file(int fileNo) {
+        System.out.println("Saving File " + fileNo);
+    }
+    public void load_file(int fileNo) {
+        System.out.println("Loading File " + fileNo);
+    }
     public void serialise() {}
     public void deserialise() {}
 
@@ -52,8 +58,6 @@ public class Game {
         isPaused = false;
         resurrected = true;
     }
-    public void save_file() {}
-    public void load_file() {}
 
     public boolean isPaused() {
         return isPaused;
