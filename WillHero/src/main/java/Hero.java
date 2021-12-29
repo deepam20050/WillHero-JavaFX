@@ -1,5 +1,6 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.util.ArrayList;
 
 public class Hero extends GameObject
 {
@@ -13,9 +14,12 @@ public class Hero extends GameObject
     private double gravity;
     private double fallBoundary;
 
+    private boolean startedMoving;
     private boolean isMovingForward;
     private double forwardDistanceMoved;
     private boolean hasDashed;
+
+    private ArrayList<Vector2D> positionLogs;
 
     // ImageView Attributes
     private String imagePath;
@@ -34,6 +38,7 @@ public class Hero extends GameObject
         this.fallBoundary = 600;
         this.helmet = new Helmet(getPosition().getX() + size/2, getPosition().getY() + size/2, this);
 
+        startedMoving = false;
         isMovingForward = false;
         forwardDistanceMoved = 0;
         hasDashed = false;
@@ -48,6 +53,8 @@ public class Hero extends GameObject
         getImageView().setFitWidth(size);
         getImageView().setPreserveRatio(true);
         getImageView().setSmooth(true);
+
+        positionLogs = new ArrayList<Vector2D>();
     }
 
     // Updating the position of the player depending on its velocity
@@ -67,6 +74,17 @@ public class Hero extends GameObject
         // Updating Helmet Position
         helmet.setPosition(getPosition().getX() + size/4, getPosition().getY() + size/2);
         helmet.updatePosition(cameraPosition);
+
+        logPosition();
+    }
+
+    private void logPosition()
+    {
+        if(startedMoving)
+        {
+            positionLogs.add(new Vector2D(this.getPosition()));
+//        System.out.println("Logged: " + this.getPosition().getX() + " " + this.getPosition().getY());
+        }
     }
 
     // Changes the hero's upward velocity, causing it to jump
@@ -88,6 +106,7 @@ public class Hero extends GameObject
     {
         if((forwardButtonPressed && !hasDashed) || isMovingForward)
         {
+            startedMoving = true;
             if(!isMovingForward)
             {
                 if(helmet.getCurrentWeapon() != null)
@@ -163,14 +182,15 @@ public class Hero extends GameObject
     {
         return helmet;
     }
-
     public Player getPlayer()
     {
         return player;
     }
-
     public double getSize() {
         return size;
+    }
+    public ArrayList<Vector2D> getPositionLogs() {
+        return positionLogs;
     }
 
     @Override

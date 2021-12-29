@@ -14,6 +14,10 @@ public abstract class GameObject
 
     private boolean active;
 
+    public GameObject()
+    {
+        this(new Vector2D(0,0), new Vector2D(0,0));
+    }
     public GameObject(Vector2D position, Vector2D velocity)
     {
         this.id = nextID++;

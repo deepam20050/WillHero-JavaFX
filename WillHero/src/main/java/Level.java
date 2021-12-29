@@ -8,7 +8,8 @@ public class Level
     private ArrayList<Coin> coins;
     private ArrayList<Chest> chests;
 //    private ArrayList<Obstacle> obstacles;
-//    private ArrayList<Projectile> current_projectiles;
+
+    private GhostHero ghostHero;
 
     // Default Constructor: Constructs default (first) level layout
     public Level()
@@ -19,9 +20,48 @@ public class Level
         coins = new ArrayList<Coin>();
         chests = new ArrayList<Chest>();
 //        obstacles = new ArrayList<Obstacle>();
-//        current_projectiles = new ArrayList<Projectile>();
 
-        // Adding all instances of Island
+        setLevelDemo();
+//        setLevel1();
+    }
+
+    private void setLevel1()
+    {
+        islands.add(new Island(50, 400, 500));
+        islands.add(new Island(650, 350, 250));
+        islands.add(new Island(1100, 350, 300));
+        islands.add(new Island(1500, 275, 350));
+        islands.add(new Island(1900, 375, 300));
+        islands.add(new Island(2700, 375, 300));
+
+        coins.add(new Coin(350, 275));
+        coins.add(new Coin(350, 215));
+        coins.add(new Coin(940, 250));
+        coins.add(new Coin(1025, 250));
+        coins.add(new Coin(2200, 200));
+        coins.add(new Coin(2275, 200));
+        coins.add(new Coin(2350, 200));
+        coins.add(new Coin(2425, 200));
+        coins.add(new Coin(2500, 200));
+        coins.add(new Coin(2575, 200));
+        coins.add(new Coin(2650, 200));
+        coins.add(new Coin(2200, 275));
+        coins.add(new Coin(2275, 275));
+        coins.add(new Coin(2350, 275));
+        coins.add(new Coin(2425, 275));
+        coins.add(new Coin(2500, 275));
+        coins.add(new Coin(2575, 275));
+        coins.add(new Coin(2650, 275));
+
+        chests.add(new WeaponChest(2800, 315, new Sword(2800, 315, null)));
+
+        islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 50, 140);
+        islands.get(0).addBackgroundObject("file:assets/BackgroundObj7.png", 400, 160);
+    }
+
+    // Layout of level shown for game demo (Deadline 2)
+    private void setLevelDemo()
+    {
         islands.add(new Island(50, 400, 250));
         islands.add(new Island(400, 300, 200));
         islands.add(new Island(675, 350, 275));
@@ -42,6 +82,7 @@ public class Level
         orcs.add(new GreenOrc(470,150,50));
         orcs.add(new GreenOrc(800, 200, 50));
         orcs.add(new GreenOrc(875, 100, 50));
+//        orcs.add(new BossOrc(1075,75,50));
 
 //        chests.add(new CoinChest(450, 240));
 //        chests.add(new CoinChest(710, 290));
@@ -50,8 +91,11 @@ public class Level
 
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));
+    }
 
-        // *** INITIALISE OTHER ARRAY VALUES (According to level layout) ***
+    public void createGhostHero(Hero heroToFollow)
+    {
+        ghostHero = new GhostHero(heroToFollow);
     }
 
     public ArrayList<Island> getIslands() {
@@ -69,7 +113,7 @@ public class Level
 //    public ArrayList<Obstacle> getObstacles() {
 //        return obstacles;
 //    }
-//    public ArrayList<Projectile> getCurrentProjectiles() {
-//        return current_projectiles;
-//    }
+    public GhostHero getGhostHero() {
+        return ghostHero;
+    }
 }

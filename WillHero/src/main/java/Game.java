@@ -4,6 +4,8 @@ import java.io.ObjectOutputStream;
 public class Game {
     private Player player;
     private Level level;
+    private String gameMode;
+    private int coinsForResurrection;
     private boolean isPaused;
     private boolean gameLost;
     private boolean resurrected;
@@ -13,11 +15,23 @@ public class Game {
 
     public Game()
     {
+        this("Regular");
+    }
+    public Game(String gameMode)
+    {
         player = new Player(this);
         level = new Level();
+        this.gameMode = gameMode;
+        System.out.println(gameMode);
+        coinsForResurrection = 20;
         isPaused = false;
         gameLost = false;
         resurrected = false;
+
+        if(gameMode.equals("TimeChallenge"))
+        {
+            level.createGhostHero(player.getHero());
+        }
     }
 
     public void save_file(int fileNo) {
@@ -51,7 +65,9 @@ public class Game {
     {
         gameLost = true;
     }
-    public void resurrect_hero() {
+    public void resurrect_hero()
+    {
+        player.add_coins(-coinsForResurrection);
         player.getHero().getPosition().setY(50);
         player.getHero().setVelocity(0,0);
         gameLost = false;
@@ -59,6 +75,12 @@ public class Game {
         resurrected = true;
     }
 
+    public int getCoinsForResurrection() {
+        return coinsForResurrection;
+    }
+    public String getGameMode() {
+        return gameMode;
+    }
     public boolean isPaused() {
         return isPaused;
     }

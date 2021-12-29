@@ -1,7 +1,7 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class GreenOrc extends Orc {
+public class RedOrc extends Orc {
     private String imagePath;
     private double size;
     private double jumpSpeed1;
@@ -10,8 +10,8 @@ public class GreenOrc extends Orc {
 
     private int jump_counter;
 
-    public GreenOrc (double x, double y, double _size) {
-        /* For now jump_speed, size, hits_required initialized to 1
+    public RedOrc (double x, double y, double _size) {
+        /* For now jump_speed, size, hits_required to be initialized to 1
          * Can change if required
          */
         super(x, y, 1, _size, 1);
@@ -19,9 +19,9 @@ public class GreenOrc extends Orc {
         jumpSpeed1 = 8;
         jumpSpeed2 = 3;
         gravity = 0.25;
-        prize = 1;
+        prize = 3;
 
-        imagePath = "file:assets/GreenOrcSprite.png";
+        imagePath = "file:assets/RedOrcSprite.png";
         this.setImage(new Image(imagePath));
         double w = getImageView().getImage().getWidth();
         double h = getImageView().getImage().getHeight();
