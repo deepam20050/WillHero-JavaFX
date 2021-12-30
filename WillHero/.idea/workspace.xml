@@ -5,11 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bc47158-a86c-4b87-9d74-3605f96d4bbf" name="Changes" comment="except windmill">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/CSE201-AP-Project-Group-48-.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_21,_9_43_AM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_21__9_43_AM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BossOrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BossOrc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GreenOrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GreenOrc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Orc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Orc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RedOrc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RedOrc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WindmillFan.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/WindmillFan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GameOrganiser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GameOrganiser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Level.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/WillHero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WillHero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/WindMill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/WindMill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser$TimeHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GameOrganiser$TimeHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GameOrganiser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GameOrganiser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Level.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Level.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WillHero$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WillHero$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WillHero$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WillHero$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WillHero$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WillHero$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WillHero.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WillHero.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/WindMill.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/WindMill.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +44,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -36,6 +60,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="228RvFuyzXpbQDwuyRqG1ZTfqMU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -49,7 +76,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/javafx-sdk-17.0.1/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -93,7 +120,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

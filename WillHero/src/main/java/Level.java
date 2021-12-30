@@ -7,6 +7,7 @@ public class Level
     private ArrayList<Orc> orcs;
     private ArrayList<Coin> coins;
     private ArrayList<Chest> chests;
+    public ArrayList<Blade> blades;
 //    private ArrayList<Obstacle> obstacles;
 //    private ArrayList<Projectile> current_projectiles;
 
@@ -18,6 +19,7 @@ public class Level
         orcs = new ArrayList<Orc>();
         coins = new ArrayList<Coin>();
         chests = new ArrayList<Chest>();
+        blades = new ArrayList<>();
 //        obstacles = new ArrayList<Obstacle>();
 //        current_projectiles = new ArrayList<Projectile>();
 
@@ -41,12 +43,12 @@ public class Level
         islands.get(3).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
         islands.get(4).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
 
-        orcs.add(new GreenOrc(470,150,50));
-        orcs.add(new GreenOrc(800, 200, 50));
-        orcs.add(new GreenOrc(875, 100, 50));
-        orcs.add(new RedOrc(490, 150, 50));
-        orcs.add(new RedOrc(1550, 250, 50));
-        orcs.add(new BossOrc(1550,150,200));
+//        orcs.add(new GreenOrc(470,150,50));
+//        orcs.add(new GreenOrc(800, 200, 50));
+//        orcs.add(new GreenOrc(875, 100, 50));
+//        orcs.add(new RedOrc(490, 150, 50));
+//        orcs.add(new RedOrc(1550, 250, 50));
+//        orcs.add(new BossOrc(1550,150,200));
 
 //        chests.add(new CoinChest(450, 240));
 //        chests.add(new CoinChest(710, 290));
@@ -55,7 +57,7 @@ public class Level
 
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));
-
+        blades.add(new Blade(1550, 45, 50, 45));
         // *** INITIALISE OTHER ARRAY VALUES (According to level layout) ***
     }
 

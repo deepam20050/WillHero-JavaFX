@@ -131,6 +131,10 @@ public class GameOrganiser
             root.getChildren().add(level.getCoins().get(i).getImageView());
         }
 
+        for (Blade x : level.blades) {
+            x.addInChildren(root);
+        }
+
         // Displaying hero
         root.getChildren().add(game.getPlayer().getHero().getImageView());
 
@@ -377,6 +381,15 @@ public class GameOrganiser
             for (Orc x : level.getOrcs()) {
                 x.if_falls();
                 x.give_coin(game.getPlayer().getHero());
+            }
+
+            for (Blade x : level.blades) {
+                x.updatePosition(cameraPosition);
+            }
+
+            for (Blade x : level.blades) {
+                x.rotateBlade();
+                x.if_collides(game.getPlayer().getHero());
             }
 
             // Checking collisions of all orcs with each other

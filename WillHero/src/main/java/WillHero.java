@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.animation.AnimationTimer;
 
 public class WillHero extends Application
 {
@@ -51,7 +52,6 @@ public class WillHero extends Application
         stage.setTitle("Will Hero");
         stage.show();
     }
-
     // Function to go to main menu
     // Can be called from start() or from the game's pause menu
     public void goToMainMenu()

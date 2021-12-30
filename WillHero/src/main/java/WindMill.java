@@ -3,7 +3,7 @@ import javafx.scene.image.Image;
 
 import java.awt.geom.Rectangle2D;
 
-public class WindMill extends GameObject implements Obstacle {
+public class WindMill extends GameObject {
     private double rotation_speed;
     private double current_angle;
     private ImageView fan;
@@ -42,10 +42,10 @@ public class WindMill extends GameObject implements Obstacle {
     public void if_collides (Hero hero) {
 
     }
-    @Override
-    public void update_obs_state () {
-
-    }
+//    @Override
+//    public void update_obs_state () {
+//
+//    }
     @Override
     public void updatePosition (double cameraPosition) {
         fan.setX(this.getPosition().getX() - cameraPosition);
