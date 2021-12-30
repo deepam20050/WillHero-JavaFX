@@ -40,19 +40,6 @@ public class RedOrc extends Orc {
         this.setVelocity(getVelocity().getX(), getVelocity().getY() + gravity);
     }
 
-    @Override
-    public void updatePosition(double cameraPosition)
-    {
-        this.setPosition(getPosition().getX() + getVelocity().getX(), getPosition().getY() + getVelocity().getY());
-
-        ImageView imageView = getImageView();
-
-        double w = imageView.getImage().getWidth();
-        double h = imageView.getImage().getHeight();
-        imageView.setX(getPosition().getX() - cameraPosition);
-        imageView.setY(getPosition().getY() - (h-w)*(size/w));
-    }
-
     public void jump_up ()
     {
         if(jump_counter == 0) {

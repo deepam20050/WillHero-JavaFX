@@ -47,7 +47,7 @@ public class Helmet extends GameObject
             Projectile projectile = launchedProjectiles.get(i);
             if(projectile.isActive())
             {
-                projectile.updatePosition(cameraPosition);
+                projectile.updateFrame(cameraPosition);
             }
         }
     }
@@ -86,14 +86,14 @@ public class Helmet extends GameObject
     }
 
     @Override
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         this.updateProjectiles(cameraPosition);
         weapons[0].setPosition(this.getPosition());
         weapons[1].setPosition(this.getPosition());
 
-        weapons[0].updatePosition(cameraPosition);
-        weapons[1].updatePosition(cameraPosition);
+        weapons[0].updateFrame(cameraPosition);
+        weapons[1].updateFrame(cameraPosition);
     }
     @Override
     public void if_collides(Hero hero)

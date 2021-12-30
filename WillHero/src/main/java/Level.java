@@ -7,7 +7,10 @@ public class Level
     private ArrayList<Orc> orcs;
     private ArrayList<Coin> coins;
     private ArrayList<Chest> chests;
-//    private ArrayList<Obstacle> obstacles;
+    private ArrayList<Obstacle> obstacles;
+    private ArrayList<PowerUp> powerUps;
+
+    private ArrayList<ArrayList<? extends GameObject>> allObjectsInLevel;
 
     private GhostHero ghostHero;
 
@@ -19,7 +22,16 @@ public class Level
         orcs = new ArrayList<Orc>();
         coins = new ArrayList<Coin>();
         chests = new ArrayList<Chest>();
-//        obstacles = new ArrayList<Obstacle>();
+        obstacles = new ArrayList<Obstacle>();
+        powerUps = new ArrayList<PowerUp>();
+
+        allObjectsInLevel = new ArrayList<ArrayList<? extends GameObject>>();
+        allObjectsInLevel.add(islands);
+        allObjectsInLevel.add(orcs);
+        allObjectsInLevel.add(coins);
+        allObjectsInLevel.add(chests);
+        allObjectsInLevel.add(obstacles);
+        allObjectsInLevel.add(powerUps);
 
         setLevelDemo();
 //        setLevel1();
@@ -57,6 +69,8 @@ public class Level
 
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 50, 140);
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj7.png", 400, 160);
+
+        powerUps.add(new Feather(250, 250));
     }
 
     // Layout of level shown for game demo (Deadline 2)
@@ -91,6 +105,8 @@ public class Level
 
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));
+
+        powerUps.add(new Feather(850, 100));
     }
 
     public void createGhostHero(Hero heroToFollow)
@@ -110,9 +126,15 @@ public class Level
     public ArrayList<Chest> getChests() {
         return chests;
     }
-//    public ArrayList<Obstacle> getObstacles() {
-//        return obstacles;
-//    }
+    public ArrayList<Obstacle> getObstacles() {
+        return obstacles;
+    }
+    public ArrayList<PowerUp> getPowerUps() {
+        return powerUps;
+    }
+    public ArrayList<ArrayList<? extends GameObject>>  getAllObjectsInLevel() {
+        return allObjectsInLevel;
+    }
     public GhostHero getGhostHero() {
         return ghostHero;
     }

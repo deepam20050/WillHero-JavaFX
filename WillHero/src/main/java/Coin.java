@@ -19,7 +19,7 @@ public class Coin extends GameObject {
         add = 1;
     }
     @Override
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         getImageView().setX(this.getPosition().getX() - cameraPosition);
     }

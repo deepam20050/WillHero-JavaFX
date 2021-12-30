@@ -17,7 +17,6 @@ public abstract class Orc extends GameObject {
     }
 
     public abstract void move_down();
-    public abstract void updatePosition(double cameraPosition);
     public abstract void jump_up ();
     public abstract void if_lands (Island island);
 
@@ -47,6 +46,20 @@ public abstract class Orc extends GameObject {
     }
     public double get_size () {
         return size;
+    }
+
+    @Override
+    public void updateFrame(double cameraPosition)
+    {
+        move_down();
+        this.setPosition(getPosition().getX() + getVelocity().getX(), getPosition().getY() + getVelocity().getY());
+
+        ImageView imageView = getImageView();
+
+        double w = imageView.getImage().getWidth();
+        double h = imageView.getImage().getHeight();
+        imageView.setX(getPosition().getX() - cameraPosition);
+        imageView.setY(getPosition().getY() - (h-w)*(size/w));
     }
 
     @Override

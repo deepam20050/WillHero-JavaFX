@@ -7,6 +7,7 @@ public class Hero extends GameObject
     private Helmet helmet;
     private Player player;
     private int location;
+    private double startingLocation;
     private double moveForwardSpeed;
     private double moveForwardDistance;
     private double jumpSpeed;
@@ -20,8 +21,8 @@ public class Hero extends GameObject
     private boolean hasDashed;
 
     private ArrayList<Vector2D> positionLogs;
+    private PowerUp currentPowerUp;
 
-    // ImageView Attributes
     private String imagePath;
 
     public Hero(Player player, double x, double y, double size)
@@ -30,6 +31,7 @@ public class Hero extends GameObject
         this.player = player;
         location = 0;
 
+        this.startingLocation = x;
         this.size = size;
         this.moveForwardSpeed = 30;
         this.moveForwardDistance = 120;
@@ -60,7 +62,7 @@ public class Hero extends GameObject
     // Updating the position of the player depending on its velocity
     // Also updates the imageview
     @Override
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         this.setPosition(getPosition().getX() + getVelocity().getX(), getPosition().getY() + getVelocity().getY());
 
@@ -73,9 +75,26 @@ public class Hero extends GameObject
 
         // Updating Helmet Position
         helmet.setPosition(getPosition().getX() + size/4, getPosition().getY() + size/2);
-        helmet.updatePosition(cameraPosition);
+        helmet.updateFrame(cameraPosition);
 
         logPosition();
+
+        if(currentPowerUp != null)
+        {
+            if(currentPowerUp instanceof Feather)
+            {
+                if(WillHero.inputTracker.isLeftMousePressed())
+                    jump_up();
+            }
+            currentPowerUp.decrementDuration(1/WillHero.frameRate);
+            if(currentPowerUp.getDuration() < 0)
+                unEquipPowerUp();
+        }
+        else
+            move_forward(WillHero.inputTracker.isLeftMousePressed() || WillHero.inputTracker.isSpacePressed());
+        if_falls();
+
+        this.location = (int)((this.getPosition().getX() - this.startingLocation - 5)/moveForwardDistance + 1);
     }
 
     private void logPosition()
@@ -191,6 +210,31 @@ public class Hero extends GameObject
     }
     public ArrayList<Vector2D> getPositionLogs() {
         return positionLogs;
+    }
+    public PowerUp getCurrentPowerUp() {
+        return currentPowerUp;
+    }
+
+    public void equipPowerUp(PowerUp powerUp)
+    {
+        unEquipPowerUp();
+        this.currentPowerUp = powerUp;
+
+        if(powerUp instanceof Feather)
+        {
+            getImageView().setImage(new Image("file:assets/FlyingHeroSprite.png"));
+            this.getVelocity().setX(Feather.flySpeed);
+            isMovingForward = false;
+        }
+    }
+    public void unEquipPowerUp()
+    {
+        if(currentPowerUp instanceof Feather)
+        {
+            getImageView().setImage(new Image(imagePath));
+            this.getVelocity().setX(0);
+        }
+        currentPowerUp = null;
     }
 
     @Override

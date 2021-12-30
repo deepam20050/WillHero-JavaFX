@@ -22,10 +22,10 @@ import java.io.IOException;
 
 public class WillHero extends Application
 {
-    public static double frameRate = 60;
+    public static final double frameRate = 60;
     private double sceneWidth = 1000;
     private double sceneHeight = 600;
-    private InputTracker inputTracker = new InputTracker();
+    public static final InputTracker inputTracker = new InputTracker();
 
     // UPDATE: gameScene will be used to show all scenes.
     // Multiple roots will be made instead of multiple scenes.
@@ -42,7 +42,6 @@ public class WillHero extends Application
     public void start(Stage stage)
     {
         // Setting up Game Scene
-//        organiser = new GameOrganiser(this);
         try
         {
             gameScene = new Scene(new FXMLLoader(MainMenuController.class.getResource("mainmenu.fxml")).load(),

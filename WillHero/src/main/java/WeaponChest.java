@@ -16,7 +16,7 @@ public class WeaponChest extends Chest {
         weapon = auzaar;
     }
     @Override
-    public void updatePosition(double cameraPosition) {
+    public void updateFrame(double cameraPosition) {
         getImageView().setX(this.getPosition().getX() - cameraPosition);
     }
     @Override

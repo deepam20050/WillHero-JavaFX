@@ -261,23 +261,21 @@ public class GameOrganiser
 
         // Adding all Level GUI objects created to root
         Level level = game.get_current_level();
-        for(int i = 0; i < level.getIslands().size(); i++) {
-            level.getIslands().get(i).getImageView().setEffect(darker);
-            Island island = level.getIslands().get(i);
-            for(int j = 0; j < island.getBackgroundObjects().size(); j++) {
-                island.getBackgroundObjects().get(j).setEffect(darker);
-                root.getChildren().add(island.getBackgroundObjects().get(j));
+        for(Island island: level.getIslands())
+        {
+            island.getImageView().setEffect(darker);
+            for(ImageView backgroundImg: island.getBackgroundObjects())
+            {
+                backgroundImg.setEffect(darker);
+                root.getChildren().add(backgroundImg);
             }
-            root.getChildren().add(island.getImageView());
         }
-        for(int i = 0; i < level.getChests().size(); i++) {
-            root.getChildren().add(level.getChests().get(i).getImageView());
-        }
-        for(int i = 0; i < level.getOrcs().size(); i++) {
-            root.getChildren().add(level.getOrcs().get(i).getImageView());
-        }
-        for(int i = 0; i < level.getCoins().size(); i++) {
-            root.getChildren().add(level.getCoins().get(i).getImageView());
+        for(ArrayList<? extends GameObject> listOfObjects: level.getAllObjectsInLevel())
+        {
+            for(GameObject obj: listOfObjects)
+            {
+                root.getChildren().add(obj.getImageView());
+            }
         }
 
         // Displaying hero
@@ -349,7 +347,7 @@ public class GameOrganiser
                         timeline.stop();
                     }
                 }
-                game.get_current_level().getGhostHero().updatePosition(cameraPosition);
+                game.get_current_level().getGhostHero().updateFrame(cameraPosition);
             }
 
             if(game.isGameLost())
@@ -374,9 +372,7 @@ public class GameOrganiser
                 game.getPlayer().getHero().if_lands(level.getIslands().get(i));
             }
 
-            game.getPlayer().getHero().updatePosition(cameraPosition);
-            game.getPlayer().getHero().move_forward(inputTracker.isLeftMousePressed() || inputTracker.isSpacePressed());
-            game.getPlayer().getHero().if_falls();
+            game.getPlayer().getHero().updateFrame(cameraPosition);
 
             // Updating position/game state of all Orcs in the game
             ArrayList<Orc> orcs = level.getOrcs();
@@ -385,17 +381,37 @@ public class GameOrganiser
                 Orc orc = orcs.get(i);
                 if(orc.isActive())
                 {
-                    orc.move_down();
+                    orc.updateFrame(cameraPosition);
                     for (int j = 0; j < level.getIslands().size(); j++)
                     {
                         orc.if_lands(level.getIslands().get(j));
                     }
-                    orc.updatePosition(cameraPosition);
                 }
                 else
                 {
                     orcs.remove(i--);
                 }
+            }
+            // Checking collision of hero with coins
+            for (Coin x : level.getCoins()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
+            // Checking collision of hero with coin/weapon chests
+            for (Chest x : level.getChests()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
+            // Checking collision of hero with Orcs
+            for (Orc x : level.getOrcs()) {
+                x.if_collides(game.getPlayer().getHero());
+                x.give_coin(game.getPlayer().getHero());
+            }
+
+            for(PowerUp powerUp: level.getPowerUps())
+            {
+                powerUp.updateFrame(cameraPosition);
+                powerUp.if_collides(game.getPlayer().getHero());
             }
 
             // Checking all projectiles and if they are being displayed. Deleting inactive projectiles
@@ -427,7 +443,6 @@ public class GameOrganiser
                     projectile.ifAttacks(orc);
                 }
             }
-
             // Checking collisions of sword and all orcs
             if(game.getPlayer().getHero().getHelmet().getWeapon(0).isActive())
             {
@@ -438,22 +453,6 @@ public class GameOrganiser
                     Orc orc = game.get_current_level().getOrcs().get(j);
                     sword.ifAttacks(orc);
                 }
-            }
-
-            // Checking collision of hero with coins
-            for (Coin x : level.getCoins()) {
-                x.if_collides(game.getPlayer().getHero());
-            }
-
-            // Checking collision of hero with coin/weapon chests
-            for (Chest x : level.getChests()) {
-                x.if_collides(game.getPlayer().getHero());
-            }
-
-            // Checking collision of hero with Orcs
-            for (Orc x : level.getOrcs()) {
-                x.if_collides(game.getPlayer().getHero());
-                x.give_coin(game.getPlayer().getHero());
             }
 
             // Checking collisions of all orcs with each other
@@ -500,11 +499,11 @@ public class GameOrganiser
 
             // UPDATING POSITIONS OF ALL GAMEOBJECTS
             for(int i = 0; i < game.get_current_level().getIslands().size(); i++)
-                game.get_current_level().getIslands().get(i).updatePosition(cameraPosition);
+                game.get_current_level().getIslands().get(i).updateFrame(cameraPosition);
             for(int i = 0; i < game.get_current_level().getCoins().size(); i++)
-                game.get_current_level().getCoins().get(i).updatePosition(cameraPosition);
+                game.get_current_level().getCoins().get(i).updateFrame(cameraPosition);
             for(int i = 0; i < game.get_current_level().getChests().size(); i++)
-                game.get_current_level().getChests().get(i).updatePosition(cameraPosition);
+                game.get_current_level().getChests().get(i).updateFrame(cameraPosition);
 
             Integer heroLocation = game.getPlayer().getHero().getLocation();
             heroLocationLabel.setText(heroLocation.toString());
@@ -536,7 +535,11 @@ public class GameOrganiser
 
     protected void updateCamera()
     {
-        if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 100)
+        if(game.getPlayer().getHero().getCurrentPowerUp() instanceof Feather)
+        {
+            cameraVelocity = Feather.flySpeed;
+        }
+        else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 100)
             cameraVelocity = 0;
         else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 250)
             cameraVelocity = 2;

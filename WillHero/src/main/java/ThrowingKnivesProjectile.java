@@ -41,7 +41,7 @@ public class ThrowingKnivesProjectile extends Projectile
         }
     }
     @Override
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         moveProjectile();
         getImageView().setTranslateX(getPosition().getX() - cameraPosition);

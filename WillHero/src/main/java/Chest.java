@@ -16,10 +16,11 @@ public abstract class Chest extends GameObject {
         double dx = chest_pos.getX() - hero_pos.getX();
         double dy = chest_pos.getY() - hero_pos.getY();
 
-        if(-getImageView().getFitWidth() <= dx && dx <= hero.getSize() &&
-            -getImageView().getFitHeight() <= dy && dy <= hero.getSize())
+        if(-getImageView().getImage().getWidth() <= dx && dx <= hero.getSize() &&
+            -getImageView().getImage().getHeight() <= dy && dy <= hero.getSize())
         {
             this.open_chest(hero);
         }
     }
+
 }

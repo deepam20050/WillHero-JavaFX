@@ -27,7 +27,7 @@ public class GhostHero extends GameObject
     }
 
     @Override
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         ArrayList<Vector2D> positionLogs = heroToFollow.getPositionLogs();
         while(positionLogs.size() > followDelay * WillHero.frameRate)

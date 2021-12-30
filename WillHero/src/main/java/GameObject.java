@@ -31,7 +31,7 @@ public abstract class GameObject
     }
 
     public abstract void if_collides(Hero hero);
-    public abstract void updatePosition(double cameraPosition);
+    public abstract void updateFrame(double cameraPosition);
 
     public void setImage(Image image) {
         this.image = image;
