@@ -9,14 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
@@ -25,68 +23,52 @@ import java.util.ArrayList;
 
 public class GameOrganiser
 {
-    private double sceneWidth;
-    private double sceneHeight;
+    protected double sceneWidth;
+    protected double sceneHeight;
 
-    private WillHero willHeroApplication;
-    private Game game;
-    private InputTracker inputTracker;
-    private Group root; // Stores all the static GUI + GUI corresponding to all the GameObjects
+    protected WillHero willHeroApplication;
+    protected Game game;
+    protected InputTracker inputTracker;
+    protected Group root; // Stores all the static GUI + GUI corresponding to all the GameObjects
 
     // Top Bar Objects
-    private ImageView settingsImage;
-    private Button settingsButton;
-    private Label heroLocationLabel;
-    private Label noOfCoinsLabel;
+    protected ImageView settingsImage;
+    protected Button settingsButton;
+    protected Label heroLocationLabel;
+    protected Label noOfCoinsLabel;
 
     // Weapons Buttons objects
-    private ImageView weapon2Image;
-    private ImageView weapon1Image;
-    private Button weapon1Button;
-    private Button weapon2Button;
-    private Label weapon1LevelLabel;
-    private Label weapon2LevelLabel;
+    protected ImageView weapon2Image;
+    protected ImageView weapon1Image;
+    protected Button weapon1Button;
+    protected Button weapon2Button;
+    protected Label weapon1LevelLabel;
+    protected Label weapon2LevelLabel;
 
     // Camera Properties
-    private double cameraPosition;
-    private double cameraVelocity;
+    protected double cameraPosition;
+    protected double cameraVelocity;
 
     // Scenes Inside Game
-    private AnchorPane pauseMenuRoot;
-    private AnchorPane resurrectHeroRoot;
+    protected AnchorPane gameBackground;
+    protected AnchorPane pauseMenuRoot;
+    protected AnchorPane resurrectHeroRoot;
+
+    protected Timeline timeline;
 
     // Game Framerate
-    private final double frameRate;
+    public static double frameRate = 60;
 
-    public GameOrganiser(WillHero willHeroApplication)
+    public GameOrganiser(WillHero willHeroApplication, String gameMode)
     {
         this.willHeroApplication = willHeroApplication;
-        frameRate = 60;
         cameraPosition = 0;
         cameraVelocity = 1;
 
-        // Pause Menu Root setup
-        FXMLLoader pauseMenuLoader = new FXMLLoader(PauseMenuController.class.getResource("pausemenu.fxml"));
-        try {
-            pauseMenuRoot = pauseMenuLoader.load();
-        }
-        catch (Exception e) {
-            System.out.println(e);
-            System.exit(0);
-        }
-        PauseMenuController pauseMenuController = pauseMenuLoader.getController();
-        pauseMenuController.getResumeButton().setOnAction(e -> {
-            resumeGame();
-        });
-        pauseMenuController.getMainMenuButton().setOnAction(e -> {
-//            System.out.println("Main Menu Button clicked");
-            willHeroApplication.goToMainMenu();
-        });
-        pauseMenuController.getSaveGameButton().setOnAction(e -> {
-            willHeroApplication.goToSaveGameScene();
-        });
+        loadPauseMenu();
 
         // Resurrect Hero Root Setup
+
         FXMLLoader resurrectHeroLoader = new FXMLLoader(ResurrectHeroController.class.getResource("resurrecthero.fxml"));
         try {
             resurrectHeroRoot = resurrectHeroLoader.load();
@@ -106,42 +88,88 @@ public class GameOrganiser
         this.inputTracker = willHeroApplication.getInputTracker();
         this.sceneWidth = willHeroApplication.getSceneWidth();
         this.sceneHeight = willHeroApplication.getSceneHeight();
-        root = new Group();
-        game = new Game();
+        game = new Game(gameMode);
 
-        setBackgroundClouds();
+        setUpTopBar();
 
-        // Adding all Level GUI objects created to root
+        // DISPLAY WEAPON 1 BUTTON (SWORD)
+        weapon1Image = new ImageView(new Image("file:assets/SwordButton.png"));
+        weapon1Image.setFitWidth(90);
+        weapon1Image.setPreserveRatio(true);
+        weapon1Image.setTranslateX(25);
+        weapon1Image.setTranslateY(sceneHeight - weapon1Image.getFitWidth() - 25);
+        weapon1Image.setOpacity(0.9);
+        weapon1Button = new Button();
+        weapon1Button.setPrefWidth(90);
+        weapon1Button.setPrefHeight(90);
+        weapon1Button.setTranslateX(weapon1Image.getTranslateX());
+        weapon1Button.setTranslateY(weapon1Image.getTranslateY());
+        weapon1Button.setOpacity(0);
 
-        Level level = game.get_current_level();
-        for(int i = 0; i < level.getIslands().size(); i++) {
-            Island island = level.getIslands().get(i);
-            for(int j = 0; j < island.getBackgroundObjects().size(); j++) {
-                root.getChildren().add(island.getBackgroundObjects().get(j));
-            }
-            root.getChildren().add(island.getImageView());
+        // WEAPON 1 LEVEL TEXT
+        weapon1LevelLabel = new Label("1");
+        weapon1LevelLabel.setTextFill(Color.YELLOW);
+        weapon1LevelLabel.setFont(new Font("Arial", 25));
+        weapon1LevelLabel.setTranslateX(weapon1Button.getTranslateX() + 60);
+        weapon1LevelLabel.setTranslateY(weapon1Button.getTranslateY() + 60);
+        weapon1LevelLabel.setStyle("-fx-effect: dropshadow( one-pass-box , gray , 0 , 0.0 , -2 , 0 )");
+
+        // DISPLAY WEAPON 2 BUTTON (THROWING KNIVES)
+        weapon2Image = new ImageView(new Image("file:assets/ThrowingKnivesButton.png"));
+        weapon2Image.setFitWidth(90);
+        weapon2Image.setPreserveRatio(true);
+        weapon2Image.setTranslateX(25 + weapon1Image.getFitWidth() + 10);
+        weapon2Image.setTranslateY(sceneHeight - weapon2Image.getFitWidth() - 25);
+        weapon2Image.setOpacity(0.4);
+        weapon2Button = new Button();
+        weapon2Button.setPrefWidth(90);
+        weapon2Button.setPrefHeight(90);
+        weapon2Button.setTranslateX(weapon2Image.getTranslateX());
+        weapon2Button.setTranslateY(weapon2Image.getTranslateY());
+        weapon2Button.setOpacity(0);
+
+        // WEAPON 2 LEVEL TEXT
+        weapon2LevelLabel = new Label("1");
+        weapon2LevelLabel.setTextFill(Color.YELLOW);
+        weapon2LevelLabel.setFont(new Font("Arial", 25));
+        weapon2LevelLabel.setTranslateX(weapon2Button.getTranslateX() + 60);
+        weapon2LevelLabel.setTranslateY(weapon2Button.getTranslateY() + 60);
+        weapon2LevelLabel.setStyle("-fx-effect: dropshadow( one-pass-box , gray , 0 , 0.0 , -2 , 0 )");
+
+        // WEAPON 1 BUTTON ON CLICK
+        weapon1Button.setOnAction(e -> {game.getPlayer().getHero().getHelmet().setSelectedWeapon(0);});
+        // WEAPON 2 BUTTON ON CLICK
+        weapon2Button.setOnAction(e -> {game.getPlayer().getHero().getHelmet().setSelectedWeapon(1);});
+
+        this.loadRoot();
+        this.setUpTimeLine();
+    }
+
+    protected void loadPauseMenu()
+    {
+        // Pause Menu Root setup
+        FXMLLoader pauseMenuLoader = new FXMLLoader(PauseMenuController.class.getResource("pausemenu.fxml"));
+        try {
+            pauseMenuRoot = pauseMenuLoader.load();
         }
-        for(int i = 0; i < level.getChests().size(); i++) {
-            root.getChildren().add(level.getChests().get(i).getImageView());
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(0);
         }
-        for(int i = 0; i < level.getOrcs().size(); i++) {
-            root.getChildren().add(level.getOrcs().get(i).getImageView());
-        }
-        for(int i = 0; i < level.getCoins().size(); i++) {
-            root.getChildren().add(level.getCoins().get(i).getImageView());
-        }
+        PauseMenuController pauseMenuController = pauseMenuLoader.getController();
+        pauseMenuController.getResumeButton().setOnAction(e -> {
+            resumeGame();
+        });
+        pauseMenuController.getMainMenuButton().setOnAction(e -> {
+            willHeroApplication.goToMainMenu();
+        });
+        pauseMenuController.getSaveGameButton().setOnAction(e -> {
+            willHeroApplication.goToSaveGameScene();
+        });
+    }
 
-        for (Blade x : level.blades) {
-            x.addInChildren(root);
-        }
-
-        // Displaying hero
-        root.getChildren().add(game.getPlayer().getHero().getImageView());
-
-        // displaying weapons
-        root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(0).getImageView());
-        root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(1).getImageView());
-
+    protected void setUpTopBar()
+    {
         // DISPLAYING HERO LOCATION
         heroLocationLabel = new Label();
         heroLocationLabel.setTranslateX(sceneWidth/2);
@@ -164,9 +192,6 @@ public class GameOrganiser
         noOfCoinsLabel.setTranslateY(20);
         noOfCoinsLabel.setStyle("-fx-effect: dropshadow( one-pass-box , gray , 0 , 0.0 , -4 , 0 )");
 
-        root.getChildren().add(heroLocationLabel);
-        root.getChildren().add(noOfCoinsLabel);
-
         // DISPLAY SETTINGS BUTTON
         settingsImage = new ImageView(new Image("file:assets/SettingsSprite.png"));
         settingsImage.setFitWidth(50);
@@ -182,81 +207,107 @@ public class GameOrganiser
         settingsButton.setTranslateY(settingsImage.getTranslateY());
         settingsButton.setOpacity(0);
 
-        root.getChildren().add(settingsImage);
-        root.getChildren().add(settingsButton);
-
         // SETTINGS BUTTON ON CLICK
         settingsButton.setOnAction(e -> {
             pauseGame();
         });
+    }
 
-        // DISPLAY WEAPON 1 BUTTON (SWORD)
-        weapon1Image = new ImageView(new Image("file:assets/SwordButton.png"));
-        weapon1Image.setFitWidth(90);
-        weapon1Image.setPreserveRatio(true);
-        weapon1Image.setTranslateX(25);
-        weapon1Image.setTranslateY(sceneHeight - weapon1Image.getFitWidth() - 25);
-        weapon1Image.setOpacity(0.9);
-        weapon1Button = new Button();
-        weapon1Button.setPrefWidth(90);
-        weapon1Button.setPrefHeight(90);
-        weapon1Button.setTranslateX(weapon1Image.getTranslateX());
-        weapon1Button.setTranslateY(weapon1Image.getTranslateY());
-        weapon1Button.setOpacity(0);
+    public void loadBackground()
+    {
+        if(game == null)
+            return;
 
+        String backgroundFile;
+        if(game.getGameMode().equals("TimeChallenge")) {
+            backgroundFile = "gamebackground_dark.fxml";
+        }
+        else {
+            backgroundFile = "gamebackground.fxml";
+        }
+
+        try {
+            gameBackground = FXMLLoader.load(getClass().getResource(backgroundFile));
+            root.getChildren().addAll(gameBackground);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(0);
+        }
+    }
+
+    public void loadRoot()
+    {
+        root = new Group();
+        loadBackground();
+
+        ColorAdjust darker = new ColorAdjust();
+
+        if(game.getGameMode() == "Regular") {
+            darker.setBrightness(0);
+        }
+        else if(game.getGameMode() == "TimeChallenge") {
+            darker.setBrightness(-0.3);
+            heroLocationLabel.setStyle("-fx-effect: dropshadow( one-pass-box , #505050 , 0 , 0.0 , -1 , 0 )");
+            noOfCoinsLabel.setStyle("-fx-effect: dropshadow( one-pass-box , #505050 , 0 , 0.0 , -4 , 0 )");
+            settingsImage.setStyle("-fx-effect: dropshadow( one-pass-box , #505050 , 0 , 0.0 , -4 , 0 )");
+
+            ImageView coinImage = new ImageView(new Image("file:assets/TimerSprite.png"));
+            coinImage.setFitWidth(30);
+            coinImage.setPreserveRatio(true);
+            noOfCoinsLabel.setGraphic(coinImage);
+            noOfCoinsLabel.setTextFill(Color.rgb(195,195,255));
+        }
+
+        // Adding all Level GUI objects created to root
+        Level level = game.get_current_level();
+        for(Island island: level.getIslands())
+        {
+            island.getImageView().setEffect(darker);
+            for(ImageView backgroundImg: island.getBackgroundObjects())
+            {
+                backgroundImg.setEffect(darker);
+                root.getChildren().add(backgroundImg);
+            }
+        }
+        for(ArrayList<? extends GameObject> listOfObjects: level.getAllObjectsInLevel())
+        {
+            for(GameObject obj: listOfObjects)
+            {
+                root.getChildren().add(obj.getImageView());
+            }
+        }
+
+        // Displaying hero
+        root.getChildren().add(game.getPlayer().getHero().getImageView());
+
+        // displaying weapons
+        root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(0).getImageView());
+        root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(1).getImageView());
+
+        root.getChildren().add(heroLocationLabel);
+        root.getChildren().add(noOfCoinsLabel);
+        root.getChildren().add(settingsImage);
+        root.getChildren().add(settingsButton);
         root.getChildren().add(weapon1Image);
         root.getChildren().add(weapon1Button);
-
-        // WEAPON 1 LEVEL TEXT
-        weapon1LevelLabel = new Label("1");
-        weapon1LevelLabel.setTextFill(Color.YELLOW);
-        weapon1LevelLabel.setFont(new Font("Arial", 25));
-        weapon1LevelLabel.setTranslateX(weapon1Button.getTranslateX() + 60);
-        weapon1LevelLabel.setTranslateY(weapon1Button.getTranslateY() + 60);
-        weapon1LevelLabel.setStyle("-fx-effect: dropshadow( one-pass-box , gray , 0 , 0.0 , -2 , 0 )");
-
         root.getChildren().add(weapon1LevelLabel);
-
-        // DISPLAY WEAPON 2 BUTTON (THROWING KNIVES)
-        weapon2Image = new ImageView(new Image("file:assets/ThrowingKnivesButton.png"));
-        weapon2Image.setFitWidth(90);
-        weapon2Image.setPreserveRatio(true);
-        weapon2Image.setTranslateX(25 + weapon1Image.getFitWidth() + 10);
-        weapon2Image.setTranslateY(sceneHeight - weapon2Image.getFitWidth() - 25);
-        weapon2Image.setOpacity(0.4);
-        weapon2Button = new Button();
-        weapon2Button.setPrefWidth(90);
-        weapon2Button.setPrefHeight(90);
-        weapon2Button.setTranslateX(weapon2Image.getTranslateX());
-        weapon2Button.setTranslateY(weapon2Image.getTranslateY());
-        weapon2Button.setOpacity(0);
-
         root.getChildren().add(weapon2Image);
         root.getChildren().add(weapon2Button);
-
-        // WEAPON 2 LEVEL TEXT
-        weapon2LevelLabel = new Label("1");
-        weapon2LevelLabel.setTextFill(Color.YELLOW);
-        weapon2LevelLabel.setFont(new Font("Arial", 25));
-        weapon2LevelLabel.setTranslateX(weapon2Button.getTranslateX() + 60);
-        weapon2LevelLabel.setTranslateY(weapon2Button.getTranslateY() + 60);
-        weapon2LevelLabel.setStyle("-fx-effect: dropshadow( one-pass-box , gray , 0 , 0.0 , -2 , 0 )");
-
         root.getChildren().add(weapon2LevelLabel);
-
-        // WEAPON 1 BUTTON ON CLICK
-        weapon1Button.setOnAction(e -> {game.getPlayer().getHero().getHelmet().setSelectedWeapon(0);});
-        // WEAPON 2 BUTTON ON CLICK
-        weapon2Button.setOnAction(e -> {game.getPlayer().getHero().getHelmet().setSelectedWeapon(1);});
-
-        this.setUpTimeLine();
     }
 
     public void setUpTimeLine()
     {
+        if(game.getGameMode().equals("TimeChallenge"))
+        {
+            game.getPlayer().add_coins(30);
+            root.getChildren().add(game.get_current_level().getGhostHero().getImageView());
+        }
+
         KeyFrame kf = new KeyFrame(Duration.millis(1000/frameRate), new TimeHandler());
 
-        Timeline timeline = new Timeline(kf);
+        timeline = new Timeline(kf);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
@@ -268,12 +319,36 @@ public class GameOrganiser
 
     public class TimeHandler implements EventHandler<ActionEvent>
     {
+        private int frameCount;
+
+        TimeHandler()
+        {
+            frameCount = 0;
+        }
+
         // CONTROL WHAT HAPPENS EVERY FRAME
         @Override
         public void handle(ActionEvent event)
         {
             if(game.isPaused())
                 return;
+
+            frameCount++;
+            if(game.getGameMode()  == "TimeChallenge")
+            {
+                if (frameCount >= GameOrganiser.frameRate)
+                {
+                    frameCount = 0;
+                    game.getPlayer().add_coins(-1);
+
+                    if (game.getPlayer().getNoOfCoins() <= 0)
+                    {
+                        willHeroApplication.goToLostGameScene(game.getPlayer().getHero().getLocation());
+                        timeline.stop();
+                    }
+                }
+                game.get_current_level().getGhostHero().updateFrame(cameraPosition);
+            }
 
             if(game.isGameLost())
             {
@@ -284,6 +359,7 @@ public class GameOrganiser
                 }
                 else{
                     willHeroApplication.goToLostGameScene(game.getPlayer().getHero().getLocation());
+                    timeline.stop();
                 }
             }
 
@@ -296,9 +372,7 @@ public class GameOrganiser
                 game.getPlayer().getHero().if_lands(level.getIslands().get(i));
             }
 
-            game.getPlayer().getHero().updatePosition(cameraPosition);
-            game.getPlayer().getHero().move_forward(inputTracker.isLeftMousePressed() || inputTracker.isSpacePressed());
-            game.getPlayer().getHero().if_falls();
+            game.getPlayer().getHero().updateFrame(cameraPosition);
 
             // Updating position/game state of all Orcs in the game
             ArrayList<Orc> orcs = level.getOrcs();
@@ -307,17 +381,42 @@ public class GameOrganiser
                 Orc orc = orcs.get(i);
                 if(orc.isActive())
                 {
-                    orc.move_down();
+                    orc.updateFrame(cameraPosition);
                     for (int j = 0; j < level.getIslands().size(); j++)
                     {
                         orc.if_lands(level.getIslands().get(j));
                     }
-                    orc.updatePosition(cameraPosition);
                 }
                 else
                 {
                     orcs.remove(i--);
                 }
+            }
+            // Checking collision of hero with coins
+            for (Coin x : level.getCoins()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
+            // Checking collision of hero with coin/weapon chests
+            for (Chest x : level.getChests()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
+            // Checking collision of hero with Orcs
+            for (Orc x : level.getOrcs()) {
+                x.if_collides(game.getPlayer().getHero());
+                x.give_coin(game.getPlayer().getHero());
+            }
+
+            // Collision of hero with TNT
+            for (TNT x : level.getObstacles()) {
+                x.if_collides(game.getPlayer().getHero());
+            }
+
+            for(PowerUp powerUp: level.getPowerUps())
+            {
+                powerUp.updateFrame(cameraPosition);
+                powerUp.if_collides(game.getPlayer().getHero());
             }
 
             // Checking all projectiles and if they are being displayed. Deleting inactive projectiles
@@ -349,7 +448,6 @@ public class GameOrganiser
                     projectile.ifAttacks(orc);
                 }
             }
-
             // Checking collisions of sword and all orcs
             if(game.getPlayer().getHero().getHelmet().getWeapon(0).isActive())
             {
@@ -360,36 +458,6 @@ public class GameOrganiser
                     Orc orc = game.get_current_level().getOrcs().get(j);
                     sword.ifAttacks(orc);
                 }
-            }
-
-            // Checking collision of hero with coins
-            for (Coin x : level.getCoins()) {
-                x.if_collides(game.getPlayer().getHero());
-            }
-
-            // Checking collision of hero with coin/weapon chests
-            for (Chest x : level.getChests()) {
-                x.if_collides(game.getPlayer().getHero());
-            }
-
-            // Checking collision of hero with Orcs
-            for (Orc x : level.getOrcs()) {
-                x.if_collides(game.getPlayer().getHero());
-            }
-
-            // Check if Orc is in frame and collect coins for the dead Orcs
-            for (Orc x : level.getOrcs()) {
-                x.if_falls();
-                x.give_coin(game.getPlayer().getHero());
-            }
-
-            for (Blade x : level.blades) {
-                x.updatePosition(cameraPosition);
-            }
-
-            for (Blade x : level.blades) {
-                x.rotateBlade();
-                x.if_collides(game.getPlayer().getHero());
             }
 
             // Checking collisions of all orcs with each other
@@ -436,12 +504,14 @@ public class GameOrganiser
 
             // UPDATING POSITIONS OF ALL GAMEOBJECTS
             for(int i = 0; i < game.get_current_level().getIslands().size(); i++)
-                game.get_current_level().getIslands().get(i).updatePosition(cameraPosition);
+                game.get_current_level().getIslands().get(i).updateFrame(cameraPosition);
             for(int i = 0; i < game.get_current_level().getCoins().size(); i++)
-                game.get_current_level().getCoins().get(i).updatePosition(cameraPosition);
+                game.get_current_level().getCoins().get(i).updateFrame(cameraPosition);
             for(int i = 0; i < game.get_current_level().getChests().size(); i++)
-                game.get_current_level().getChests().get(i).updatePosition(cameraPosition);
-
+                game.get_current_level().getChests().get(i).updateFrame(cameraPosition);
+            for (TNT x : game.get_current_level().getObstacles()) {
+                x.updateFrame(cameraPosition);
+            }
             Integer heroLocation = game.getPlayer().getHero().getLocation();
             heroLocationLabel.setText(heroLocation.toString());
             Integer noOfCoins = game.getPlayer().getNoOfCoins();
@@ -449,30 +519,34 @@ public class GameOrganiser
         }
     }
 
-    private void pauseGame()
+    protected void pauseGame()
     {
         game.pause();
         root.getChildren().addAll(pauseMenuRoot);
     }
-    private void resumeGame()
+    protected void resumeGame()
     {
         game.resume();
         root.getChildren().removeAll(pauseMenuRoot);
     }
-    private void showResurrectHeroMenu()
+    protected void showResurrectHeroMenu()
     {
         System.out.println("Game LOST");
         root.getChildren().addAll(resurrectHeroRoot);
     }
-    private void resurrectHero()
+    protected void resurrectHero()
     {
         game.resurrect_hero();
         root.getChildren().removeAll(resurrectHeroRoot);
     }
 
-    private void updateCamera()
+    protected void updateCamera()
     {
-        if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 100)
+        if(game.getPlayer().getHero().getCurrentPowerUp() instanceof Feather)
+        {
+            cameraVelocity = Feather.flySpeed;
+        }
+        else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 100)
             cameraVelocity = 0;
         else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 250)
             cameraVelocity = 2;
@@ -486,57 +560,7 @@ public class GameOrganiser
     public Game getGame() {
         return game;
     }
-
-    private void setBackgroundClouds()
-    {
-        ImageView cloud1 = new ImageView(new Image("file:assets/Cloud1.png"));
-        cloud1.setFitWidth(200);
-        cloud1.setPreserveRatio(true);
-        cloud1.setTranslateX(70);
-        cloud1.setTranslateY(180);
-
-        ImageView cloud2 = new ImageView(new Image("file:assets/Cloud2.png"));
-        cloud2.setFitWidth(175);
-        cloud2.setPreserveRatio(true);
-        cloud2.setTranslateX(240);
-        cloud2.setTranslateY(100);
-
-        ImageView cloud3 = new ImageView(new Image("file:assets/Cloud3.png"));
-        cloud3.setFitWidth(130);
-        cloud3.setPreserveRatio(true);
-        cloud3.setTranslateX(40);
-        cloud3.setTranslateY(80);
-
-        ImageView cloud4 = new ImageView(new Image("file:assets/Cloud4.png"));
-        cloud4.setFitWidth(250);
-        cloud4.setPreserveRatio(true);
-        cloud4.setTranslateX(540);
-        cloud4.setTranslateY(60);
-
-        ImageView cloud5 = new ImageView(new Image("file:assets/Cloud1.png"));
-        cloud5.setFitWidth(250);
-        cloud5.setPreserveRatio(true);
-        cloud5.setTranslateX(750);
-        cloud5.setTranslateY(-40);
-
-        ImageView cloud6 = new ImageView(new Image("file:assets/Cloud6.png"));
-        cloud6.setFitWidth(300);
-        cloud6.setPreserveRatio(true);
-        cloud6.setTranslateX(150);
-        cloud6.setTranslateY(-85);
-
-        ImageView cloud7 = new ImageView(new Image("file:assets/Cloud6.png"));
-        cloud7.setFitWidth(150);
-        cloud7.setPreserveRatio(true);
-        cloud7.setTranslateX(850);
-        cloud7.setTranslateY(140);
-
-        root.getChildren().add(cloud1);
-        root.getChildren().add(cloud2);
-        root.getChildren().add(cloud3);
-        root.getChildren().add(cloud4);
-        root.getChildren().add(cloud5);
-        root.getChildren().add(cloud6);
-        root.getChildren().add(cloud7);
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

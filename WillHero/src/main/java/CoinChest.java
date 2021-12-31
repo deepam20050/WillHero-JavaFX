@@ -17,7 +17,7 @@ public class CoinChest extends Chest{
     }
 
     @Override
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         getImageView().setX(this.getPosition().getX() - cameraPosition);
     }

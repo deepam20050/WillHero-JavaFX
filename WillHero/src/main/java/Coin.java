@@ -9,7 +9,7 @@ public class Coin extends GameObject {
     public Coin (double x, double y) {
         super(new Vector2D (x, y), new Vector2D (0, 0));
         imagePath = "file:assets/CoinSprite.png";
-        size = 35;
+        size = 40;
 
         this.setImage(new Image(imagePath));
         getImageView().setX(x);
@@ -19,7 +19,7 @@ public class Coin extends GameObject {
         add = 1;
     }
     @Override
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         getImageView().setX(this.getPosition().getX() - cameraPosition);
     }

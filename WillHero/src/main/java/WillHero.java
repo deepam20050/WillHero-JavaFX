@@ -17,13 +17,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.animation.AnimationTimer;
+
+import java.io.IOException;
 
 public class WillHero extends Application
 {
+    public static final double frameRate = 60;
     private double sceneWidth = 1000;
     private double sceneHeight = 600;
-    private InputTracker inputTracker = new InputTracker();
+    public static final InputTracker inputTracker = new InputTracker();
 
     // UPDATE: gameScene will be used to show all scenes.
     // Multiple roots will be made instead of multiple scenes.
@@ -37,11 +39,19 @@ public class WillHero extends Application
     }
 
     @Override
-    public void start(Stage stage) throws Exception
+    public void start(Stage stage)
     {
         // Setting up Game Scene
-        organiser = new GameOrganiser(this);
-        gameScene = new Scene(organiser.getRoot(), sceneWidth, sceneHeight, Color.rgb(86,227,255));
+        try
+        {
+            gameScene = new Scene(new FXMLLoader(MainMenuController.class.getResource("mainmenu.fxml")).load(),
+                    sceneWidth, sceneHeight, Color.rgb(86, 227, 255));
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+            System.exit(-1);
+        }
         gameScene.setOnMousePressed(e -> {inputTracker.setLeftMousePressed(true);});
         gameScene.setOnMouseReleased(e -> {inputTracker.setLeftMousePressed(false);});
 
@@ -52,6 +62,7 @@ public class WillHero extends Application
         stage.setTitle("Will Hero");
         stage.show();
     }
+
     // Function to go to main menu
     // Can be called from start() or from the game's pause menu
     public void goToMainMenu()
@@ -70,9 +81,10 @@ public class WillHero extends Application
         Button playbtn = controller.getPlayButton();
         Button exitbtn = controller.getExitButton();
         Button loadfilebtn = controller.getLoadFileButton();
+        Button timebtn = controller.getTimeChallengeButton();
 
         playbtn.setOnAction(e -> {
-            createNewGame();
+            createNewGame("Regular");
         });
         exitbtn.setOnAction(e -> {
             Platform.exit();
@@ -80,6 +92,9 @@ public class WillHero extends Application
         });
         loadfilebtn.setOnAction(e -> {
             goToLoadGameScene();
+        });
+        timebtn.setOnAction(e -> {
+            createNewGame("TimeChallenge");
         });
     }
 
@@ -100,7 +115,7 @@ public class WillHero extends Application
         controller.setLocationReachedText(location);
 
         playAgainButton.setOnAction(e -> {
-            createNewGame();
+            createNewGame(organiser.getGame().getGameMode());
         });
         mainMenuButton.setOnAction(e -> {
             goToMainMenu();
@@ -187,12 +202,10 @@ public class WillHero extends Application
         });
     }
 
-    private void createNewGame()
+    private void createNewGame(String gameMode)
     {
-        organiser = new GameOrganiser(this);
-
+        organiser = new GameOrganiser(this, gameMode);
         gameScene.setRoot(organiser.getRoot());
-        gameScene.setFill(Color.rgb(86,227,255));
     }
 
     public double getSceneWidth() {

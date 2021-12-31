@@ -1,3 +1,3 @@
-public interface Obstacle {
-    public void update_obs_state ();
+public abstract class Obstacle extends GameObject
+{
 }

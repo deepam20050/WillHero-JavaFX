@@ -14,6 +14,10 @@ public abstract class GameObject
 
     private boolean active;
 
+    public GameObject()
+    {
+        this(new Vector2D(0,0), new Vector2D(0,0));
+    }
     public GameObject(Vector2D position, Vector2D velocity)
     {
         this.id = nextID++;
@@ -27,7 +31,7 @@ public abstract class GameObject
     }
 
     public abstract void if_collides(Hero hero);
-    public abstract void updatePosition(double cameraPosition);
+    public abstract void updateFrame(double cameraPosition);
 
     public void setImage(Image image) {
         this.image = image;

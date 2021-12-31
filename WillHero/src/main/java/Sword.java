@@ -76,7 +76,7 @@ public class Sword extends Weapon
     }
 
     @Override
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         getImageView().setTranslateX(this.getPosition().getX() - cameraPosition);
         getImageView().setTranslateY(this.getPosition().getY());

@@ -26,6 +26,9 @@ public class MainMenuController
     @FXML
     private Button loadFileButton;
 
+    @FXML
+    private Button timeChallengeButton;
+
     public Button getPlayButton()
     {
         return playButton;
@@ -37,5 +40,8 @@ public class MainMenuController
     public Button getLoadFileButton()
     {
         return loadFileButton;
+    }
+    public Button getTimeChallengeButton() {
+        return timeChallengeButton;
     }
 }

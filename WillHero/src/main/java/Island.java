@@ -30,7 +30,7 @@ public class Island extends GameObject
         backgroundObjectPositions = new ArrayList<Double>();
     }
 
-    public void updatePosition(double cameraPosition)
+    public void updateFrame(double cameraPosition)
     {
         getImageView().setX(getPosition().getX() - cameraPosition);
         for(int i = 0; i < backgroundObjects.size(); i++)
