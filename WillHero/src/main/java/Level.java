@@ -15,8 +15,12 @@ public class Level
 
     private GhostHero ghostHero;
 
-    // Default Constructor: Constructs default (first) level layout
     public Level()
+    {
+        this("1");
+    }
+    // Default Constructor: Constructs default (first) level layout
+    public Level(String levelName)
     {
         // Initialising Arraylists for all GameObjects
         islands = new ArrayList<Island>();
@@ -36,8 +40,15 @@ public class Level
         allObjectsInLevel.add(powerUps);
         allObjectsInLevel.add(shootingStars);
 
-//        setLevelDemo();
-        setLevel1();
+        if(levelName.equals("1"))
+        {
+            setLevelDemo();
+//        setLevel1();
+        }
+        else if(levelName.equals("Flappy Hero"))
+        {
+            setFlappyBirdLevel();
+        }
     }
 
     private void setLevel1()
@@ -48,6 +59,8 @@ public class Level
         islands.add(new Island(1500, 275, 350));
         islands.add(new Island(1900, 375, 300));
         islands.add(new Island(2700, 375, 300));
+        islands.add(new Pipe(1000, 150, true));
+        islands.add(new Pipe(1000, 350, false));
 
         coins.add(new Coin(350, 275));
         coins.add(new Coin(350, 215));
@@ -113,6 +126,28 @@ public class Level
         coins.add(new Coin(625, 230));
 
         powerUps.add(new Feather(850, 100));
+    }
+
+    private void setFlappyBirdLevel()
+    {
+        double gapBetweenPipes = 225;
+        double gapBetweenLocations = 450;
+        int numberOfLocations = 100;
+        double startingLocation = 1000;
+
+        islands.add(new Island(50, 400, 250));
+        powerUps.add(new Feather(250, 250));
+
+        for(int i = 0; i < 50; i++)
+        {
+            double xPositionOfPipes = startingLocation + i*gapBetweenLocations;
+            double upperPipeHeight = Math.random() * (WillHero.sceneHeight - gapBetweenPipes);
+
+            islands.add(new Pipe(xPositionOfPipes, upperPipeHeight, true));
+            islands.add(new Pipe(xPositionOfPipes, upperPipeHeight + gapBetweenPipes, false));
+
+            powerUps.add(new Feather(xPositionOfPipes + 25, upperPipeHeight + 60));
+        }
     }
 
     public void createGhostHero(Hero heroToFollow)

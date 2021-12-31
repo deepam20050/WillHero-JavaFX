@@ -32,17 +32,13 @@ public class Feather extends PowerUp
     {
         decrementDuration(1/WillHero.frameRate);
         timeBeforeLastLaunch += 1/WillHero.frameRate;
-//        System.out.println(timeBeforeLastLaunch);
         if(timeBeforeLastLaunch >= starLaunchTime)
         {
             timeBeforeLastLaunch -= starLaunchTime;
             double offset = Math.random();
-            System.out.println("Offset: " + offset);
             ShootingStar star = new ShootingStar((offset * WillHero.sceneWidth * 1.2) + GameOrganiser.cameraPosition, -30);
 
             getEquippingHero().getPlayer().getGame().get_current_level().getShootingStars().add(star);
-//            System.out.println("Launching star at " + star.getPosition().getX() + ". Size is now "+
-//                    getEquippingHero().getPlayer().getGame().get_current_level().getShootingStars().size());
         }
     }
 

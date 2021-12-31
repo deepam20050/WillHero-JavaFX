@@ -42,6 +42,8 @@ public class ShootingStar extends GameObject
         double dx = this.getPosition().getX() - orc.getPosition().getX();
         double dy = this.getPosition().getY() - orc.getPosition().getY();
 
+        if(this.getImageView().getImage() == null)
+            return;
         if(-this.getImageView().getImage().getWidth() <= dx && dx <= orc.get_size() &&
                 -this.getImageView().getImage().getHeight() <= dy && dy <= orc.get_size())
         {

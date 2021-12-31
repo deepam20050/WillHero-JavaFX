@@ -82,6 +82,7 @@ public class WillHero extends Application
         Button exitbtn = controller.getExitButton();
         Button loadfilebtn = controller.getLoadFileButton();
         Button timebtn = controller.getTimeChallengeButton();
+        Button flappyHerobtn = controller.getFlappyHeroButton();
 
         playbtn.setOnAction(e -> {
             createNewGame("Regular");
@@ -95,6 +96,9 @@ public class WillHero extends Application
         });
         timebtn.setOnAction(e -> {
             createNewGame("TimeChallenge");
+        });
+        flappyHerobtn.setOnAction(e -> {
+            createNewGame("Flappy Hero");
         });
     }
 

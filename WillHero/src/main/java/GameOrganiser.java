@@ -361,7 +361,7 @@ public class GameOrganiser
             if(game.isGameLost())
             {
                 game.pause();
-                if(!game.isResurrected())
+                if(!game.isResurrected() && game.getPlayer().getNoOfCoins() >= game.getCoinsForResurrection())
                 {
                     showResurrectHeroMenu();
                 }
@@ -373,15 +373,10 @@ public class GameOrganiser
 
             updateCamera();
 
-            Level level = game.get_current_level();
-            for(int i = 0; i < level.getIslands().size(); i++)
-            {
-                game.getPlayer().getHero().if_lands(level.getIslands().get(i));
-            }
-
             game.getPlayer().getHero().updateFrame(cameraPosition);
 
             // Updating game state of ALL GAME OBJECTS in the level
+            Level level = game.get_current_level();
             for(ArrayList<? extends GameObject> listOfObjects: level.getAllObjectsInLevel())
             {
                 for(GameObject obj: listOfObjects)

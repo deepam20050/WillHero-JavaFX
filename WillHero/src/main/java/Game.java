@@ -20,7 +20,10 @@ public class Game {
     public Game(String gameMode)
     {
         player = new Player(this);
-        level = new Level();
+        if(gameMode.equals("Flappy Hero"))
+            level = new Level("Flappy Hero");
+        else
+            level = new Level();
         this.gameMode = gameMode;
         System.out.println(gameMode);
         coinsForResurrection = 20;
