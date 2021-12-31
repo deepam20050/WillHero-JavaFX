@@ -9,6 +9,7 @@ public class Level
     private ArrayList<Chest> chests;
     private ArrayList<Obstacle> obstacles;
     private ArrayList<PowerUp> powerUps;
+    private ArrayList<ShootingStar> shootingStars;
 
     private ArrayList<ArrayList<? extends GameObject>> allObjectsInLevel;
 
@@ -24,6 +25,7 @@ public class Level
         chests = new ArrayList<Chest>();
         obstacles = new ArrayList<Obstacle>();
         powerUps = new ArrayList<PowerUp>();
+        shootingStars = new ArrayList<ShootingStar>();
 
         allObjectsInLevel = new ArrayList<ArrayList<? extends GameObject>>();
         allObjectsInLevel.add(islands);
@@ -32,9 +34,10 @@ public class Level
         allObjectsInLevel.add(chests);
         allObjectsInLevel.add(obstacles);
         allObjectsInLevel.add(powerUps);
+        allObjectsInLevel.add(shootingStars);
 
-        setLevelDemo();
-//        setLevel1();
+//        setLevelDemo();
+        setLevel1();
     }
 
     private void setLevel1()
@@ -64,6 +67,9 @@ public class Level
         coins.add(new Coin(2500, 275));
         coins.add(new Coin(2575, 275));
         coins.add(new Coin(2650, 275));
+
+        orcs.add(new GreenOrc(700, 100, 50));
+        orcs.add(new GreenOrc(800, 100, 50));
 
         chests.add(new WeaponChest(2800, 315, new Sword(2800, 315, null)));
 
@@ -131,6 +137,9 @@ public class Level
     }
     public ArrayList<PowerUp> getPowerUps() {
         return powerUps;
+    }
+    public ArrayList<ShootingStar> getShootingStars() {
+        return shootingStars;
     }
     public ArrayList<ArrayList<? extends GameObject>>  getAllObjectsInLevel() {
         return allObjectsInLevel;

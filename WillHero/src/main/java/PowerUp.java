@@ -2,6 +2,7 @@ public abstract class PowerUp extends GameObject
 {
     private double duration;
     private boolean inUse;
+    private Hero equippingHero;
 
     public PowerUp(double x, double y, double duration)
     {
@@ -12,6 +13,14 @@ public abstract class PowerUp extends GameObject
 
     public abstract void usePowerUp();
 
+    public void setEquippingHero(Hero hero)
+    {
+        equippingHero = hero;
+    }
+    public Hero getEquippingHero()
+    {
+        return equippingHero;
+    }
     public double getDuration()
     {
         return duration;

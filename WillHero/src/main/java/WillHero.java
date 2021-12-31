@@ -23,8 +23,8 @@ import java.io.IOException;
 public class WillHero extends Application
 {
     public static final double frameRate = 60;
-    private double sceneWidth = 1000;
-    private double sceneHeight = 600;
+    public static final double sceneWidth = 1000;
+    public static final double sceneHeight = 600;
     public static final InputTracker inputTracker = new InputTracker();
 
     // UPDATE: gameScene will be used to show all scenes.

@@ -64,6 +64,7 @@ public class Hero extends GameObject
     @Override
     public void updateFrame(double cameraPosition)
     {
+        move_down();
         this.setPosition(getPosition().getX() + getVelocity().getX(), getPosition().getY() + getVelocity().getY());
 
         double w = getImageView().getImage().getWidth();
@@ -83,10 +84,11 @@ public class Hero extends GameObject
         {
             if(currentPowerUp instanceof Feather)
             {
+                this.getVelocity().setX(Feather.flySpeed);
                 if(WillHero.inputTracker.isLeftMousePressed())
                     jump_up();
             }
-            currentPowerUp.decrementDuration(1/WillHero.frameRate);
+            currentPowerUp.usePowerUp();
             if(currentPowerUp.getDuration() < 0)
                 unEquipPowerUp();
         }

@@ -1,15 +1,21 @@
 import javafx.scene.image.Image;
 
+import java.util.Random;
+
 public class Feather extends PowerUp
 {
     public static final double flySpeed = 4;
 
     private double imageWidth;
+    private double starLaunchTime;
+    private double timeBeforeLastLaunch;
     private String imagePath;
 
     public Feather(double x, double y)
     {
         super(x,y,6);
+        this.starLaunchTime = 0.1;
+        this.timeBeforeLastLaunch = 0;
 
         this.imageWidth = 50;
         imagePath = "file:assets/FeatherSprite.png";
@@ -23,24 +29,38 @@ public class Feather extends PowerUp
 
     @Override
     public void usePowerUp()
-    {}
+    {
+        decrementDuration(1/WillHero.frameRate);
+        timeBeforeLastLaunch += 1/WillHero.frameRate;
+//        System.out.println(timeBeforeLastLaunch);
+        if(timeBeforeLastLaunch >= starLaunchTime)
+        {
+            timeBeforeLastLaunch -= starLaunchTime;
+            double offset = Math.random();
+            System.out.println("Offset: " + offset);
+            ShootingStar star = new ShootingStar((offset * WillHero.sceneWidth * 1.2) + GameOrganiser.cameraPosition, -30);
+
+            getEquippingHero().getPlayer().getGame().get_current_level().getShootingStars().add(star);
+//            System.out.println("Launching star at " + star.getPosition().getX() + ". Size is now "+
+//                    getEquippingHero().getPlayer().getGame().get_current_level().getShootingStars().size());
+        }
+    }
 
     @Override
     public void if_collides(Hero hero)
     {
         if(!isActive())
             return;
-
         double dx = this.getPosition().getX() - hero.getPosition().getX();
         double dy = this.getPosition().getY() - hero.getPosition().getY();
 
         if(-this.getImageView().getImage().getWidth() <= dx && dx <= hero.getSize()
             && -this.getImageView().getImage().getHeight() <= dy && dy <= hero.getSize())
         {
-//            this.getImageView().setImage(null);
             this.setActive(false);
             hero.equipPowerUp(this);
         }
+        this.setEquippingHero(hero);
     }
 
     @Override
