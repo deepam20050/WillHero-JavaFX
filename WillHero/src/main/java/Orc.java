@@ -20,6 +20,21 @@ public abstract class Orc extends GameObject {
     public abstract void jump_up ();
     public abstract void if_lands (Island island);
 
+    public void if_lands_plank (Plank plank) {
+        boolean hasLanded = false;
+        double xdist = this.getPosition().getX() - plank.getPosition().getX();
+        if (xdist >= -size && xdist <= plank.getLength()) {
+            double ydist = this.getPosition().getY() - plank.getPosition().getY();
+            if (ydist >= -size && ydist < 0) {
+                hasLanded = true;
+            }
+        }
+        if (hasLanded) {
+            this.setVelocity(0, 0);
+            jump_up();
+        }
+    }
+
     public void give_coin (Hero hero) {
         if (dead == 1) return;
         if (dead == 0) {

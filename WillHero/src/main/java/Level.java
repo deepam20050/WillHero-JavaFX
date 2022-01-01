@@ -122,6 +122,7 @@ public class Level
 //        chests.add(new CoinChest(710, 290));
         chests.add(new CoinChest(1200, 215, 5));
         chests.add(new WeaponChest(710, 290, new ThrowingKnives(710, 290, null)));
+        orcs.add(new GreenOrc(1200, 250, 50));
         obstacles.add(new FallingPlatforms(1100, 275));
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));

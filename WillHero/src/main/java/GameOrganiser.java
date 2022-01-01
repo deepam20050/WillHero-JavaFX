@@ -416,9 +416,16 @@ public class GameOrganiser
             for (FallingPlatforms platform : level.getObstacles()) {
                 try {
                     platform.if_collides_hero(game.getPlayer().getHero());
-                    platform.updateFrame(cameraPosition);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+            }
+            // Falling platforms + Orc
+            for (FallingPlatforms platform : level.getObstacles()) {
+                for (Plank plank : platform.getPlanks()) {
+                    for (Orc x : level.getOrcs()) {
+                        x.if_lands_plank(plank);
+                    }
                 }
             }
 
@@ -543,6 +550,9 @@ public class GameOrganiser
                 game.get_current_level().getCoins().get(i).updateFrame(cameraPosition);
             for(int i = 0; i < game.get_current_level().getChests().size(); i++)
                 game.get_current_level().getChests().get(i).updateFrame(cameraPosition);
+            for (FallingPlatforms platform : level.getObstacles()) {
+                platform.updateFrame(cameraPosition);
+            }
 
             Integer heroLocation = game.getPlayer().getHero().getLocation();
             heroLocationLabel.setText(heroLocation.toString());

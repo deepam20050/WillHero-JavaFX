@@ -23,37 +23,24 @@ public class FallingPlatforms extends GameObject {
         return planks;
     }
     public void if_collides_hero (Hero hero) throws InterruptedException {
-        if (this.isLanded == false) {
-            for (Plank x : planks) {
-                this.isLanded |= x.if_collides_hero(hero);
-            }
-            if (this.isLanded == false) return;
+        if (planks.isEmpty()) return;
+        boolean landed = false;
+        for (Plank x : planks) {
+            landed |= x.if_collides_hero(hero);
+        }
+        if (landed == false && this.isLanded == false) return;
+        this.isLanded = true;
+        if (landed) {
             hero.setVelocity(0, -10);
         }
         if (planks.isEmpty()) return;
         System.out.println("Touched a plank");
-//        planks.get(0).fall();
-        planks.get(0).setVelocity(0, -this.fallVelocity);
-//        planks.get(0).setActive(false);
+        planks.get(0).fall();
+        planks.get(0).setActive(false);
         planks.remove(0);
     }
     @Override
-    public void if_collides(Hero hero) {
-//        if (isLanded == false) {
-//            boolean touched = false;
-//            for (Plank x : planks) {
-//                touched |= x.if_collides_hero(hero);
-//            }
-//            if (touched == false) return;
-//            isLanded = true;
-//        }
-//        if (planks.isEmpty()) return;
-//        System.out.println("Touched a plank");
-//        planks.get(0).fall();
-//        planks.get(0).setActive(false);
-//        planks.remove(0);
-//        Thread.sleep(1);
-    }
+    public void if_collides(Hero hero) {}
     @Override
     public void updateFrame(double cameraPosition) {
         getImageView().setX(getPosition().getX() - cameraPosition);
