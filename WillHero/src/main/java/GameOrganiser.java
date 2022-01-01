@@ -412,6 +412,16 @@ public class GameOrganiser
                 }
             }
 
+            // Falling platforms
+            for (FallingPlatforms platform : level.getObstacles()) {
+                try {
+                    platform.if_collides_hero(game.getPlayer().getHero());
+                    platform.updateFrame(cameraPosition);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
             // Checking collision of shooting star with orcs
             for(ShootingStar star: level.getShootingStars())
             {

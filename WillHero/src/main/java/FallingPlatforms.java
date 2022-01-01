@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class FallingPlatforms extends GameObject {
     private ArrayList < Plank > planks;
-    private int totalNoOfPlanks = 2;
+    private int totalNoOfPlanks = 6;
     private final double lengthOfPlank = 40;
     private final double fallVelocity = 20;
     private boolean isLanded;
@@ -22,19 +22,37 @@ public class FallingPlatforms extends GameObject {
     public ArrayList < Plank > getPlanks () {
         return planks;
     }
-    @Override
-    public void if_collides(Hero hero) {
-        if (isLanded == false) {
-            boolean touched = false;
+    public void if_collides_hero (Hero hero) throws InterruptedException {
+        if (this.isLanded == false) {
             for (Plank x : planks) {
-                touched |= x.if_collides_hero(hero);
+                this.isLanded |= x.if_collides_hero(hero);
             }
-            if (touched == false) return;
-            isLanded = true;
+            if (this.isLanded == false) return;
+            hero.setVelocity(0, -10);
         }
         if (planks.isEmpty()) return;
-        planks.get(0).fall();
+        System.out.println("Touched a plank");
+//        planks.get(0).fall();
+        planks.get(0).setVelocity(0, -this.fallVelocity);
+//        planks.get(0).setActive(false);
         planks.remove(0);
+    }
+    @Override
+    public void if_collides(Hero hero) {
+//        if (isLanded == false) {
+//            boolean touched = false;
+//            for (Plank x : planks) {
+//                touched |= x.if_collides_hero(hero);
+//            }
+//            if (touched == false) return;
+//            isLanded = true;
+//        }
+//        if (planks.isEmpty()) return;
+//        System.out.println("Touched a plank");
+//        planks.get(0).fall();
+//        planks.get(0).setActive(false);
+//        planks.remove(0);
+//        Thread.sleep(1);
     }
     @Override
     public void updateFrame(double cameraPosition) {

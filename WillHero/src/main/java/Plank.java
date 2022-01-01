@@ -4,10 +4,13 @@ public class Plank extends GameObject {
     private String imagePath;
     private final double length;
     private final double fallVelocity;
+    private double gravity;
+
     Plank (double x, double y, double length, double fallVelocity) {
         super(new Vector2D(x, y), new Vector2D(0, 0));
         this.length = length;
         this.fallVelocity = fallVelocity;
+        this.gravity = 0.25;
         imagePath = "file:assets/PlankSprite.png";
         setImage(new Image(imagePath));
         getImageView().setX(x);
@@ -16,8 +19,8 @@ public class Plank extends GameObject {
         getImageView().setPreserveRatio(true);
     }
     public void fall () {
-        double x = getPosition().getX();
-        this.setVelocity(new Vector2D(x, this.fallVelocity));
+        this.setVelocity(0, -this.fallVelocity);
+//        this.setVelocity(this.fallVelocity, 0);
     }
     public boolean if_collides_hero (Hero hero) {
         boolean hasLanded = false;

@@ -111,11 +111,11 @@ public class Level
         islands.get(2).addBackgroundObject("file:assets/BackgroundObj3.png", 25, 80);
         islands.get(2).addBackgroundObject("file:assets/BackgroundObj1.png", 200, 100);
 
-        islands.get(3).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
+//        islands.get(3).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
 
-        orcs.add(new GreenOrc(470,150,50));
-        orcs.add(new GreenOrc(800, 200, 50));
-        orcs.add(new GreenOrc(875, 100, 50));
+//        orcs.add(new GreenOrc(470,150,50));
+//        orcs.add(new GreenOrc(800, 200, 50));
+//        orcs.add(new GreenOrc(875, 100, 50));
 //        orcs.add(new BossOrc(1075,75,50));
 
 //        chests.add(new CoinChest(450, 240));
@@ -126,7 +126,7 @@ public class Level
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));
 
-        powerUps.add(new Feather(850, 100));
+//        powerUps.add(new Feather(850, 100));
     }
 
     private void setFlappyBirdLevel()
