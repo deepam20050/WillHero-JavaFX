@@ -1,17 +1,17 @@
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class Plank extends GameObject {
     private String imagePath;
     private final double length;
+    private final double LIMIT = 1000;
     private final double fallVelocity;
-    private double add;
 
     Plank (double x, double y, double length, double fallVelocity) {
         super(new Vector2D(x, y), new Vector2D(0, 0));
         this.length = length;
         this.fallVelocity = fallVelocity;
-        this.add = 0;
         imagePath = "file:assets/PlankSprite.png";
         setImage(new Image(imagePath));
         getImageView().setX(x);
@@ -20,8 +20,14 @@ public class Plank extends GameObject {
         getImageView().setPreserveRatio(true);
     }
     public void fall () {
-        this.setVelocity(0, this.fallVelocity);
-        add = this.fallVelocity;
+        TranslateTransition goDown = new TranslateTransition();
+        goDown.setByY(LIMIT);
+        goDown.setDuration(Duration.millis(1000));
+        goDown.setCycleCount(1);
+        goDown.setAutoReverse(false);
+        goDown.setNode(getImageView());
+        goDown.play();
+        this.setVelocity(this.getPosition().getX(), this.fallVelocity);
     }
     public boolean if_collides_hero (Hero hero) {
         boolean hasLanded = false;
@@ -36,9 +42,6 @@ public class Plank extends GameObject {
     }
     public double getLength () {
         return this.length;
-    }
-    public void if_collides_orc (Orc orc) {
-        
     }
     @Override
     public void if_collides(Hero hero) {}

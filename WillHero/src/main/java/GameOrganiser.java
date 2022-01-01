@@ -414,11 +414,7 @@ public class GameOrganiser
 
             // Falling platforms
             for (FallingPlatforms platform : level.getObstacles()) {
-                try {
-                    platform.if_collides_hero(game.getPlayer().getHero());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                platform.if_collides(game.getPlayer().getHero());
             }
             // Falling platforms + Orc
             for (FallingPlatforms platform : level.getObstacles()) {
