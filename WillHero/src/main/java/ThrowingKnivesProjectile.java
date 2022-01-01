@@ -7,20 +7,26 @@ public class ThrowingKnivesProjectile extends Projectile
     private double knifeSpeed;
     private double knifeWidth;
     private double knifeHeight;
-    private String imagePath;
 
     public ThrowingKnivesProjectile(double x, double y)
     {
         super(x,y);
         knifeSpeed = 35;
         knifeWidth = 10;
-        imagePath = "file:assets/ProjectileKnife.png";
-        setImage(new Image(imagePath));
+        String imagePath = "file:assets/ProjectileKnife.png";;
+        this.setImagePath(imagePath);
+        this.loadImageView();
+        knifeHeight = getImageView().getFitWidth();
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
         getImageView().setTranslateX(-50);
-        getImageView().setTranslateY(y);
+        getImageView().setTranslateY(this.getPosition().getY());
         getImageView().setFitHeight(knifeWidth);
         getImageView().setPreserveRatio(true);
-        knifeHeight = getImageView().getFitWidth();
     }
 
     @Override
@@ -44,8 +50,11 @@ public class ThrowingKnivesProjectile extends Projectile
     public void updateFrame(double cameraPosition)
     {
         moveProjectile();
-        getImageView().setTranslateX(getPosition().getX() - cameraPosition);
-        getImageView().setTranslateY(getPosition().getY());
+        if(isActive())
+        {
+            getImageView().setTranslateX(getPosition().getX() - cameraPosition);
+            getImageView().setTranslateY(getPosition().getY());
+        }
     }
     @Override
     public void if_collides(Hero hero)

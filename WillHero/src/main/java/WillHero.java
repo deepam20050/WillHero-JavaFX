@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class WillHero extends Application
 {
@@ -41,6 +42,7 @@ public class WillHero extends Application
     @Override
     public void start(Stage stage)
     {
+//        organiser = new GameOrganiser(this, "Regular");
         // Setting up Game Scene
         try
         {
@@ -137,24 +139,16 @@ public class WillHero extends Application
             System.exit(0);
         }
         SaveGameController controller = fxmlLoader.getController();
-        controller.getSaveFile1Button().setOnAction(e -> {
-            organiser.getGame().save_file(1);
-        });
-        controller.getSaveFile2Button().setOnAction(e -> {
-            organiser.getGame().save_file(2);
-        });
-        controller.getSaveFile3Button().setOnAction(e -> {
-            organiser.getGame().save_file(3);
-        });
-        controller.getSaveFile4Button().setOnAction(e -> {
-            organiser.getGame().save_file(4);
-        });
-        controller.getSaveFile5Button().setOnAction(e -> {
-            organiser.getGame().save_file(5);
-        });
-        controller.getSaveFile6Button().setOnAction(e -> {
-            organiser.getGame().save_file(6);
-        });
+        ArrayList<Button> saveButtons = controller.getAllSaveButtons();
+
+        for(int i = 0; i < saveButtons.size(); i++)
+        {
+            final int j = i;
+            saveButtons.get(i).setOnAction(e ->
+            {
+                organiser.serializeGame(j+1);
+            });
+        }
         controller.getGoBackButton().setOnAction(e -> {
             gameScene.setRoot(organiser.getRoot());
         });
@@ -171,36 +165,29 @@ public class WillHero extends Application
             System.exit(0);
         }
         LoadGameController controller = fxmlLoader.getController();
-        controller.getLoadFile1Button().setOnAction((e -> {
-            organiser.getGame().load_file(1);
-            if(organiser.getGame() != null)
-                gameScene.setRoot(organiser.getRoot());
-        }));
-        controller.getLoadFile2Button().setOnAction((e -> {
-            organiser.getGame().load_file(2);
-            if(organiser.getGame() != null)
-                gameScene.setRoot(organiser.getRoot());
-        }));
-        controller.getLoadFile3Button().setOnAction((e -> {
-            organiser.getGame().load_file(3);
-            if(organiser.getGame() != null)
-                gameScene.setRoot(organiser.getRoot());
-        }));
-        controller.getLoadFile4Button().setOnAction((e -> {
-            organiser.getGame().load_file(4);
-            if(organiser.getGame() != null)
-                gameScene.setRoot(organiser.getRoot());
-        }));
-        controller.getLoadFile5Button().setOnAction((e -> {
-            organiser.getGame().load_file(5);
-            if(organiser.getGame() != null)
-                gameScene.setRoot(organiser.getRoot());
-        }));
-        controller.getLoadFile6Button().setOnAction((e -> {
-            organiser.getGame().load_file(6);
-            if(organiser.getGame() != null)
-                gameScene.setRoot(organiser.getRoot());
-        }));
+        ArrayList<Button> loadButtons = controller.getAllLoadButtons();
+        for(int i = 0; i < loadButtons.size(); i++)
+        {
+            final int j = i;
+            loadButtons.get(i).setOnAction((e ->
+            {
+                organiser = new GameOrganiser(this, "Regular");
+                organiser.deserializeGame(j+1);
+                if (organiser.getGame() != null)
+                {
+                    organiser.loadRoot();
+                    System.out.println("LOCATION: " + organiser.getGame().getPlayer().getHero().getLocation());
+                    System.out.println("GAME MODE: " + organiser.getGame().getGameMode());
+
+                    gameScene.setRoot(organiser.getRoot());
+//                organiser.setUpTimeLine();
+                }
+                else
+                {
+                    System.out.println("No game exists in Save File " + (j+1));
+                }
+            }));
+        }
         controller.getGoBackButton().setOnAction(e -> {
             goToMainMenu();
         });

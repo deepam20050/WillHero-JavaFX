@@ -1,7 +1,9 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class Game {
+public class Game implements Serializable
+{
     private Player player;
     private Level level;
     private String gameMode;
@@ -10,8 +12,9 @@ public class Game {
     private boolean gameLost;
     private boolean resurrected;
 
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    // Camera Properties
+    private double cameraPosition;
+    private double cameraVelocity;
 
     public Game()
     {
@@ -30,6 +33,9 @@ public class Game {
         isPaused = false;
         gameLost = false;
         resurrected = false;
+
+        cameraPosition = 0;
+        cameraVelocity = 1;
 
         if(gameMode.equals("TimeChallenge"))
         {
@@ -78,6 +84,23 @@ public class Game {
         resurrected = true;
     }
 
+    public void updateCamera()
+    {
+        if(this.getPlayer().getHero().getCurrentPowerUp() instanceof Feather)
+        {
+            cameraVelocity = Feather.flySpeed;
+        }
+        else if(this.getPlayer().getHero().getPosition().getX() - cameraPosition <= 100)
+            cameraVelocity = 0;
+        else if(this.getPlayer().getHero().getPosition().getX() - cameraPosition <= 250)
+            cameraVelocity = 2;
+        else if(this.getPlayer().getHero().getPosition().getX() - cameraPosition >= WillHero.sceneWidth - 100)
+            cameraPosition = this.getPlayer().getHero().getPosition().getX() - WillHero.sceneWidth + 100;
+        else
+            cameraVelocity = 7;
+        cameraPosition += cameraVelocity;
+    }
+
     public int getCoinsForResurrection() {
         return coinsForResurrection;
     }
@@ -92,5 +115,8 @@ public class Game {
     }
     public boolean isResurrected() {
         return resurrected;
+    }
+    public double getCameraPosition() {
+        return cameraPosition;
     }
 }

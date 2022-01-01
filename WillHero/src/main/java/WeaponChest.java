@@ -3,18 +3,28 @@ import javafx.scene.image.ImageView;
 
 public class WeaponChest extends Chest {
     private Weapon weapon;
-    private String imagePath;
+//    private String imagePath;
 
-    public WeaponChest (double x, double y, Weapon auzaar) {
+    public WeaponChest (double x, double y, Weapon weapon) {
         super(x, y);
-        imagePath = "file:assets/ChestSprite.png";
-        this.setImage(new Image(imagePath));
-        getImageView().setX(x);
-        getImageView().setY(y);
+        String imagePath = "file:assets/ChestSprite.png";
+        this.weapon = weapon;
+//        this.setImage(new Image(imagePath));
+        this.setImagePath(imagePath);
+        this.loadImageView();
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY());
         getImageView().setFitHeight(60);
         getImageView().setPreserveRatio(true);
-        weapon = auzaar;
     }
+
     @Override
     public void updateFrame(double cameraPosition) {
         getImageView().setX(this.getPosition().getX() - cameraPosition);
@@ -24,7 +34,8 @@ public class WeaponChest extends Chest {
         if (this.weapon == null) return;
         hero.getPlayer().getHero().getHelmet().addWeapon(this.weapon);
         this.weapon = null;
-        imagePath = "file:assets/ChestOpenSprite.png";
-        this.setImage(new Image(imagePath));
+        setImagePath("file:assets/ChestOpenSprite.png");
+//        this.setImage(new Image(imagePath));
+        loadImageView();
     }
 }

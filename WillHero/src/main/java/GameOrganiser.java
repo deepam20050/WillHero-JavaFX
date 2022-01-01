@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class GameOrganiser
@@ -42,10 +43,6 @@ public class GameOrganiser
     private Label weapon1LevelLabel;
     private Label weapon2LevelLabel;
 
-    // Camera Properties
-    public static double cameraPosition;
-    private double cameraVelocity;
-
     // Theme of the level
     private String levelTheme;
 
@@ -59,8 +56,6 @@ public class GameOrganiser
     public GameOrganiser(WillHero willHeroApplication, String gameMode)
     {
         this.willHeroApplication = willHeroApplication;
-        cameraPosition = 0;
-        cameraVelocity = 1;
 
         loadPauseMenu();
 
@@ -167,6 +162,7 @@ public class GameOrganiser
         });
         pauseMenuController.getMainMenuButton().setOnAction(e -> {
             willHeroApplication.goToMainMenu();
+//            timeline.stop();
         });
         pauseMenuController.getSaveGameButton().setOnAction(e -> {
             willHeroApplication.goToSaveGameScene();
@@ -223,6 +219,8 @@ public class GameOrganiser
         if(game == null)
             return;
 
+        AnchorPane newBackground = null;
+
         String backgroundFile;
         if(levelTheme.equals("Night")) {
             backgroundFile = "gamebackground_dark.fxml";
@@ -235,20 +233,32 @@ public class GameOrganiser
         }
 
         try {
-            gameBackground = FXMLLoader.load(getClass().getResource(backgroundFile));
-            root.getChildren().addAll(gameBackground);
+           newBackground = FXMLLoader.load(getClass().getResource(backgroundFile));
         }
         catch (Exception e) {
             System.out.println(e);
             System.exit(0);
         }
+
+        if(gameBackground == null)
+            gameBackground = new AnchorPane();
+        if(newBackground != null)
+        {
+            gameBackground.getChildren().removeAll(gameBackground.getChildren());
+            gameBackground.getChildren().addAll(newBackground);
+        }
     }
 
     public void loadRoot()
     {
-//        root = new Group();
+        loadRoot(false);
+    }
+    public void loadRoot(boolean firstTime)
+    {
         root.getChildren().removeAll(root.getChildren());
+        setLevelTheme();
         loadBackground();
+        root.getChildren().add(gameBackground);
 
         ColorAdjust darker = new ColorAdjust();
 
@@ -270,29 +280,56 @@ public class GameOrganiser
 
         // Adding all Level GUI objects created to root
         Level level = game.get_current_level();
+        // Adding all Island Background Objects
         for(Island island: level.getIslands())
         {
+            island.loadImageView();
             island.getImageView().setEffect(darker);
+            if(firstTime)
+                island.loadBackgroundImageViews();
             for(ImageView backgroundImg: island.getBackgroundObjects())
             {
                 backgroundImg.setEffect(darker);
                 root.getChildren().add(backgroundImg);
             }
         }
+        // Adding All GameObjects
         for(ArrayList<? extends GameObject> listOfObjects: level.getAllObjectsInLevel())
         {
             for(GameObject obj: listOfObjects)
             {
+                if(firstTime)
+                    obj.loadImageView();
                 root.getChildren().add(obj.getImageView());
             }
         }
 
+        if(game.get_current_level().getGhostHero() != null)
+        {
+            game.get_current_level().getGhostHero().loadImageView();
+            root.getChildren().add(game.get_current_level().getGhostHero().getImageView());
+        }
+
         // Displaying hero
+        game.getPlayer().getHero().loadImageView();
         root.getChildren().add(game.getPlayer().getHero().getImageView());
 
         // displaying weapons
+        if(firstTime)
+        {
+            game.getPlayer().getHero().getHelmet().getWeapon(0).loadImageView();
+            game.getPlayer().getHero().getHelmet().getWeapon(1).loadImageView();
+        }
         root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(0).getImageView());
         root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(1).getImageView());
+
+        // Displaying Projectiles
+        for(Projectile projectile: game.getPlayer().getHero().getHelmet().getLaunchedProjectiles())
+        {
+            if(firstTime)
+                projectile.loadImageView();
+            root.getChildren().add(projectile.getImageView());
+        }
 
         root.getChildren().add(heroLocationLabel);
         root.getChildren().add(noOfCoinsLabel);
@@ -311,7 +348,7 @@ public class GameOrganiser
         if(game.getGameMode().equals("TimeChallenge"))
         {
             game.getPlayer().add_coins(30);
-            root.getChildren().add(game.get_current_level().getGhostHero().getImageView());
+//            root.getChildren().add(game.get_current_level().getGhostHero().getImageView());
         }
 
         KeyFrame kf = new KeyFrame(Duration.millis(1000/WillHero.frameRate), new TimeHandler());
@@ -338,11 +375,19 @@ public class GameOrganiser
         @Override
         public void handle(ActionEvent event)
         {
-            if(game.isPaused())
+            if(game == null)
                 return;
+            if(game.isPaused())
+            {
+                if(!root.getChildren().contains(pauseMenuRoot) && !root.getChildren().contains(resurrectHeroRoot))
+                {
+                    pauseGame();
+                }
+                return;
+            }
 
             frameCount++;
-            if(game.getGameMode()  == "TimeChallenge")
+            if(game.getGameMode().equals("TimeChallenge"))
             {
                 if (frameCount >= WillHero.frameRate)
                 {
@@ -355,7 +400,7 @@ public class GameOrganiser
                         timeline.stop();
                     }
                 }
-                game.get_current_level().getGhostHero().updateFrame(cameraPosition);
+                game.get_current_level().getGhostHero().updateFrame(game.getCameraPosition());
             }
 
             if(game.isGameLost())
@@ -371,9 +416,9 @@ public class GameOrganiser
                 }
             }
 
-            updateCamera();
+            game.updateCamera();
 
-            game.getPlayer().getHero().updateFrame(cameraPosition);
+            game.getPlayer().getHero().updateFrame(game.getCameraPosition());
 
             // Updating game state of ALL GAME OBJECTS in the level
             Level level = game.get_current_level();
@@ -385,7 +430,7 @@ public class GameOrganiser
                     {
                         if(!root.getChildren().contains(obj.getImageView()))
                             root.getChildren().add(obj.getImageView());
-                        obj.updateFrame(cameraPosition);
+                        obj.updateFrame(game.getCameraPosition());
                         obj.if_collides(game.getPlayer().getHero());
                     }
                     else
@@ -425,7 +470,8 @@ public class GameOrganiser
                 if(!levelTheme.equals("Dawn"))
                 {
                     levelTheme = "Dawn";
-                    loadRoot();
+                    loadBackground();
+//                    loadRoot();
                 }
             }
             else
@@ -522,11 +568,11 @@ public class GameOrganiser
 
             // UPDATING POSITIONS OF ALL GAMEOBJECTS
             for(int i = 0; i < game.get_current_level().getIslands().size(); i++)
-                game.get_current_level().getIslands().get(i).updateFrame(cameraPosition);
+                game.get_current_level().getIslands().get(i).updateFrame(game.getCameraPosition());
             for(int i = 0; i < game.get_current_level().getCoins().size(); i++)
-                game.get_current_level().getCoins().get(i).updateFrame(cameraPosition);
+                game.get_current_level().getCoins().get(i).updateFrame(game.getCameraPosition());
             for(int i = 0; i < game.get_current_level().getChests().size(); i++)
-                game.get_current_level().getChests().get(i).updateFrame(cameraPosition);
+                game.get_current_level().getChests().get(i).updateFrame(game.getCameraPosition());
 
             Integer heroLocation = game.getPlayer().getHero().getLocation();
             heroLocationLabel.setText(heroLocation.toString());
@@ -535,42 +581,88 @@ public class GameOrganiser
         }
     }
 
+    public void serializeGame(int fileNo)
+    {
+        ObjectOutputStream out = null;
+        try
+        {
+            out = new ObjectOutputStream(new FileOutputStream("savefile" + fileNo + ".txt"));
+            out.writeObject(game);
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+            return;
+        }
+        finally
+        {
+            try
+            {
+                out.close();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+                return;
+            }
+        }
+        System.out.println("Saved: " + "savefile" + fileNo + ".txt");
+    }
+    public void deserializeGame(int fileNo)
+    {
+        ObjectInputStream in = null;
+        try
+        {
+            in = new ObjectInputStream(new FileInputStream("savefile" + fileNo + ".txt"));
+            Game loadedGame = (Game) in.readObject();
+            setGame(loadedGame);
+            loadRoot(true);
+        }
+        catch(IOException e)
+        {
+//            e.printStackTrace();
+            setGame(null);
+            return;
+        }
+        catch(ClassNotFoundException e)
+        {
+            e.printStackTrace();
+            return;
+        }
+        finally
+        {
+            try
+            {
+                if(in != null)
+                    in.close();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+                return;
+            }
+        }
+    }
+
     protected void pauseGame()
     {
         game.pause();
-        root.getChildren().addAll(pauseMenuRoot);
+        root.getChildren().add(pauseMenuRoot);
     }
     protected void resumeGame()
     {
         game.resume();
-        root.getChildren().removeAll(pauseMenuRoot);
+        root.getChildren().remove(pauseMenuRoot);
     }
     protected void showResurrectHeroMenu()
     {
         System.out.println("Game LOST");
-        root.getChildren().addAll(resurrectHeroRoot);
+        root.getChildren().add(resurrectHeroRoot);
     }
     protected void resurrectHero()
     {
         game.resurrect_hero();
-        root.getChildren().removeAll(resurrectHeroRoot);
-    }
-
-    protected void updateCamera()
-    {
-        if(game.getPlayer().getHero().getCurrentPowerUp() instanceof Feather)
-        {
-            cameraVelocity = Feather.flySpeed;
-        }
-        else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 100)
-            cameraVelocity = 0;
-        else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition <= 250)
-            cameraVelocity = 2;
-        else if(game.getPlayer().getHero().getPosition().getX() - cameraPosition >= WillHero.sceneWidth - 100)
-            cameraPosition = game.getPlayer().getHero().getPosition().getX() - WillHero.sceneWidth + 100;
-        else
-            cameraVelocity = 7;
-        cameraPosition += cameraVelocity;
+        root.getChildren().remove(resurrectHeroRoot);
     }
 
     public Game getGame() {

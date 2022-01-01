@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import java.util.ArrayList;
 
 public class SaveGameController
 {
@@ -17,6 +18,19 @@ public class SaveGameController
     private Button saveFile6Button;
     @FXML
     private Button goBackButton;
+
+    public ArrayList<Button> getAllSaveButtons()
+    {
+        ArrayList<Button> saveButtons = new ArrayList<Button>();
+        saveButtons.add(saveFile1Button);
+        saveButtons.add(saveFile2Button);
+        saveButtons.add(saveFile3Button);
+        saveButtons.add(saveFile4Button);
+        saveButtons.add(saveFile5Button);
+        saveButtons.add(saveFile6Button);
+
+        return saveButtons;
+    }
 
     public Button getSaveFile1Button() {
         return saveFile1Button;

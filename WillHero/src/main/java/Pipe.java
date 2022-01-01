@@ -3,7 +3,6 @@ import javafx.scene.image.Image;
 public class Pipe extends Island
 {
     boolean upsideDown = false;
-    private String imagePath;
 
     public Pipe(double x, double y, boolean upsideDown)
     {
@@ -11,22 +10,37 @@ public class Pipe extends Island
         this.upsideDown = upsideDown;
         if(!upsideDown)
         {
-            imagePath = "file:assets/Pipe.png";
-            setImage(new Image(imagePath));
-            getImageView().setFitWidth(this.getLength());
-            getImageView().setPreserveRatio(true);
-            getImageView().setX(x);
-            getImageView().setY(y);
+            String imagePath = "file:assets/Pipe.png";
+            this.setImagePath(imagePath);
+            this.loadImageView();
         }
         else
         {
-            imagePath = "file:assets/PipeUpsideDown.png";
-            setImage(new Image(imagePath));
+            String imagePath = "file:assets/PipeUpsideDown.png";
+            this.setImagePath(imagePath);
+            this.loadImageView();
+        }
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+
+        if(!upsideDown)
+        {
             getImageView().setFitWidth(this.getLength());
             getImageView().setPreserveRatio(true);
-            getImageView().setX(x);
+            getImageView().setX(this.getPosition().getX());
+            getImageView().setY(this.getPosition().getY());
+        }
+        else
+        {
+            getImageView().setFitWidth(this.getLength());
+            getImageView().setPreserveRatio(true);
+            getImageView().setX(this.getPosition().getX());
             double aspectratio = getImageView().getImage().getHeight()/getImageView().getImage().getWidth();
-            getImageView().setY(y - aspectratio * getLength());
+            getImageView().setY(this.getPosition().getY() - aspectratio * getLength());
         }
     }
 

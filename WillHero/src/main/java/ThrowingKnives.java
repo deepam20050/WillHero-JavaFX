@@ -4,15 +4,21 @@ import javafx.scene.transform.Rotate;
 
 public class ThrowingKnives extends Weapon
 {
-    private String imagePath;
-    private Rotate rotate;
+    private transient Rotate rotate;
 
     public ThrowingKnives(double x, double y, Helmet helmet)
     {
         super(x,y,helmet);
-        imagePath = "file:assets/WeaponThrowingKnives.png";
-        this.setImage(new Image(imagePath));
+        String imagePath = "file:assets/WeaponThrowingKnives.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
         this.selectWeapon(false);
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
 
         getImageView().setFitWidth(30);
         getImageView().setPreserveRatio(true);
@@ -45,6 +51,7 @@ public class ThrowingKnives extends Weapon
         getImageView().setTranslateX(this.getPosition().getX() - cameraPosition);
         getImageView().setTranslateY(this.getPosition().getY());
     }
+
     @Override
     public void ifAttacks(Orc orc)
     {}

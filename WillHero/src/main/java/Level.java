@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Level
+public class Level implements Serializable
 {
     private ArrayList<Island> islands;
     private ArrayList<Orc> orcs;

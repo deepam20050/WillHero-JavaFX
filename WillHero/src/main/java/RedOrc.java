@@ -2,7 +2,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class RedOrc extends Orc {
-    private String imagePath;
+//    private String imagePath;
     private double size;
     private double jumpSpeed1;
     private double jumpSpeed2;
@@ -21,17 +21,24 @@ public class RedOrc extends Orc {
         gravity = 0.25;
         prize = 3;
 
-        imagePath = "file:assets/RedOrcSprite.png";
-        this.setImage(new Image(imagePath));
+        String imagePath = "file:assets/RedOrcSprite.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
+
+        jump_counter = 0;
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
         double w = getImageView().getImage().getWidth();
         double h = getImageView().getImage().getHeight();
-        getImageView().setX(x);
-        getImageView().setY(y - (h - w) * (size / w));
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY() - (h - w) * (size / w));
         getImageView().setFitWidth(size);
         getImageView().setPreserveRatio(true);
         getImageView().setSmooth(true);
-
-        jump_counter = 0;
     }
 
     @Override

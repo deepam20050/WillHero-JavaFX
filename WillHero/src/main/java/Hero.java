@@ -47,16 +47,29 @@ public class Hero extends GameObject
 
         // Setting up ImageView
         imagePath = "file:assets/HeroSprite1.png";
-        this.setImage(new Image(imagePath));
+        this.setImagePath(imagePath);
+        this.loadImageView();
+
+        positionLogs = new ArrayList<Vector2D>();
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+
+        if(currentPowerUp instanceof Feather)
+        {
+            getImageView().setImage(new Image("file:assets/FlyingHeroSprite.png"));
+        }
+
         double w = getImageView().getImage().getWidth();
         double h = getImageView().getImage().getHeight();
-        getImageView().setX(x);
-        getImageView().setY(y - (h-w)*(size/w));
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY() - (h-w)*(size/w));
         getImageView().setFitWidth(size);
         getImageView().setPreserveRatio(true);
         getImageView().setSmooth(true);
-
-        positionLogs = new ArrayList<Vector2D>();
     }
 
     // Updating the position of the player depending on its velocity

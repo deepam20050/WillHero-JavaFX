@@ -8,20 +8,28 @@ public class Sword extends Weapon
     private double swordSwingSpeed; // Degrees/frame
     private double length;
 
-    private String imagePath;
-    private Rotate rotate;
+    private transient Rotate rotate;
 
     private double rotationsLeft = 0;
 
     Sword(double x, double y, Helmet helmet)
     {
         super(x,y,helmet);
-        imagePath = "file:assets/WeaponSword.png";
-        this.setImage(new Image(imagePath));
+        String imagePath = "file:assets/WeaponSword.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
         this.selectWeapon(false);
         swordAngle = 90;
         swordSwingSpeed = 25;
         length = 60;
+
+        rotationsLeft = 0;
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
 
         getImageView().setFitHeight(length);
         getImageView().setPreserveRatio(true);
@@ -33,14 +41,11 @@ public class Sword extends Weapon
         rotate.setPivotY(0);
         getImageView().getTransforms().add(rotate);
         rotate.setAngle(swordAngle);
-
-        rotationsLeft = 0;
     }
 
     @Override
     public void useWeapon()
     {
-//        System.out.println("Sword go WHOOOSH");
         rotationsLeft = this.getLevel();
     }
 
@@ -50,12 +55,10 @@ public class Sword extends Weapon
         if(selected)
         {
             this.setActive(true);
-//            getImageView().setImage(swordImage);
         }
         else
         {
             this.setActive(false);
-//            imageView.setImage(null);
         }
     }
 

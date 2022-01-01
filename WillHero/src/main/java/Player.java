@@ -1,10 +1,10 @@
-public class Player
+import java.io.Serializable;
+
+public class Player implements Serializable
 {
-    private Hero hero; // *** IMPLEMENT HERO CLASS ***
+    private Hero hero;
     private int noOfCoins;
     private Game game;
-
-    // *** OTHER METHODS TO BE ADDED & IMPLEMENTED ***
 
     public Player(Game game)
     {

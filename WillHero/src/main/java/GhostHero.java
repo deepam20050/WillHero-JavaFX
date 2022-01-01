@@ -8,22 +8,28 @@ public class GhostHero extends GameObject
     private double size;
     private double followDelay;
 
-    private String imagePath;
-
     public GhostHero(Hero heroToFollow)
     {
         this.heroToFollow = heroToFollow;
         this.size = heroToFollow.getSize();
         this.followDelay = 1.75;
-        imagePath = "file:assets/GhostHeroSprite.png";
-        this.setImage(new Image(imagePath));
+        String imagePath = "file:assets/GhostHeroSprite.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
+
+        this.setActive(false);
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+
         double w = getImageView().getImage().getWidth();
         double h = getImageView().getImage().getHeight();
         getImageView().setFitWidth(size);
         getImageView().setPreserveRatio(true);
         getImageView().setSmooth(true);
-
-        this.setActive(false);
     }
 
     @Override
