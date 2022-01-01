@@ -4,7 +4,6 @@ public class FallingPlatforms extends GameObject implements Obstacle {
     private ArrayList < Plank > planks;
     private int totalNoOfPlanks = 6;
     private final double lengthOfPlank = 40;
-    private final double fallVelocity = 20;
     private boolean droppedOff;
     private boolean isLanded;
     private double frames;
@@ -14,7 +13,7 @@ public class FallingPlatforms extends GameObject implements Obstacle {
         planks = new ArrayList<>();
         double xStart = x;
         for (int i = 0; i < totalNoOfPlanks; ++i) {
-            planks.add(new Plank(xStart, y, lengthOfPlank, fallVelocity));
+            planks.add(new Plank(xStart, y, lengthOfPlank));
             xStart += lengthOfPlank;
         }
         this.droppedOff = false;
