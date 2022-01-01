@@ -29,6 +29,9 @@ public class MainMenuController
     @FXML
     private Button timeChallengeButton;
 
+    @FXML
+    private Button flappyHeroButton;
+
     public Button getPlayButton()
     {
         return playButton;
@@ -43,5 +46,8 @@ public class MainMenuController
     }
     public Button getTimeChallengeButton() {
         return timeChallengeButton;
+    }
+    public Button getFlappyHeroButton() {
+        return flappyHeroButton;
     }
 }

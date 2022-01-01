@@ -7,34 +7,49 @@ public class Level
     private ArrayList<Orc> orcs;
     private ArrayList<Coin> coins;
     private ArrayList<Chest> chests;
-    private ArrayList<TNT> obstacles;
+    private ArrayList<FallingPlatforms> obstacles;
+    //    private ArrayList<Obstacle> obstacles;
     private ArrayList<PowerUp> powerUps;
+    private ArrayList<ShootingStar> shootingStars;
 
     private ArrayList<ArrayList<? extends GameObject>> allObjectsInLevel;
 
     private GhostHero ghostHero;
 
-    // Default Constructor: Constructs default (first) level layout
     public Level()
+    {
+        this("1");
+    }
+    // Default Constructor: Constructs default (first) level layout
+    public Level(String levelName)
     {
         // Initialising Arraylists for all GameObjects
         islands = new ArrayList<Island>();
         orcs = new ArrayList<Orc>();
         coins = new ArrayList<Coin>();
         chests = new ArrayList<Chest>();
-        obstacles = new ArrayList<TNT>();
+        obstacles = new ArrayList<FallingPlatforms>();
         powerUps = new ArrayList<PowerUp>();
-        setLevelDemo();
+        shootingStars = new ArrayList<ShootingStar>();
+
         allObjectsInLevel = new ArrayList<ArrayList<? extends GameObject>>();
         allObjectsInLevel.add(islands);
         allObjectsInLevel.add(orcs);
         allObjectsInLevel.add(coins);
         allObjectsInLevel.add(chests);
-        allObjectsInLevel.add(obstacles);
+//        allObjectsInLevel.add(obstacles);
         allObjectsInLevel.add(powerUps);
+        allObjectsInLevel.add(shootingStars);
 
-//        setLevelDemo();
+        if(levelName.equals("1"))
+        {
+            setLevelDemo();
 //        setLevel1();
+        }
+        else if(levelName.equals("Flappy Hero"))
+        {
+            setFlappyBirdLevel();
+        }
     }
 
     private void setLevel1()
@@ -45,6 +60,8 @@ public class Level
         islands.add(new Island(1500, 275, 350));
         islands.add(new Island(1900, 375, 300));
         islands.add(new Island(2700, 375, 300));
+        islands.add(new Pipe(1000, 150, true));
+        islands.add(new Pipe(1000, 350, false));
 
         coins.add(new Coin(350, 275));
         coins.add(new Coin(350, 215));
@@ -65,11 +82,14 @@ public class Level
         coins.add(new Coin(2575, 275));
         coins.add(new Coin(2650, 275));
 
+        orcs.add(new GreenOrc(700, 100, 50));
+        orcs.add(new GreenOrc(800, 100, 50));
+
         chests.add(new WeaponChest(2800, 315, new Sword(2800, 315, null)));
 
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 50, 140);
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj7.png", 400, 160);
-        obstacles.add(new TNT(1250, 215));
+
         powerUps.add(new Feather(250, 250));
     }
 
@@ -79,7 +99,7 @@ public class Level
         islands.add(new Island(50, 400, 250));
         islands.add(new Island(400, 300, 200));
         islands.add(new Island(675, 350, 275));
-        islands.add(new Island(1100, 275, 300));
+//        islands.add(new Island(1100, 275, 300));
 
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 0, 95);
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj2.png", 65, 60);
@@ -102,11 +122,33 @@ public class Level
 //        chests.add(new CoinChest(710, 290));
         chests.add(new CoinChest(1200, 215, 5));
         chests.add(new WeaponChest(710, 290, new ThrowingKnives(710, 290, null)));
-
-        obstacles.add(new TNT(780, 290));
+        obstacles.add(new FallingPlatforms(1100, 275));
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));
+
         powerUps.add(new Feather(850, 100));
+    }
+
+    private void setFlappyBirdLevel()
+    {
+        double gapBetweenPipes = 225;
+        double gapBetweenLocations = 450;
+        int numberOfLocations = 100;
+        double startingLocation = 1000;
+
+        islands.add(new Island(50, 400, 250));
+        powerUps.add(new Feather(250, 250));
+
+        for(int i = 0; i < 50; i++)
+        {
+            double xPositionOfPipes = startingLocation + i*gapBetweenLocations;
+            double upperPipeHeight = Math.random() * (WillHero.sceneHeight - gapBetweenPipes);
+
+            islands.add(new Pipe(xPositionOfPipes, upperPipeHeight, true));
+            islands.add(new Pipe(xPositionOfPipes, upperPipeHeight + gapBetweenPipes, false));
+
+            powerUps.add(new Feather(xPositionOfPipes + 25, upperPipeHeight + 60));
+        }
     }
 
     public void createGhostHero(Hero heroToFollow)
@@ -126,11 +168,17 @@ public class Level
     public ArrayList<Chest> getChests() {
         return chests;
     }
-    public ArrayList<TNT> getObstacles() {
+//    public ArrayList<Obstacle> getObstacles() {
+//        return obstacles;
+//    }
+    public ArrayList < FallingPlatforms > getObstacles() {
         return obstacles;
     }
     public ArrayList<PowerUp> getPowerUps() {
         return powerUps;
+    }
+    public ArrayList<ShootingStar> getShootingStars() {
+        return shootingStars;
     }
     public ArrayList<ArrayList<? extends GameObject>>  getAllObjectsInLevel() {
         return allObjectsInLevel;

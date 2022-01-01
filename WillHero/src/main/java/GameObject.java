@@ -86,9 +86,4 @@ public abstract class GameObject
         else
             imageView.setImage(null);
     }
-
-    // *** TO BE IMPLEMENTED ***
-    public boolean equals(GameObject obj) {
-        return true;
-    }
 }

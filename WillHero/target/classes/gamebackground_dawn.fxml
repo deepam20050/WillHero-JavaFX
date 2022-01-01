@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="600.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.7007575396335487">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9700000286102295" green="0.610012948513031" blue="0.29100000858306885" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fitHeight="88.0" fitWidth="200.0" layoutX="70.0" layoutY="180.0">
+         <image>
+<!--            <Image url="@../../../assets/Cloud1.png" />-->
+            <Image url="file:assets/Cloud1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="76.0" fitWidth="175.0" layoutX="240.0" layoutY="100.0">
+         <image>
+<!--            <Image url="@../../../assets/Cloud2.png" />-->
+            <Image url="file:assets/Cloud2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="56.0" fitWidth="130.0" layoutX="40.0" layoutY="80.0">
+         <image>
+<!--            <Image url="@../../../assets/Cloud3.png" />-->
+            <Image url="file:assets/Cloud3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="111.0" fitWidth="250.0" layoutX="540.0" layoutY="60.0">
+         <image>
+<!--            <Image url="@../../../assets/Cloud4.png" />-->
+            <Image url="file:assets/Cloud4.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="110.0" fitWidth="250.0" layoutX="750.0" layoutY="-40.0">
+         <image>
+<!--            <Image url="@../../../assets/Cloud1.png" />-->
+            <Image url="file:assets/Cloud1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="132.0" fitWidth="300.0" layoutX="150.0" layoutY="-85.0">
+         <image>
+<!--            <Image url="@../../../assets/Cloud6.png" />-->
+            <Image url="file:assets/Cloud6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="150.0" layoutX="850.0" layoutY="140.0">
+         <image>
+<!--            <Image url="@../../../assets/Cloud6.png" />-->
+            <Image url="file:assets/Cloud6.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

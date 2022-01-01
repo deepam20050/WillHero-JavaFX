@@ -64,6 +64,7 @@ public class Hero extends GameObject
     @Override
     public void updateFrame(double cameraPosition)
     {
+        move_down();
         this.setPosition(getPosition().getX() + getVelocity().getX(), getPosition().getY() + getVelocity().getY());
 
         double w = getImageView().getImage().getWidth();
@@ -83,10 +84,11 @@ public class Hero extends GameObject
         {
             if(currentPowerUp instanceof Feather)
             {
+                this.getVelocity().setX(Feather.flySpeed);
                 if(WillHero.inputTracker.isLeftMousePressed())
                     jump_up();
             }
-            currentPowerUp.decrementDuration(1/WillHero.frameRate);
+            currentPowerUp.usePowerUp();
             if(currentPowerUp.getDuration() < 0)
                 unEquipPowerUp();
         }
@@ -149,27 +151,6 @@ public class Hero extends GameObject
         }
 
         hasDashed = forwardButtonPressed;
-    }
-
-    // If the hero lands on an island, it has to jump.
-    public void if_lands(Island island)
-    {
-        boolean hasLanded = false;
-
-        // Checking if the hero has landed on the island
-        double xdist = this.getPosition().getX() - island.getPosition().getX();
-        if(xdist >= -size && xdist <= island.getLength())
-        {
-            double ydist = this.getPosition().getY() - island.getPosition().getY();
-            if(ydist >= -size && ydist < 0)
-            {
-                hasLanded = true;
-            }
-        }
-        if(hasLanded)
-        {
-            jump_up();
-        }
     }
 
     // If the hero falls, player loses the game.
