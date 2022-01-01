@@ -56,6 +56,12 @@ public class WillHero extends Application
         }
         gameScene.setOnMousePressed(e -> {inputTracker.setLeftMousePressed(true);});
         gameScene.setOnMouseReleased(e -> {inputTracker.setLeftMousePressed(false);});
+        gameScene.setOnKeyPressed(e -> {
+            inputTracker.setZPressed(true);
+        });
+        gameScene.setOnKeyReleased(e -> {
+            inputTracker.setZPressed(false);
+        });
 
         // Setting Up Main Menu Code
         goToMainMenu();
@@ -85,6 +91,7 @@ public class WillHero extends Application
         Button loadfilebtn = controller.getLoadFileButton();
         Button timebtn = controller.getTimeChallengeButton();
         Button flappyHerobtn = controller.getFlappyHeroButton();
+        Button twoPlayerbtn = controller.getTwoPlayerButton();
 
         playbtn.setOnAction(e -> {
             createNewGame("Regular");
@@ -101,6 +108,9 @@ public class WillHero extends Application
         });
         flappyHerobtn.setOnAction(e -> {
             createNewGame("Flappy Hero");
+        });
+        twoPlayerbtn.setOnAction(e -> {
+            createNewGame("Multiplayer");
         });
     }
 

@@ -1,5 +1,3 @@
-import java.io.Serializable;
-
-public abstract class Obstacle extends GameObject implements Serializable
-{
+public interface Obstacle {
+    void update_obs_state();
 }

@@ -304,6 +304,15 @@ public class GameOrganiser
             }
         }
 
+        // Adding All Falling Bridges to the level
+        for (FallingBridge x : level.getObstacles()) {
+            for (Plank y : x.getPlanks()) {
+                y.loadImageView();
+                root.getChildren().add(y.getImageView());
+            }
+        }
+
+        // Adding Ghost Hero
         if(game.get_current_level().getGhostHero() != null)
         {
             game.get_current_level().getGhostHero().loadImageView();
@@ -311,15 +320,20 @@ public class GameOrganiser
         }
 
         // Displaying hero
-        game.getPlayer().getHero().loadImageView();
-        root.getChildren().add(game.getPlayer().getHero().getImageView());
+        for(Player player: game.getListOfPlayers())
+        {
+            player.getHero().loadImageView();
+            root.getChildren().add(player.getHero().getImageView());
+        }
+//        game.getPlayer().getHero().loadImageView();
+//        root.getChildren().add(game.getPlayer().getHero().getImageView());
 
         // displaying weapons
-        if(firstTime)
-        {
-            game.getPlayer().getHero().getHelmet().getWeapon(0).loadImageView();
-            game.getPlayer().getHero().getHelmet().getWeapon(1).loadImageView();
-        }
+//        if(firstTime)
+//        {
+        game.getPlayer().getHero().getHelmet().getWeapon(0).loadImageView();
+        game.getPlayer().getHero().getHelmet().getWeapon(1).loadImageView();
+//        }
         root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(0).getImageView());
         root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(1).getImageView());
 
@@ -418,7 +432,11 @@ public class GameOrganiser
 
             game.updateCamera();
 
-            game.getPlayer().getHero().updateFrame(game.getCameraPosition());
+            for(Player player: game.getListOfPlayers())
+            {
+                player.getHero().updateFrame(game.getCameraPosition());
+            }
+//            game.getPlayer().getHero().updateFrame(game.getCameraPosition());
 
             // Updating game state of ALL GAME OBJECTS in the level
             Level level = game.get_current_level();
@@ -431,7 +449,11 @@ public class GameOrganiser
                         if(!root.getChildren().contains(obj.getImageView()))
                             root.getChildren().add(obj.getImageView());
                         obj.updateFrame(game.getCameraPosition());
-                        obj.if_collides(game.getPlayer().getHero());
+                        for(Player player: game.getListOfPlayers())
+                        {
+                            obj.if_collides(player.getHero());
+                        }
+//                        obj.if_collides(game.getPlayer().getHero());
                     }
                     else
                     {
@@ -448,6 +470,25 @@ public class GameOrganiser
                 for(Island island: level.getIslands())
                 {
                     orc.if_lands(island);
+                }
+            }
+            for (FallingBridge platform : level.getObstacles()) {
+                platform.updateFrame(game.getCameraPosition());
+            }
+
+            // Falling platforms
+            for (FallingBridge platform : level.getObstacles()) {
+                for(Player player: game.getListOfPlayers())
+                {
+                    platform.if_collides(player.getHero());
+                }
+            }
+            // Falling platforms + Orc
+            for (FallingBridge platform : level.getObstacles()) {
+                for (Plank plank : platform.getPlanks()) {
+                    for (Orc x : level.getOrcs()) {
+                        x.if_lands_plank(plank);
+                    }
                 }
             }
 

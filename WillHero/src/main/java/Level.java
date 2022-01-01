@@ -8,7 +8,8 @@ public class Level implements Serializable
     private ArrayList<Orc> orcs;
     private ArrayList<Coin> coins;
     private ArrayList<Chest> chests;
-    private ArrayList<Obstacle> obstacles;
+//    private ArrayList<Obstacle> obstacles;
+    private ArrayList<FallingBridge> obstacles;
     private ArrayList<PowerUp> powerUps;
     private ArrayList<ShootingStar> shootingStars;
 
@@ -28,7 +29,8 @@ public class Level implements Serializable
         orcs = new ArrayList<Orc>();
         coins = new ArrayList<Coin>();
         chests = new ArrayList<Chest>();
-        obstacles = new ArrayList<Obstacle>();
+//        obstacles = new ArrayList<Obstacle>();
+        obstacles = new ArrayList<FallingBridge>();
         powerUps = new ArrayList<PowerUp>();
         shootingStars = new ArrayList<ShootingStar>();
 
@@ -37,14 +39,14 @@ public class Level implements Serializable
         allObjectsInLevel.add(orcs);
         allObjectsInLevel.add(coins);
         allObjectsInLevel.add(chests);
-        allObjectsInLevel.add(obstacles);
+//        allObjectsInLevel.add(obstacles);
         allObjectsInLevel.add(powerUps);
         allObjectsInLevel.add(shootingStars);
 
         if(levelName.equals("1"))
         {
-            setLevelDemo();
-//        setLevel1();
+//            setLevelDemo();
+            setLevel1();
         }
         else if(levelName.equals("Flappy Hero"))
         {
@@ -54,14 +56,36 @@ public class Level implements Serializable
 
     private void setLevel1()
     {
+        // lacing all landable objects in the stage (Islands and Falling Bridges)
         islands.add(new Island(50, 400, 500));
         islands.add(new Island(650, 350, 250));
         islands.add(new Island(1100, 350, 300));
         islands.add(new Island(1500, 275, 350));
         islands.add(new Island(1900, 375, 300));
         islands.add(new Island(2700, 375, 300));
-        islands.add(new Pipe(1000, 150, true));
-        islands.add(new Pipe(1000, 350, false));
+        obstacles.add(new FallingBridge(3000, 375, 10));
+        islands.add(new Island(3700, 375, 300));
+        islands.add(new Island(4150, 300, 175));
+        islands.add(new Island(4500, 225, 225));
+        islands.add(new Island(4950, 225, 350));
+        islands.add(new Island(5500, 275, 400));
+        islands.add(new Island(6000, 300, 350));
+        obstacles.add(new FallingBridge(6600, 300, 6));
+        islands.add(new Island(6840, 300, 350));
+        islands.add(new Island(7400, 300, 300));
+        obstacles.add(new FallingBridge(7700, 300, 8));
+        islands.add(new Island(8200, 350, 200));
+        islands.add(new Island(8500, 425, 250));
+        islands.add(new Island(8600, 225, 175));
+        islands.add(new Island(9000, 125, 250));
+        islands.add(new Island(8900, 400, 275));
+        islands.add(new Island(9500, 325, 400));
+        islands.add(new Island(10000, 325, 450));
+        islands.add(new Island(10750, 325, 400));
+        obstacles.add(new FallingBridge(11150, 325, 10));
+        islands.add(new Island(12400, 325, 375));
+        obstacles.add(new FallingBridge(12775, 325, 25));
+        islands.add((new Island(13775, 325, 200)));
 
         coins.add(new Coin(350, 275));
         coins.add(new Coin(350, 215));
@@ -82,15 +106,15 @@ public class Level implements Serializable
         coins.add(new Coin(2575, 275));
         coins.add(new Coin(2650, 275));
 
-        orcs.add(new GreenOrc(700, 100, 50));
-        orcs.add(new GreenOrc(800, 100, 50));
+//        orcs.add(new GreenOrc(700, 100, 50));
+//        orcs.add(new GreenOrc(800, 100, 50));
 
         chests.add(new WeaponChest(2800, 315, new Sword(2800, 315, null)));
 
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 50, 140);
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj7.png", 400, 160);
 
-        powerUps.add(new Feather(250, 250));
+//        powerUps.add(new Feather(250, 250));
     }
 
     // Layout of level shown for game demo (Deadline 2)
@@ -99,7 +123,7 @@ public class Level implements Serializable
         islands.add(new Island(50, 400, 250));
         islands.add(new Island(400, 300, 200));
         islands.add(new Island(675, 350, 275));
-        islands.add(new Island(1100, 275, 300));
+//        islands.add(new Island(1100, 275, 300));
 
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 0, 95);
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj2.png", 65, 60);
@@ -111,7 +135,7 @@ public class Level implements Serializable
         islands.get(2).addBackgroundObject("file:assets/BackgroundObj3.png", 25, 80);
         islands.get(2).addBackgroundObject("file:assets/BackgroundObj1.png", 200, 100);
 
-        islands.get(3).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
+//        islands.get(3).addBackgroundObject("file:assets/BackgroundObj4.png", 200, 120);
 
         orcs.add(new GreenOrc(470,150,50));
         orcs.add(new GreenOrc(800, 200, 50));
@@ -126,7 +150,9 @@ public class Level implements Serializable
         coins.add(new Coin(625, 290));
         coins.add(new Coin(625, 230));
 
-        powerUps.add(new Feather(850, 100));
+        obstacles.add(new FallingBridge(1100, 275, 10));
+
+//        powerUps.add(new Feather(850, 100));
     }
 
     private void setFlappyBirdLevel()
@@ -168,7 +194,7 @@ public class Level implements Serializable
     public ArrayList<Chest> getChests() {
         return chests;
     }
-    public ArrayList<Obstacle> getObstacles() {
+    public ArrayList<FallingBridge> getObstacles() {
         return obstacles;
     }
     public ArrayList<PowerUp> getPowerUps() {

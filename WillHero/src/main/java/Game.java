@@ -1,10 +1,12 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Game implements Serializable
 {
-    private Player player;
+//    private Player player;
+    private ArrayList<Player> listOfPlayers;
     private Level level;
     private String gameMode;
     private int coinsForResurrection;
@@ -22,12 +24,19 @@ public class Game implements Serializable
     }
     public Game(String gameMode)
     {
-        player = new Player(this);
+        this.gameMode = gameMode;
+
+//        player = new Player(this);
+        listOfPlayers = new ArrayList<Player>();
+        listOfPlayers.add(new Player(this, 1));
+        if(gameMode.equals("Multiplayer"))
+            listOfPlayers.add(new Player(this, 2));
+
         if(gameMode.equals("Flappy Hero"))
             level = new Level("Flappy Hero");
         else
             level = new Level();
-        this.gameMode = gameMode;
+
         System.out.println(gameMode);
         coinsForResurrection = 20;
         isPaused = false;
@@ -39,7 +48,7 @@ public class Game implements Serializable
 
         if(gameMode.equals("TimeChallenge"))
         {
-            level.createGhostHero(player.getHero());
+            level.createGhostHero(getPlayer().getHero());
         }
     }
 
@@ -54,7 +63,10 @@ public class Game implements Serializable
 
     public Player getPlayer()
     {
-        return player;
+        return listOfPlayers.get(0);
+    }
+    public ArrayList<Player> getListOfPlayers() {
+        return listOfPlayers;
     }
     public Level get_current_level()
     {
@@ -76,9 +88,12 @@ public class Game implements Serializable
     }
     public void resurrect_hero()
     {
-        player.add_coins(-coinsForResurrection);
-        player.getHero().getPosition().setY(50);
-        player.getHero().setVelocity(0,0);
+        for(Player player: listOfPlayers)
+        {
+            player.add_coins(-coinsForResurrection);
+            player.getHero().getPosition().setY(50);
+            player.getHero().setVelocity(0, 0);
+        }
         gameLost = false;
         isPaused = false;
         resurrected = true;
@@ -86,15 +101,24 @@ public class Game implements Serializable
 
     public void updateCamera()
     {
+        double minPos = getPlayer().getHero().getPosition().getX();
+        for(Player player: listOfPlayers)
+        {
+            if(player.getHero().getPosition().getX() < minPos)
+            {
+                minPos = player.getHero().getPosition().getX();
+            }
+        }
+
         if(this.getPlayer().getHero().getCurrentPowerUp() instanceof Feather)
         {
             cameraVelocity = Feather.flySpeed;
         }
-        else if(this.getPlayer().getHero().getPosition().getX() - cameraPosition <= 100)
+        else if(minPos - cameraPosition <= 100)
             cameraVelocity = 0;
-        else if(this.getPlayer().getHero().getPosition().getX() - cameraPosition <= 250)
+        else if(minPos - cameraPosition <= 250)
             cameraVelocity = 2;
-        else if(this.getPlayer().getHero().getPosition().getX() - cameraPosition >= WillHero.sceneWidth - 100)
+        else if(minPos - cameraPosition >= WillHero.sceneWidth - 100)
             cameraPosition = this.getPlayer().getHero().getPosition().getX() - WillHero.sceneWidth + 100;
         else
             cameraVelocity = 7;

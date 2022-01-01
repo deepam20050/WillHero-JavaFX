@@ -15,13 +15,14 @@ public class Sword extends Weapon
     Sword(double x, double y, Helmet helmet)
     {
         super(x,y,helmet);
-        String imagePath = "file:assets/WeaponSword.png";
-        this.setImagePath(imagePath);
-        this.loadImageView();
         this.selectWeapon(false);
         swordAngle = 90;
         swordSwingSpeed = 25;
         length = 60;
+
+        String imagePath = "file:assets/WeaponSword.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
 
         rotationsLeft = 0;
     }
