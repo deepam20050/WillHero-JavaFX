@@ -1,7 +1,8 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.io.Serializable;
 
-public abstract class GameObject
+public abstract class GameObject implements Serializable
 {
     private static int nextID = 0;
     private int id;
@@ -9,8 +10,9 @@ public abstract class GameObject
     private Vector2D velocity;
 
     // ImageView and Image are now part of GameObject as they are needed in every object
-    private ImageView imageView;
-    private Image image;
+    private String imagePath;
+    private transient ImageView imageView;
+    private transient Image image;
 
     private boolean active;
 
@@ -33,16 +35,32 @@ public abstract class GameObject
     public abstract void if_collides(Hero hero);
     public abstract void updateFrame(double cameraPosition);
 
-    public void setImage(Image image) {
-        this.image = image;
-        if(active)
-            imageView.setImage(image);
-    }
+//    public void setImage(Image image) {
+//        this.image = image;
+//        if(active)
+//            imageView.setImage(image);
+//    }
     public ImageView getImageView() {
         return imageView;
     }
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
+//    public void setImageView(ImageView imageView) {
+//        this.imageView = imageView;
+//    }
+    public void setImagePath(String imagePath)
+    {
+        this.imagePath = imagePath;
+    }
+    public void loadImageView()
+    {
+        this.image = new Image(imagePath);
+        if(imageView == null)
+            imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setVisible(active);
+//        if(imageView == null)
+//            imageView = new ImageView();
+//        if(active)
+//            imageView.setImage(image);
     }
 
     public int getId()
@@ -81,9 +99,11 @@ public abstract class GameObject
     {
         this.active = active;
         // Add/Remove image based on if active
-        if(active)
-            imageView.setImage(image);
-        else
-            imageView.setImage(null);
+        if(imageView != null)
+            imageView.setVisible(active);
+//        if(active)
+//            imageView.setImage(image);
+//        else
+//            imageView.setImage(null);
     }
 }

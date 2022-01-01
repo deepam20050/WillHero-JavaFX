@@ -3,20 +3,30 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 public class Plank extends GameObject {
-    private String imagePath;
+//    private String imagePath;
     private final double length;
     private final double LIMIT = 1000;
 
     Plank (double x, double y, double length) {
         super(new Vector2D(x, y), new Vector2D(0, 0));
         this.length = length;
-        imagePath = "file:assets/PlankSprite.png";
-        setImage(new Image(imagePath));
-        getImageView().setX(x);
-        getImageView().setY(y);
+        String imagePath = "file:assets/PlankSprite.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
+//        setImage(new Image(imagePath));
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY());
         getImageView().setFitWidth(length);
         getImageView().setPreserveRatio(true);
     }
+
     public void fall () {
         TranslateTransition goDown = new TranslateTransition();
         goDown.setByY(LIMIT);

@@ -2,7 +2,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class BossOrc extends Orc {
-    private String imagePath;
+//    private String imagePath;
     private double size;
     private double jumpSpeed1;
     private double jumpSpeed2;
@@ -21,17 +21,24 @@ public class BossOrc extends Orc {
         gravity = 0.25;
         prize = 100;
 
-        imagePath = "file:assets/BossOrcSprite.png";
-        this.setImage(new Image(imagePath));
+        String imagePath = "file:assets/BossOrcSprite.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
+
+        jump_counter = 0;
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
         double w = getImageView().getImage().getWidth();
         double h = getImageView().getImage().getHeight();
-        getImageView().setX(x);
-        getImageView().setY(y - (h - w) * (size / w));
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY() - (h - w) * (size / w));
         getImageView().setFitWidth(size);
         getImageView().setPreserveRatio(true);
         getImageView().setSmooth(true);
-
-        jump_counter = 0;
     }
 
     @Override
@@ -50,7 +57,6 @@ public class BossOrc extends Orc {
         }
         jump_counter = (jump_counter + 1) % 3;
     }
-
     public void if_lands (Island island) {
         boolean hasLanded = false;
         double xdist = this.getPosition().getX() - island.getPosition().getX();

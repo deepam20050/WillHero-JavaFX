@@ -4,7 +4,6 @@ public class ShootingStar extends GameObject
 {
     private double shootingSpeed;
     private double shootingAngle; // Clockwise angle from vertical down
-    private String imagePath;
 
     public ShootingStar(double x, double y)
     {
@@ -12,16 +11,24 @@ public class ShootingStar extends GameObject
         shootingSpeed = 12;
         shootingAngle = 45;
 
-        imagePath = "file:assets/ShootingStarSprite.png";
-        this.setImage(new Image(imagePath));
-        getImageView().setX(x);
-        getImageView().setY(y);
-        getImageView().setFitWidth(40);
-        getImageView().setPreserveRatio(true);
-        getImageView().setSmooth(true);
+        String imagePath = "file:assets/ShootingStarSprite.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
 
         this.setVelocity(shootingSpeed * -Math.sin(shootingAngle * Math.PI / 180),
                 shootingSpeed * Math.cos(shootingAngle * Math.PI / 180));
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY());
+        getImageView().setFitWidth(40);
+        getImageView().setPreserveRatio(true);
+        getImageView().setSmooth(true);
     }
 
     @Override

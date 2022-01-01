@@ -9,7 +9,6 @@ public class Feather extends PowerUp
     private double imageWidth;
     private double starLaunchTime;
     private double timeBeforeLastLaunch;
-    private String imagePath;
 
     public Feather(double x, double y)
     {
@@ -18,10 +17,18 @@ public class Feather extends PowerUp
         this.timeBeforeLastLaunch = 0;
 
         this.imageWidth = 50;
-        imagePath = "file:assets/FeatherSprite.png";
-        this.setImage(new Image(imagePath));
-        getImageView().setX(x);
-        getImageView().setY(y);
+        String imagePath = "file:assets/FeatherSprite.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY());
         getImageView().setFitWidth(imageWidth);
         getImageView().setPreserveRatio(true);
         getImageView().setSmooth(true);
@@ -36,7 +43,7 @@ public class Feather extends PowerUp
         {
             timeBeforeLastLaunch -= starLaunchTime;
             double offset = Math.random();
-            ShootingStar star = new ShootingStar((offset * WillHero.sceneWidth * 1.2) + GameOrganiser.cameraPosition, -30);
+            ShootingStar star = new ShootingStar((offset * WillHero.sceneWidth * 1.2) + getEquippingHero().getPlayer().getGame().getCameraPosition(), -30);
 
             getEquippingHero().getPlayer().getGame().get_current_level().getShootingStars().add(star);
         }

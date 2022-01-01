@@ -32,6 +32,9 @@ public class MainMenuController
     @FXML
     private Button flappyHeroButton;
 
+    @FXML
+    private Button twoPlayerButton;
+
     public Button getPlayButton()
     {
         return playButton;
@@ -49,5 +52,9 @@ public class MainMenuController
     }
     public Button getFlappyHeroButton() {
         return flappyHeroButton;
+    }
+    public Button getTwoPlayerButton()
+    {
+        return twoPlayerButton;
     }
 }

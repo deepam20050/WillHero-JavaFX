@@ -16,10 +16,6 @@ public abstract class Orc extends GameObject {
         dead = 1;
     }
 
-    public abstract void move_down();
-    public abstract void jump_up ();
-    public abstract void if_lands (Island island);
-
     public void if_lands_plank (Plank plank) {
         boolean hasLanded = false;
         double xdist = this.getPosition().getX() - plank.getPosition().getX();
@@ -34,6 +30,10 @@ public abstract class Orc extends GameObject {
             jump_up();
         }
     }
+
+    public abstract void move_down();
+    public abstract void jump_up ();
+    public abstract void if_lands (Island island);
 
     public void give_coin (Hero hero) {
         if (dead == 1) return;
@@ -51,9 +51,10 @@ public abstract class Orc extends GameObject {
         }
         System.out.println("Orc with ID " + getId() + " attacked");
     }
-    public void if_falls () {
-        if (getPosition().getY() >= fallBoundary) {
+    public void if_falls (Hero hero) {
+        if (isActive() && getPosition().getY() >= fallBoundary) {
             this.setActive(false);
+            hero.collect_coins(prize);
             dead = 0;
             System.out.println("Orc with ID " + getId() + " fell");
 //            --dead;

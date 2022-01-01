@@ -1,8 +1,12 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Game {
-    private Player player;
+public class Game implements Serializable
+{
+//    private Player player;
+    private ArrayList<Player> listOfPlayers;
     private Level level;
     private String gameMode;
     private int coinsForResurrection;
@@ -10,8 +14,9 @@ public class Game {
     private boolean gameLost;
     private boolean resurrected;
 
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    // Camera Properties
+    private double cameraPosition;
+    private double cameraVelocity;
 
     public Game()
     {
@@ -19,21 +24,31 @@ public class Game {
     }
     public Game(String gameMode)
     {
-        player = new Player(this);
+        this.gameMode = gameMode;
+
+//        player = new Player(this);
+        listOfPlayers = new ArrayList<Player>();
+        listOfPlayers.add(new Player(this, 1));
+        if(gameMode.equals("Multiplayer"))
+            listOfPlayers.add(new Player(this, 2));
+
         if(gameMode.equals("Flappy Hero"))
             level = new Level("Flappy Hero");
         else
             level = new Level();
-        this.gameMode = gameMode;
+
         System.out.println(gameMode);
         coinsForResurrection = 20;
         isPaused = false;
         gameLost = false;
         resurrected = false;
 
+        cameraPosition = 0;
+        cameraVelocity = 1;
+
         if(gameMode.equals("TimeChallenge"))
         {
-            level.createGhostHero(player.getHero());
+            level.createGhostHero(getPlayer().getHero());
         }
     }
 
@@ -48,7 +63,10 @@ public class Game {
 
     public Player getPlayer()
     {
-        return player;
+        return listOfPlayers.get(0);
+    }
+    public ArrayList<Player> getListOfPlayers() {
+        return listOfPlayers;
     }
     public Level get_current_level()
     {
@@ -70,12 +88,41 @@ public class Game {
     }
     public void resurrect_hero()
     {
-        player.add_coins(-coinsForResurrection);
-        player.getHero().getPosition().setY(50);
-        player.getHero().setVelocity(0,0);
+        for(Player player: listOfPlayers)
+        {
+            player.add_coins(-coinsForResurrection);
+            player.getHero().getPosition().setY(50);
+            player.getHero().setVelocity(0, 0);
+        }
         gameLost = false;
         isPaused = false;
         resurrected = true;
+    }
+
+    public void updateCamera()
+    {
+        double minPos = getPlayer().getHero().getPosition().getX();
+        for(Player player: listOfPlayers)
+        {
+            if(player.getHero().getPosition().getX() < minPos)
+            {
+                minPos = player.getHero().getPosition().getX();
+            }
+        }
+
+        if(this.getPlayer().getHero().getCurrentPowerUp() instanceof Feather)
+        {
+            cameraVelocity = Feather.flySpeed;
+        }
+        else if(minPos - cameraPosition <= 100)
+            cameraVelocity = 0;
+        else if(minPos - cameraPosition <= 250)
+            cameraVelocity = 2;
+        else if(minPos - cameraPosition >= WillHero.sceneWidth - 100)
+            cameraPosition = this.getPlayer().getHero().getPosition().getX() - WillHero.sceneWidth + 100;
+        else
+            cameraVelocity = 7;
+        cameraPosition += cameraVelocity;
     }
 
     public int getCoinsForResurrection() {
@@ -92,5 +139,14 @@ public class Game {
     }
     public boolean isResurrected() {
         return resurrected;
+    }
+    public double getCameraPosition() {
+        return cameraPosition;
+    }
+
+    public void win_game () {
+        // The next lines of code needs to be changed
+        System.out.println("Hero won the game");
+        System.exit(0);
     }
 }

@@ -3,15 +3,22 @@ import javafx.scene.image.ImageView;
 
 public class CoinChest extends Chest{
     private int no_of_coins;
-    private String imagePath;
 
     public CoinChest (double x, double y, int num) {
         super(x, y);
         no_of_coins = num;
-        imagePath = "file:assets/ChestSprite.png";
-        this.setImage(new Image(imagePath));
-        getImageView().setX(x);
-        getImageView().setY(y);
+        String imagePath = "file:assets/ChestSprite.png";
+        this.setImagePath(imagePath);
+        this.loadImageView();
+    }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY());
         getImageView().setFitHeight(60);
         getImageView().setPreserveRatio(true);
     }
@@ -27,7 +34,8 @@ public class CoinChest extends Chest{
         if (this.no_of_coins == 0) return;
         hero.getPlayer().add_coins(this.no_of_coins);
         this.no_of_coins = 0;
-        imagePath = "file:assets/ChestOpenSprite.png";
-        this.setImage(new Image(imagePath));
+        setImagePath("file:assets/ChestOpenSprite.png");
+//        this.setImage(new Image(imagePath));
+        loadImageView();
     }
 }

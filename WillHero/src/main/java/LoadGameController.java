@@ -1,6 +1,8 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+
 public class LoadGameController
 {
     @FXML
@@ -17,6 +19,19 @@ public class LoadGameController
     private Button loadFile6Button;
     @FXML
     private Button goBackButton;
+
+    public ArrayList<Button> getAllLoadButtons()
+    {
+        ArrayList<Button> loadButtons = new ArrayList<Button>();
+        loadButtons.add(loadFile1Button);
+        loadButtons.add(loadFile2Button);
+        loadButtons.add(loadFile3Button);
+        loadButtons.add(loadFile4Button);
+        loadButtons.add(loadFile5Button);
+        loadButtons.add(loadFile6Button);
+
+        return loadButtons;
+    }
 
     public Button getLoadFile1Button() {
         return loadFile1Button;

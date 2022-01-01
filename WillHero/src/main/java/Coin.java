@@ -2,22 +2,31 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Coin extends GameObject {
-    private String imagePath;
+//    private String imagePath;
     private double size;
     private int add;
 
     public Coin (double x, double y) {
         super(new Vector2D (x, y), new Vector2D (0, 0));
-        imagePath = "file:assets/CoinSprite.png";
+        String imagePath = "file:assets/CoinSprite.png";
         size = 40;
 
-        this.setImage(new Image(imagePath));
-        getImageView().setX(x);
-        getImageView().setY(y);
-        getImageView().setFitWidth(size);
-        getImageView().setPreserveRatio(true);
+        this.setImagePath(imagePath);
+        this.loadImageView();
+
         add = 1;
     }
+
+    @Override
+    public void loadImageView()
+    {
+        super.loadImageView();
+        getImageView().setX(this.getPosition().getX());
+        getImageView().setY(this.getPosition().getY());
+        getImageView().setFitWidth(size);
+        getImageView().setPreserveRatio(true);
+    }
+
     @Override
     public void updateFrame(double cameraPosition)
     {
