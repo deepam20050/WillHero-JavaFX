@@ -9,7 +9,7 @@
 
 <AnchorPane id="playButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenuController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#79ddff" height="610.0" layoutX="-5.0" layoutY="-4.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1006.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#79ddff" height="610.0" layoutX="-5.0" layoutY="-5.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1006.0" />
       <ImageView fitHeight="121.0" fitWidth="244.0" layoutX="99.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
          <image>
 <!--            <Image url="@../../../../../../assets/Cloud1.png" />-->
@@ -70,7 +70,7 @@
             <Image url="file:assets/HeroSprite1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="169.0" fitWidth="171.0" layoutX="675.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" rotate="30.6">
+      <ImageView fitHeight="169.0" fitWidth="171.0" layoutX="675.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" rotate="30.6">
          <image>
 <!--            <Image url="@../../../../../../assets/MenuOrc.png" />-->
             <Image url="file:assets/MenuOrc.png" />
@@ -89,17 +89,32 @@
             <Image url="file:assets/IslandSprite.png" />
          </image>
       </ImageView>
-      <Button fx:id="playButton" layoutX="574.0" layoutY="349.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #6ab000;" text="PLAY" textFill="WHITE">
+      <Button fx:id="playButton" layoutX="574.0" layoutY="203.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="300.0" style="-fx-background-color: #6ab000;" text="PLAY" textFill="WHITE">
          <font>
-            <Font name="Malgun Gothic Bold" size="21.0" />
+            <Font name="Malgun Gothic Bold" size="36.0" />
          </font></Button>
-      <Button fx:id="exitButton" layoutX="736.0" layoutY="420.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" style="-fx-background-color: #fd634d;" text="EXIT" textFill="WHITE">
+      <Button fx:id="exitButton" layoutX="736.0" layoutY="491.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" style="-fx-background-color: #fd634d;" text="EXIT" textFill="WHITE">
          <font>
             <Font name="Malgun Gothic Bold" size="23.0" />
          </font></Button>
-      <Button fx:id="loadFileButton" layoutX="574.0" layoutY="420.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" style="-fx-background-color: #4ba6ff;" text="LOAD FILE" textFill="WHITE">
+      <Button fx:id="loadFileButton" layoutX="574.0" layoutY="491.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="138.0" style="-fx-background-color: #4ba6ff;" text="LOAD FILE" textFill="WHITE">
          <font>
             <Font name="Malgun Gothic Bold" size="19.0" />
+         </font>
+      </Button>
+      <Button fx:id="timeChallengeButton" layoutX="574.0" layoutY="304.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #8c1071;" text="TIME CHALLENGE" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="flappyHeroButton" layoutX="574.0" layoutY="367.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #f79c4a;" text="FLAPPY HERO" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="twoPlayerButton" layoutX="574.0" layoutY="429.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #891515;" text="2 PLAYER" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="21.0" />
          </font>
       </Button>
    </children>

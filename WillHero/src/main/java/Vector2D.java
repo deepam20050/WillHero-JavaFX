@@ -1,4 +1,6 @@
-public class Vector2D
+import java.io.Serializable;
+
+public class Vector2D implements Serializable
 {
     private double x;
     private double y;
@@ -6,6 +8,11 @@ public class Vector2D
     public Vector2D(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Vector2D(Vector2D vector) {
+        this.x = vector.getX();
+        this.y = vector.getY();
     }
 
     public double getX() {

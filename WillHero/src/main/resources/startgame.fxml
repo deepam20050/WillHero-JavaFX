@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StartGameController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="600.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.6666666991782911">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.33725491166114807" green="0.8901960849761963" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.007680491551459294">
+                     <color>
+                        <Color red="0.33725491166114807" green="0.8901960849761963" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="0.8899999856948853" blue="0.9919396638870239" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fitHeight="109.0" fitWidth="247.0" layoutX="38.0" layoutY="89.0">
+         <image>
+            <Image url="file:assets/Cloud1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="61.0" fitWidth="137.0" layoutX="299.0" layoutY="38.0">
+         <image>
+            <Image url="file:assets/Cloud6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="119.0" fitWidth="267.0" layoutX="487.0" layoutY="89.0">
+         <image>
+            <Image url="file:assets/Cloud4.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="71.0" fitWidth="163.0" layoutX="767.0" layoutY="69.0">
+         <image>
+            <Image url="file:assets/Cloud2.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="200.0" layoutX="421.0" layoutY="192.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="200.0" />
+      <ImageView fitHeight="127.0" fitWidth="105.0" layoutX="469.0" layoutY="229.0">
+         <image>
+            <Image url="file:assets/HeroSprite1.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="436.0" layoutY="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="170.0" />
+      <Text fill="WHITE" layoutX="437.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAYER 1" textAlignment="CENTER" wrappingWidth="170.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="goBackButton" layoutX="47.0" layoutY="38.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="62.0" style="-fx-background-color: #fd634d;" text="BACK" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="14.0" />
+         </font>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000004c" height="154.0" layoutX="62.0" layoutY="234.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="286.0" />
+      <Text fill="WHITE" layoutX="81.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Move forward and defeat the Boss Orc at the end of the level. Watch out for orcs and obstacles along the way!" wrappingWidth="247.00000000000006">
+         <font>
+            <Font name="Malgun Gothic" size="16.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2b8916" height="43.0" layoutX="47.0" layoutY="213.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="105.0" />
+      <Text fill="WHITE" layoutX="47.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RULES" textAlignment="CENTER" wrappingWidth="105.00000000000023">
+         <font>
+            <Font name="Malgun Gothic Bold" size="20.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2b8916" height="43.0" layoutX="636.0" layoutY="99.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="191.0" />
+      <Text fill="WHITE" layoutX="636.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTROLS" textAlignment="CENTER" wrappingWidth="191.0">
+         <font>
+            <Font name="Malgun Gothic Bold" size="20.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="90.0" fitWidth="81.0" layoutX="777.0" layoutY="153.0">
+         <image>
+            <Image url="file:assets/MouseIcon.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000004c" height="154.0" layoutX="666.0" layoutY="295.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="286.0" />
+      <Text fill="WHITE" layoutX="764.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Feather allows you to fly temporarily, and causes a Starstorm to defeat orcs" wrappingWidth="170.0">
+         <font>
+            <Font name="Malgun Gothic" size="16.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="61.0" fitWidth="62.0" layoutX="683.0" layoutY="335.0">
+         <image>
+            <Image url="file:assets/FeatherSprite.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="playButton" layoutX="652.0" layoutY="472.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="300.0" style="-fx-background-color: #6ab000;" text="START!" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="36.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

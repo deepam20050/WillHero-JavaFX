@@ -26,6 +26,15 @@ public class MainMenuController
     @FXML
     private Button loadFileButton;
 
+    @FXML
+    private Button timeChallengeButton;
+
+    @FXML
+    private Button flappyHeroButton;
+
+    @FXML
+    private Button twoPlayerButton;
+
     public Button getPlayButton()
     {
         return playButton;
@@ -37,5 +46,15 @@ public class MainMenuController
     public Button getLoadFileButton()
     {
         return loadFileButton;
+    }
+    public Button getTimeChallengeButton() {
+        return timeChallengeButton;
+    }
+    public Button getFlappyHeroButton() {
+        return flappyHeroButton;
+    }
+    public Button getTwoPlayerButton()
+    {
+        return twoPlayerButton;
     }
 }
