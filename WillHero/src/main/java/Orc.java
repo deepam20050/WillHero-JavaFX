@@ -51,9 +51,10 @@ public abstract class Orc extends GameObject {
         }
         System.out.println("Orc with ID " + getId() + " attacked");
     }
-    public void if_falls () {
-        if (getPosition().getY() >= fallBoundary) {
+    public void if_falls (Hero hero) {
+        if (isActive() && getPosition().getY() >= fallBoundary) {
             this.setActive(false);
+            hero.collect_coins(prize);
             dead = 0;
             System.out.println("Orc with ID " + getId() + " fell");
 //            --dead;

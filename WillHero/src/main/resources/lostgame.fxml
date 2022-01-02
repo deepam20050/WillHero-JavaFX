@@ -2,28 +2,35 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LostGameController">
    <children>
-      <Text layoutX="381.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over" textAlignment="CENTER" wrappingWidth="238.93670654296875">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ba0d3d" height="600.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1000.0" />
+      <Text layoutX="197.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over" textAlignment="CENTER" wrappingWidth="631.7366943359375">
          <font>
-            <Font size="36.0" />
+            <Font name="Malgun Gothic Bold" size="64.0" />
          </font>
       </Text>
-      <Text layoutX="401.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location Reached" textAlignment="CENTER" wrappingWidth="197.46636962890625">
+      <Text fill="#72ff70" layoutX="414.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location Reached" textAlignment="CENTER" wrappingWidth="197.46636962890625">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
       </Text>
-      <Text fx:id="locationReachedText" layoutX="427.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="146.8125">
+      <Text fx:id="locationReachedText" fill="#ecff00" layoutX="277.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="471.61248779296875">
          <font>
-            <Font size="96.0" />
+            <Font name="Malgun Gothic" size="98.0" />
          </font>
       </Text>
-      <Button fx:id="playAgainButton" layoutX="349.0" layoutY="435.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="109.0" text="PLAY AGAIN" />
-      <Button fx:id="mainMenuButton" layoutX="543.0" layoutY="435.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="109.0" text="MAIN MENU" />
+      <Button fx:id="playAgainButton" layoutX="277.0" layoutY="419.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="169.0" style="-fx-background-color: #6ab000;" text="PLAY AGAIN" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="21.0" />
+         </font></Button>
+      <Button fx:id="mainMenuButton" layoutX="578.0" layoutY="419.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="170.0" style="-fx-background-color: #4ba6ff;" text="MAIN MENU" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic Bold" size="21.0" />
+         </font></Button>
    </children>
 </AnchorPane>

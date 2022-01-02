@@ -12,6 +12,7 @@ public class Game implements Serializable
     private int coinsForResurrection;
     private boolean isPaused;
     private boolean gameLost;
+    private boolean gameWon;
     private boolean resurrected;
 
     // Camera Properties
@@ -41,6 +42,7 @@ public class Game implements Serializable
         coinsForResurrection = 20;
         isPaused = false;
         gameLost = false;
+        gameWon = false;
         resurrected = false;
 
         cameraPosition = 0;
@@ -85,6 +87,10 @@ public class Game implements Serializable
     public void lose_game()
     {
         gameLost = true;
+    }
+    public void win_game ()
+    {
+        this.gameWon = true;
     }
     public void resurrect_hero()
     {
@@ -136,6 +142,9 @@ public class Game implements Serializable
     }
     public boolean isGameLost() {
         return gameLost;
+    }
+    public boolean isGameWon() {
+        return gameWon;
     }
     public boolean isResurrected() {
         return resurrected;

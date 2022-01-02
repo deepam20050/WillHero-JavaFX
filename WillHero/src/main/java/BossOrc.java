@@ -57,7 +57,6 @@ public class BossOrc extends Orc {
         }
         jump_counter = (jump_counter + 1) % 3;
     }
-
     public void if_lands (Island island) {
         boolean hasLanded = false;
         double xdist = this.getPosition().getX() - island.getPosition().getX();

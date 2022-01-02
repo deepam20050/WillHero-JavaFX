@@ -1,15 +1,14 @@
 import java.util.ArrayList;
 
-public class FallingBridge extends GameObject implements Obstacle {
+public class FallingPlatforms extends GameObject implements Obstacle {
     private ArrayList < Plank > planks;
-    private int totalNoOfPlanks;
+    private int totalNoOfPlanks = 6;
     private final double lengthOfPlank = 40;
     private boolean droppedOff;
     private boolean isLanded;
     private double frames;
-    FallingBridge (double x, double y, int noOfPlanks) {
+    FallingPlatforms (double x, double y) {
         super(new Vector2D(x, y), new Vector2D(0, 0));
-        this.totalNoOfPlanks = noOfPlanks;
         this.isLanded = false;
         planks = new ArrayList<>();
         double xStart = x;
@@ -53,7 +52,7 @@ public class FallingBridge extends GameObject implements Obstacle {
     @Override
     public void updateFrame(double cameraPosition) {
         update_obs_state();
-//        getImageView().setX(getPosition().getX() - cameraPosition);
+        getImageView().setX(getPosition().getX() - cameraPosition);
         for (Plank x : planks) {
             x.updateFrame(cameraPosition);
         }

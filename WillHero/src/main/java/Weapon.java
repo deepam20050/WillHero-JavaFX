@@ -20,6 +20,10 @@ public abstract class Weapon extends GameObject
     {
         return level;
     }
+    public void setLevel(int newLevel)
+    {
+        this.level = newLevel;
+    }
 
     public void incrementLevel()
     {
