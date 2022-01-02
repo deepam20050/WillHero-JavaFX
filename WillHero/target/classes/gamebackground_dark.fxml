@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="606.0" layoutY="-6.0" strokeType="INSIDE" strokeWidth="0.0" width="1000.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.5795454978942871">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.08631578832864761" green="0.08631578832864761" blue="0.28421053290367126" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.6105263233184814" green="0.23064327239990234" blue="0.23064327239990234" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Rectangle>
+      <Circle fill="#f5fca4" layoutX="159.0" layoutY="68.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="206.0" layoutY="139.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="359.0" layoutY="46.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="84.0" layoutY="117.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="81.0" layoutY="43.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="309.0" layoutY="101.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="353.0" layoutY="166.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="445.0" layoutY="86.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="104.0" layoutY="179.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="526.0" layoutY="169.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="557.0" layoutY="49.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="752.0" layoutY="104.0" radius="24.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="247.0" layoutY="52.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="627.0" layoutY="128.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="696.0" layoutY="68.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="728.0" layoutY="166.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="878.0" layoutY="80.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#f5fca4" layoutX="920.0" layoutY="160.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+   </children>
+</AnchorPane>
