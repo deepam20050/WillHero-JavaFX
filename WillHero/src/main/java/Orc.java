@@ -6,13 +6,15 @@ public abstract class Orc extends GameObject {
     protected int prize;
     protected int dead;
     protected int hits_required;
-    private final int fallBoundary = 600;
+    private final double fallBoundary = 600;
+    private int killed;
 
     public Orc (double x, double y, double _jump_speed, double _size, int _hits_required) {
         super(new Vector2D (x, y), new Vector2D (0, 0));
         jump_speed = _jump_speed;
         size = _size;
         hits_required = _hits_required;
+        killed = 0;
         dead = 1;
     }
 
@@ -42,11 +44,19 @@ public abstract class Orc extends GameObject {
             --dead;
         }
     }
+    public void give_coin_if_killed (Hero hero) {
+        if (this.killed == 1) {
+            hero.collect_coins(this.prize);
+            this.killed = -1;
+        }
+    }
     public void is_attacked () {
+        if (dead == 0) return;
         if (this.hits_required == 0) return;
         --this.hits_required;
         if (this.hits_required == 0) {
             this.setActive(false);
+            killed = 1;
             dead = 0;
         }
         System.out.println("Orc with ID " + getId() + " attacked");
@@ -57,7 +67,6 @@ public abstract class Orc extends GameObject {
             hero.collect_coins(prize);
             dead = 0;
             System.out.println("Orc with ID " + getId() + " fell");
-//            --dead;
         }
     }
     public double get_size () {

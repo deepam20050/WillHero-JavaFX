@@ -35,8 +35,11 @@ public class ThrowingKnives extends Weapon
     @Override
     public void useWeapon()
     {
-        Projectile projectile = new ThrowingKnivesProjectile(getPosition().getX(), getPosition().getY());
-        getHelmet().launchProjectile(projectile);
+        for(int i = 0; i < this.getLevel(); i++)
+        {
+            Projectile projectile = new ThrowingKnivesProjectile(getPosition().getX(), getPosition().getY() + i*15);
+            getHelmet().launchProjectile(projectile);
+        }
     }
 
     @Override

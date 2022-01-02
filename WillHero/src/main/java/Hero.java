@@ -126,7 +126,7 @@ public class Hero extends GameObject
         if(startedMoving)
         {
             positionLogs.add(new Vector2D(this.getPosition()));
-//        System.out.println("Logged: " + this.getPosition().getX() + " " + this.getPosition().getY());
+            System.out.println("Logged: " + this.getPosition().getX() + " " + this.getPosition().getY());
         }
     }
 

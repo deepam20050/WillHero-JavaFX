@@ -42,7 +42,7 @@ public class WillHero extends Application
     @Override
     public void start(Stage stage)
     {
-//        organiser = new GameOrganiser(this, "Regular");
+        organiser = new GameOrganiser(this, "Regular");
         // Setting up Game Scene
         try
         {
@@ -138,6 +138,27 @@ public class WillHero extends Application
         });
     }
 
+    public void goToWonGameScene()
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(WonGameController.class.getResource("wongame.fxml"));
+        try {
+            gameScene.setRoot(fxmlLoader.load());
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        WonGameController controller = fxmlLoader.getController();
+
+        controller.getPlayAgainButton().setOnAction(e -> {
+            createNewGame(organiser.getGame().getGameMode());
+        });
+        controller.getMainMenuButton().setOnAction(e -> {
+            goToMainMenu();
+        });
+    }
+
     public void goToSaveGameScene()
     {
         FXMLLoader fxmlLoader = new FXMLLoader(SaveGameController.class.getResource("savegame.fxml"));
@@ -151,12 +172,36 @@ public class WillHero extends Application
         SaveGameController controller = fxmlLoader.getController();
         ArrayList<Button> saveButtons = controller.getAllSaveButtons();
 
+        ArrayList<Text> locationTexts = controller.getAllLocationTexts();
+        ArrayList<Text> gameModeTexts = controller.getAllGameModeTexts();
+
+        Game currentGame = organiser.getGame();
+        for(int i = 0; i < locationTexts.size(); i++)
+        {
+            organiser.deserializeGame(i+1);
+            if(organiser.getGame() == null)
+            {
+                locationTexts.get(i).setText("---");
+                gameModeTexts.get(i).setText("---");
+            }
+            else
+            {
+                Integer playerLocation = organiser.getGame().getPlayer().getHero().getLocation();
+                locationTexts.get(i).setText(playerLocation.toString());
+                gameModeTexts.get(i).setText(organiser.getGame().getGameMode());
+            }
+        }
+        organiser.setGame(currentGame);
+
         for(int i = 0; i < saveButtons.size(); i++)
         {
             final int j = i;
             saveButtons.get(i).setOnAction(e ->
             {
                 organiser.serializeGame(j+1);
+                Integer playerLocation = organiser.getGame().getPlayer().getHero().getLocation();
+                locationTexts.get(j).setText(playerLocation.toString());
+                gameModeTexts.get(j).setText(organiser.getGame().getGameMode());
             });
         }
         controller.getGoBackButton().setOnAction(e -> {
@@ -176,6 +221,25 @@ public class WillHero extends Application
         }
         LoadGameController controller = fxmlLoader.getController();
         ArrayList<Button> loadButtons = controller.getAllLoadButtons();
+
+        ArrayList<Text> locationTexts = controller.getAllLocationTexts();
+        ArrayList<Text> gameModeTexts = controller.getAllGameModeTexts();
+        for(int i = 0; i < locationTexts.size(); i++)
+        {
+            organiser.deserializeGame(i+1);
+            if(organiser.getGame() == null)
+            {
+                locationTexts.get(i).setText("---");
+                gameModeTexts.get(i).setText("---");
+            }
+            else
+            {
+                Integer playerLocation = organiser.getGame().getPlayer().getHero().getLocation();
+                locationTexts.get(i).setText(playerLocation.toString());
+                gameModeTexts.get(i).setText(organiser.getGame().getGameMode());
+            }
+        }
+
         for(int i = 0; i < loadButtons.size(); i++)
         {
             final int j = i;
@@ -217,5 +281,8 @@ public class WillHero extends Application
     }
     public InputTracker getInputTracker() {
         return inputTracker;
+    }
+    public Scene getGameScene() {
+        return gameScene;
     }
 }

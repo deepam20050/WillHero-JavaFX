@@ -7,12 +7,17 @@ public class ThrowingKnivesProjectile extends Projectile
     private double knifeSpeed;
     private double knifeWidth;
     private double knifeHeight;
+    private double range;
+
+    private double distanceMoved;
 
     public ThrowingKnivesProjectile(double x, double y)
     {
         super(x,y);
         knifeSpeed = 35;
         knifeWidth = 10;
+        range = 750;
+        distanceMoved = 0;
         String imagePath = "file:assets/ProjectileKnife.png";;
         this.setImagePath(imagePath);
         this.loadImageView();
@@ -33,6 +38,11 @@ public class ThrowingKnivesProjectile extends Projectile
     public void moveProjectile()
     {
         this.getPosition().setX(getPosition().getX() + knifeSpeed);
+        distanceMoved += knifeSpeed;
+        if(distanceMoved > range)
+        {
+            this.setActive(false);
+        }
     }
     @Override
     public void ifAttacks(Orc orc)

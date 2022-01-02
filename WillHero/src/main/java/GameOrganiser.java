@@ -74,6 +74,7 @@ public class GameOrganiser
         });
         resurrectHeroController.getResurrectNoButton().setOnAction(e -> {
             willHeroApplication.goToLostGameScene(game.getPlayer().getHero().getLocation());
+            timeline.stop();
         });
 
         this.inputTracker = willHeroApplication.getInputTracker();
@@ -126,9 +127,20 @@ public class GameOrganiser
         weapon2LevelLabel.setStyle("-fx-effect: dropshadow( one-pass-box , gray , 0 , 0.0 , -2 , 0 )");
 
         // WEAPON 1 BUTTON ON CLICK
-        weapon1Button.setOnAction(e -> {game.getPlayer().getHero().getHelmet().setSelectedWeapon(0);});
+        weapon1Button.setOnAction(e -> {
+            for(Player player: game.getListOfPlayers())
+                player.getHero().getHelmet().setSelectedWeapon(0);
+//            game.getPlayer().getHero().getHelmet().setSelectedWeapon(0);
+        });
         // WEAPON 2 BUTTON ON CLICK
-        weapon2Button.setOnAction(e -> {game.getPlayer().getHero().getHelmet().setSelectedWeapon(1);});
+        weapon2Button.setOnAction(e -> {
+            for(Player player: game.getListOfPlayers())
+            {
+                System.out.println("Equipped throwing knives");
+                player.getHero().getHelmet().setSelectedWeapon(1);
+            }
+//            game.getPlayer().getHero().getHelmet().setSelectedWeapon(1);
+        });
 
         setLevelTheme();
 
@@ -162,7 +174,7 @@ public class GameOrganiser
         });
         pauseMenuController.getMainMenuButton().setOnAction(e -> {
             willHeroApplication.goToMainMenu();
-//            timeline.stop();
+            timeline.stop();
         });
         pauseMenuController.getSaveGameButton().setOnAction(e -> {
             willHeroApplication.goToSaveGameScene();
@@ -324,18 +336,13 @@ public class GameOrganiser
         {
             player.getHero().loadImageView();
             root.getChildren().add(player.getHero().getImageView());
-        }
-//        game.getPlayer().getHero().loadImageView();
-//        root.getChildren().add(game.getPlayer().getHero().getImageView());
 
-        // displaying weapons
-//        if(firstTime)
-//        {
-        game.getPlayer().getHero().getHelmet().getWeapon(0).loadImageView();
-        game.getPlayer().getHero().getHelmet().getWeapon(1).loadImageView();
-//        }
-        root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(0).getImageView());
-        root.getChildren().add(game.getPlayer().getHero().getHelmet().getWeapon(1).getImageView());
+            player.getHero().getHelmet().getWeapon(0).loadImageView();
+            player.getHero().getHelmet().getWeapon(1).loadImageView();
+
+            root.getChildren().add(player.getHero().getHelmet().getWeapon(0).getImageView());
+            root.getChildren().add(player.getHero().getHelmet().getWeapon(1).getImageView());
+        }
 
         // Displaying Projectiles
         for(Projectile projectile: game.getPlayer().getHero().getHelmet().getLaunchedProjectiles())
@@ -359,10 +366,11 @@ public class GameOrganiser
 
     public void setUpTimeLine()
     {
+        if(timeline != null)
+            timeline.stop();
         if(game.getGameMode().equals("TimeChallenge"))
         {
             game.getPlayer().add_coins(30);
-//            root.getChildren().add(game.get_current_level().getGhostHero().getImageView());
         }
 
         KeyFrame kf = new KeyFrame(Duration.millis(1000/WillHero.frameRate), new TimeHandler());
@@ -389,7 +397,7 @@ public class GameOrganiser
         @Override
         public void handle(ActionEvent event)
         {
-            if(game == null)
+            if(game == null || willHeroApplication.getGameScene().getRoot() != root)
                 return;
             if(game.isPaused())
             {
@@ -429,6 +437,11 @@ public class GameOrganiser
                     timeline.stop();
                 }
             }
+            else if(game.isGameWon())
+            {
+                timeline.stop();
+                willHeroApplication.goToWonGameScene();
+            }
 
             game.updateCamera();
 
@@ -436,7 +449,6 @@ public class GameOrganiser
             {
                 player.getHero().updateFrame(game.getCameraPosition());
             }
-//            game.getPlayer().getHero().updateFrame(game.getCameraPosition());
 
             // Updating game state of ALL GAME OBJECTS in the level
             Level level = game.get_current_level();
@@ -453,18 +465,16 @@ public class GameOrganiser
                         {
                             obj.if_collides(player.getHero());
                         }
-//                        obj.if_collides(game.getPlayer().getHero());
                     }
                     else
                     {
                         if(root.getChildren().contains(obj.getImageView()))
                             root.getChildren().remove(obj.getImageView());
-//                        if(listOfObjects.contains(obj))
-//                            listOfObjects.remove(obj);
                     }
                 }
             }
             for (Orc orc : level.getOrcs()) {
+                orc.give_coin_if_killed(game.getPlayer().getHero());
                 orc.if_falls(game.getPlayer().getHero());
                 if (orc instanceof BossOrc) {
                     if (!orc.isActive()) {
@@ -520,7 +530,6 @@ public class GameOrganiser
                 {
                     levelTheme = "Dawn";
                     loadBackground();
-//                    loadRoot();
                 }
             }
             else
@@ -528,24 +537,26 @@ public class GameOrganiser
                 if(levelTheme.equals("Dawn"))
                 {
                     setLevelTheme();
-                    loadRoot();
+                    loadBackground();
                 }
             }
 
             // Checking all projectiles and if they are being displayed. Deleting inactive projectiles
-            for(int i = 0; i < game.getPlayer().getHero().getHelmet().getLaunchedProjectiles().size(); i++)
+            for(Player player: game.getListOfPlayers())
             {
-                Projectile projectile = game.getPlayer().getHero().getHelmet().getLaunchedProjectiles().get(i);
-                if(projectile.isActive())
+                for (int i = 0; i < player.getHero().getHelmet().getLaunchedProjectiles().size(); i++)
                 {
-                    if(!root.getChildren().contains(projectile.getImageView()))
-                        root.getChildren().add(projectile.getImageView());
-                }
-                else
-                {
-                    if(root.getChildren().contains(projectile.getImageView()))
-                        root.getChildren().remove(projectile.getImageView());
-                    game.getPlayer().getHero().getHelmet().getLaunchedProjectiles().remove(i);
+                    Projectile projectile = player.getHero().getHelmet().getLaunchedProjectiles().get(i);
+                    if (projectile.isActive())
+                    {
+                        if (!root.getChildren().contains(projectile.getImageView()))
+                            root.getChildren().add(projectile.getImageView());
+                    } else
+                    {
+                        if (root.getChildren().contains(projectile.getImageView()))
+                            root.getChildren().remove(projectile.getImageView());
+                        player.getHero().getHelmet().getLaunchedProjectiles().remove(i);
+                    }
                 }
             }
 
@@ -581,6 +592,29 @@ public class GameOrganiser
                     if(i == j)
                         continue;
                     level.getOrcs().get(i).if_collides_with_orc(level.getOrcs().get(j));
+                }
+            }
+
+            // Syncing coins among players
+            // In the current multiplayer co-op scenario, both players share the same coin pile
+            for(int i = 1; i < game.getListOfPlayers().size(); i++)
+            {
+                game.getPlayer().add_coins(game.getListOfPlayers().get(i).getNoOfCoins());
+                game.getListOfPlayers().get(i).add_coins(-game.getListOfPlayers().get(i).getNoOfCoins());
+            }
+
+            // Syncing weapons among players
+            for(int i = 0; i < 2; i++)
+            {
+                int maxLevel = 0;
+                for(Player player: game.getListOfPlayers())
+                {
+                    if(player.getHero().getHelmet().getWeapon(i).getLevel() > maxLevel)
+                        maxLevel = player.getHero().getHelmet().getWeapon(i).getLevel();
+                }
+                for(Player player: game.getListOfPlayers())
+                {
+                    player.getHero().getHelmet().getWeapon(i).setLevel(maxLevel);
                 }
             }
 

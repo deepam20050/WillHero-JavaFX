@@ -4,12 +4,14 @@ public class ShootingStar extends GameObject
 {
     private double shootingSpeed;
     private double shootingAngle; // Clockwise angle from vertical down
+    private double imageWidth;
 
     public ShootingStar(double x, double y)
     {
         super(new Vector2D(x,y), new Vector2D(0,0));
         shootingSpeed = 12;
         shootingAngle = 45;
+        imageWidth = 40;
 
         String imagePath = "file:assets/ShootingStarSprite.png";
         this.setImagePath(imagePath);
@@ -26,7 +28,7 @@ public class ShootingStar extends GameObject
 
         getImageView().setX(this.getPosition().getX());
         getImageView().setY(this.getPosition().getY());
-        getImageView().setFitWidth(40);
+        getImageView().setFitWidth(imageWidth);
         getImageView().setPreserveRatio(true);
         getImageView().setSmooth(true);
     }
@@ -46,13 +48,15 @@ public class ShootingStar extends GameObject
 
     public void if_collides_with_orc(Orc orc)
     {
-        double dx = this.getPosition().getX() - orc.getPosition().getX();
-        double dy = this.getPosition().getY() - orc.getPosition().getY();
-
         if(this.getImageView().getImage() == null)
             return;
-        if(-this.getImageView().getImage().getWidth() <= dx && dx <= orc.get_size() &&
-                -this.getImageView().getImage().getHeight() <= dy && dy <= orc.get_size())
+
+        double dx = this.getPosition().getX() - orc.getPosition().getX();
+        double dy = this.getPosition().getY() - orc.getPosition().getY();
+        double aspectRatio = this.getImageView().getImage().getHeight()/this.getImageView().getImage().getWidth();
+
+        if(-this.imageWidth <= dx && dx <= orc.get_size() &&
+                -aspectRatio*imageWidth <= dy && dy <= orc.get_size())
         {
             orc.is_attacked();
             this.setActive(false);

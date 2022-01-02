@@ -57,8 +57,9 @@ public class Feather extends PowerUp
         double dx = this.getPosition().getX() - hero.getPosition().getX();
         double dy = this.getPosition().getY() - hero.getPosition().getY();
 
-        if(-this.getImageView().getImage().getWidth() <= dx && dx <= hero.getSize()
-            && -this.getImageView().getImage().getHeight() <= dy && dy <= hero.getSize())
+        double aspectRatio = this.getImageView().getImage().getHeight()/this.getImageView().getImage().getWidth();
+        if(-imageWidth <= dx && dx <= hero.getSize()
+            && -aspectRatio*imageWidth <= dy && dy <= hero.getSize())
         {
             this.setActive(false);
             hero.equipPowerUp(this);

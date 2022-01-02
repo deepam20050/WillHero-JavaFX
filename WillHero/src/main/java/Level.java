@@ -8,7 +8,6 @@ public class Level implements Serializable
     private ArrayList<Orc> orcs;
     private ArrayList<Coin> coins;
     private ArrayList<Chest> chests;
-//    private ArrayList<Obstacle> obstacles;
     private ArrayList<FallingBridge> obstacles;
     private ArrayList<PowerUp> powerUps;
     private ArrayList<ShootingStar> shootingStars;
@@ -55,13 +54,10 @@ public class Level implements Serializable
 
     private void setLevel1()
     {
-        // lacing all landable objects in the stage (Islands and Falling Bridges)
-        orcs.add(new BossOrc(1200, 300, 150));
-        chests.add(new WeaponChest(200, 400, new Sword(200, 400, null)));
-
+        // Placing all landable objects in the stage (Islands and Falling Bridges)
         islands.add(new Island(50, 400, 500));
         islands.add(new Island(650, 350, 250));
-        islands.add(new Island(1100, 350, 600));
+        islands.add(new Island(1100, 350, 300));
         islands.add(new Island(1500, 275, 350));
         islands.add(new Island(1900, 375, 300));
         islands.add(new Island(2700, 375, 300));
@@ -89,34 +85,108 @@ public class Level implements Serializable
         obstacles.add(new FallingBridge(12775, 325, 25));
         islands.add((new Island(13775, 325, 200)));
 
-//        coins.add(new Coin(350, 275));
-//        coins.add(new Coin(350, 215));
-//        coins.add(new Coin(940, 250));
-//        coins.add(new Coin(1025, 250));
-//        coins.add(new Coin(2200, 200));
-//        coins.add(new Coin(2275, 200));
-//        coins.add(new Coin(2350, 200));
-//        coins.add(new Coin(2425, 200));
-//        coins.add(new Coin(2500, 200));
-//        coins.add(new Coin(2575, 200));
-//        coins.add(new Coin(2650, 200));
-//        coins.add(new Coin(2200, 275));
-//        coins.add(new Coin(2275, 275));
-//        coins.add(new Coin(2350, 275));
-//        coins.add(new Coin(2425, 275));
-//        coins.add(new Coin(2500, 275));
-//        coins.add(new Coin(2575, 275));
-//        coins.add(new Coin(2650, 275));
+        orcs.add(new GreenOrc(1200, 100, 50));
+        orcs.add(new GreenOrc(1300, 100, 50));
+        orcs.add(new GreenOrc(1550, 250, 50));
+        orcs.add(new GreenOrc(1950, 250, 50));
+        orcs.add(new GreenOrc(2025, 100, 50));
+        orcs.add(new GreenOrc(3200, 100, 50));
+        orcs.add(new GreenOrc(3275, 150, 50));
+        orcs.add(new GreenOrc(3350, 200, 50));
+        orcs.add(new GreenOrc(4200, 100, 50));
+        orcs.add(new GreenOrc(4500, 50, 50));
+        orcs.add(new GreenOrc(4575, 75, 50));
+        orcs.add(new RedOrc(5600, 100, 50));
+        orcs.add(new RedOrc(6050, 100, 50));
+        orcs.add(new RedOrc(6200, 125, 50));
+        orcs.add(new RedOrc(6350, 150, 50));
+        orcs.add(new RedOrc(6700, 150, 50));
+        orcs.add(new GreenOrc(8600, 50, 50));
+        orcs.add(new GreenOrc(9500, 175, 50));
+        orcs.add(new GreenOrc(9560, 150, 50));
+        orcs.add(new GreenOrc(9620, 100, 50));
+        orcs.add(new GreenOrc(9680, 125, 50));
+        orcs.add(new GreenOrc(9740, 160, 50));
+        orcs.add(new GreenOrc(9800, 100, 50));
+        orcs.add(new RedOrc(10000, 100, 50));
+        orcs.add(new RedOrc(10060, 150, 50));
+        orcs.add(new RedOrc(10120, 125, 50));
+        orcs.add(new RedOrc(10180, 100, 50));
+        orcs.add(new RedOrc(10240, 175, 50));
+        orcs.add(new RedOrc(10300, 160, 50));
+        orcs.add(new RedOrc(10360, 115, 50));
+        orcs.add(new GreenOrc(11300, 100, 50));
+        orcs.add(new GreenOrc(11400, 100, 50));
+        orcs.add(new BossOrc(13175, 300, 150));
 
-//        orcs.add(new GreenOrc(700, 100, 50));
-//        orcs.add(new GreenOrc(800, 100, 50));
+        powerUps.add(new Feather(9100, 25));
 
         chests.add(new WeaponChest(2800, 315, new Sword(2800, 315, null)));
+        chests.add(new WeaponChest(5700, 215, new Sword(5700, 215, null)));
+        chests.add(new WeaponChest(1650, 215, new ThrowingKnives(1650, 215, null)));
+        chests.add(new WeaponChest(3800, 315, new ThrowingKnives(3800, 315, null)));
+        chests.add(new WeaponChest(8250, 290, new ThrowingKnives(8250,  290, null)));
+        chests.add(new CoinChest(750, 290, 5));
+        chests.add(new CoinChest(5000, 165, 5));
+        chests.add(new CoinChest(6900, 240, 5));
+
+        coins.add(new Coin(350, 275));
+        coins.add(new Coin(350, 215));
+        coins.add(new Coin(940, 250));
+        coins.add(new Coin(1025, 250));
+        coins.add(new Coin(2200, 200));
+        coins.add(new Coin(2275, 200));
+        coins.add(new Coin(2350, 200));
+        coins.add(new Coin(2425, 200));
+        coins.add(new Coin(2500, 200));
+        coins.add(new Coin(2575, 200));
+        coins.add(new Coin(2650, 200));
+        coins.add(new Coin(2200, 275));
+        coins.add(new Coin(2275, 275));
+        coins.add(new Coin(2350, 275));
+        coins.add(new Coin(2425, 275));
+        coins.add(new Coin(2500, 275));
+        coins.add(new Coin(2575, 275));
+        coins.add(new Coin(2650, 275));
+
+        coins.add(new Coin(3425, 300));
+        coins.add(new Coin(3500, 300));
+        coins.add(new Coin(3575, 300));
+
+        coins.add(new Coin(4050, 180));
+
+        coins.add(new Coin(4265, 165));
+        coins.add(new Coin(4340, 165));
+        coins.add(new Coin(4415, 165));
+
+        coins.add(new Coin(6375, 105));
+        coins.add(new Coin(6450, 105));
+        coins.add(new Coin(6525, 105));
+        coins.add(new Coin(6375, 180));
+        coins.add(new Coin(6450, 180));
+        coins.add(new Coin(6525, 180));
+
+        coins.add(new Coin(11700, 160));
+        coins.add(new Coin(11775, 160));
+        coins.add(new Coin(11850, 160));
+        coins.add(new Coin(11925, 160));
+        coins.add(new Coin(12000, 160));
+        coins.add(new Coin(12075, 160));
+        coins.add(new Coin(12150, 160));
+        coins.add(new Coin(12225, 160));
+        coins.add(new Coin(12300, 160));
+        coins.add(new Coin(11700, 235));
+        coins.add(new Coin(11775, 235));
+        coins.add(new Coin(11850, 235));
+        coins.add(new Coin(11925, 235));
+        coins.add(new Coin(12000, 235));
+        coins.add(new Coin(12075, 235));
+        coins.add(new Coin(12150, 235));
+        coins.add(new Coin(12225, 235));
+        coins.add(new Coin(12300, 235));
 
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj1.png", 50, 140);
         islands.get(0).addBackgroundObject("file:assets/BackgroundObj7.png", 400, 160);
-
-//        powerUps.add(new Feather(250, 250));
     }
 
     // Layout of level shown for game demo (Deadline 2)
